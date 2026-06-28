@@ -173,6 +173,25 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 | **Requirements** | < $5M funding |
 | **Status** | 🔲 NOT STARTED |
 
+### 13. MongoDB for Startups
+| Field | Detail |
+|-------|--------|
+| **Credits** | MongoDB Atlas credits (amount varies) |
+| **Timeline** | 3–5 business days |
+| **Apply URL** | https://www.mongodb.com/startups |
+| **Requirements** | < $5M funding, building with data/AI |
+| **Status** | 🔲 NOT STARTED |
+| **Note** | Form verified live — asks "Does your company have an AI use case?" → Answer: Yes |
+
+### 14. HubSpot for Startups
+| Field | Detail |
+|-------|--------|
+| **Credits** | HubSpot software discounts (30–90% off, up to 1 year) |
+| **Apply URL** | https://www.hubspot.com/startups |
+| **Requirements** | < $2M funding, affiliated with accelerator/VC or direct application |
+| **Status** | 🔲 NOT STARTED |
+| **Note** | Good for CRM/marketing automation when scaling community |
+
 ---
 
 ## 📋 APPLICATION NARRATIVES (ready to paste)
@@ -264,6 +283,8 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 | 10 | GitHub | 🔲 Not started | | | 1yr free | |
 | 11 | Stripe Atlas | 🔲 Not started | | | Incorp | Defer until fundraising |
 | 12 | Brex | 🔲 Not started | | | Card | Needs US entity first |
+| 13 | MongoDB | 🔲 Not started | | | Atlas credits | AI use case = Yes |
+| 14 | HubSpot | 🔲 Not started | | | 30-90% off | CRM/marketing |
 
 ---
 
@@ -273,9 +294,11 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 |-------------|------|--------|
 | Master Tracker | `docs/intake/2026-06-28-startup-credits-master-tracker.md` | ✅ |
 | Pitch Deck (Markdown) | `docs/intake/2026-06-28-startup-pitch-deck-for-applications.md` | ✅ |
-| Pitch Deck (PDF) | `docs/intake/2026-06-28-startup-pitch-deck-for-applications.pdf` | ✅ 57KB |
+| Pitch Deck (PDF) | `docs/intake/2026-06-28-startup-pitch-deck-for-applications.pdf` | ✅ 57KB, 5 pages |
 | Application Answers (all 10 programs) | `docs/intake/2026-06-28-startup-credits-application-answers.md` | ✅ |
 | Domain Email Setup Guide | `docs/intake/2026-06-28-domain-email-setup-guide.md` | ✅ |
+| Submission Runbook | `docs/intake/2026-06-28-startup-credits-submission-runbook.md` | ✅ |
+| Executive Summary (one-pager) | `docs/intake/2026-06-28-startup-executive-summary.md` | ✅ |
 
 ## 🔲 Remaining (requires Nico's action)
 
