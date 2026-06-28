@@ -503,4 +503,72 @@ Advanced security scanning for our Solana smart contracts (Rust/Anchor), GitHub 
 
 ---
 
+## 11. MongoDB for Startups — Application Answers
+
+**URL:** https://www.mongodb.com/startups
+**Form verified live** — asks for company, website, industry, and "Does your company have an AI use case?"
+
+### Company Name
+```
+GoalWorld
+```
+
+### Company Website
+```
+https://goalworld.fun
+```
+
+### Industry
+```
+Technology — Blockchain / Web3 / Gaming
+```
+
+### Does your company have an AI use case?
+```
+Yes
+```
+
+### How will you use MongoDB? (if asked)
+```
+We need MongoDB Atlas for off-chain data storage complementing our Solana on-chain data: user profiles, match metadata, betting history, NFT ownership cache, and analytics. Our AI use case: we run an autonomous content generation pipeline (Hermes agents) that produces daily video marketing content for TikTok, Instagram, and YouTube — MongoDB stores the content pipeline state, generated assets metadata, and performance analytics.
+```
+
+---
+
+## 12. HubSpot for Startups — Application Answers
+
+**URL:** https://www.hubspot.com/startups
+
+### Company Name
+```
+GoalWorld
+```
+
+### Company Website
+```
+https://goalworld.fun
+```
+
+### What do you do?
+```
+GoalWorld is a SportsFi Protocol on Solana targeting the 2026 World Cup. Pre-revenue, pre-seed startup with a live devnet MVP at play.goalworld.fun.
+```
+
+### Funding Stage
+```
+Pre-seed (self-funded / bootstrapped)
+```
+
+### How will you use HubSpot?
+```
+CRM for our community of football fans and NFT holders, email marketing for World Cup 2026 launch campaigns, and marketing automation to convert Discord/social followers into platform users. We're building a community-driven product and need proper CRM tooling as we scale toward mainnet.
+```
+
+### Are you affiliated with an accelerator or VC?
+```
+No (direct application)
+```
+
+---
+
 *All answers prepared by Manager — 2026-06-28*
