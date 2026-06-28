@@ -1,0 +1,81 @@
+{
+    "name": "goalworld Genesis #237 — Lucas Berg-Bull",
+    "symbol": "GCG",
+    "description": "A world-class MID verified as a epic asset. Known globally for being a Vision Master, Playmaker, this player is a cornerstone of the goalworld ecosystem",
+    "seller_fee_basis_points": 100,
+    "image": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/237_lucas_berg-bull.webp",
+    "external_url": "https://goalworld.fun/nft/237",
+    "attributes": [
+        {
+            "trait_type": "Rarity",
+            "value": "Epic"
+        },
+        {
+            "trait_type": "Position",
+            "value": "MID"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Suecia"
+        },
+        {
+            "trait_type": "Real Name",
+            "value": "Lucas Bergvall"
+        },
+        {
+            "trait_type": "ATK",
+            "value": 71
+        },
+        {
+            "trait_type": "DEF",
+            "value": 38
+        },
+        {
+            "trait_type": "HYPE",
+            "value": 70
+        },
+        {
+            "trait_type": "Jersey Number",
+            "value": "6"
+        },
+        {
+            "trait_type": "Parody Club",
+            "value": "London Cockerel Spurs"
+        },
+        {
+            "trait_type": "Visual Effect",
+            "value": "Cyber Arc"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Vision Master"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Playmaker"
+        }
+    ],
+    "properties": {
+        "files": [
+            {
+                "uri": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/237_lucas_berg-bull.webp",
+                "type": "image/webp"
+            }
+        ],
+        "category": "image",
+        "creators": [
+            {
+                "address": "Fndrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 1
+            },
+            {
+                "address": "BldrFundxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 10
+            },
+            {
+                "address": "CmntyTreasuryxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 89
+            }
+        ]
+    }
+}

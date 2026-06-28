@@ -1,0 +1,81 @@
+{
+    "name": "goalworld Genesis #506 — Thapelo More-Flash",
+    "symbol": "GCG",
+    "description": "A world-class DEF verified as a rare asset. Known globally for being a Wing Overlap, Speed Defender, this player is a cornerstone of the goalworld ecosystem",
+    "seller_fee_basis_points": 100,
+    "image": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/506_thapelo_more-flash.webp",
+    "external_url": "https://goalworld.fun/nft/506",
+    "attributes": [
+        {
+            "trait_type": "Rarity",
+            "value": "Rare"
+        },
+        {
+            "trait_type": "Position",
+            "value": "DEF"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Sudáfrica"
+        },
+        {
+            "trait_type": "Real Name",
+            "value": "Thapelo Morena"
+        },
+        {
+            "trait_type": "ATK",
+            "value": 45
+        },
+        {
+            "trait_type": "DEF",
+            "value": 62
+        },
+        {
+            "trait_type": "HYPE",
+            "value": 55
+        },
+        {
+            "trait_type": "Jersey Number",
+            "value": "4"
+        },
+        {
+            "trait_type": "Parody Club",
+            "value": "Madrid Royal White"
+        },
+        {
+            "trait_type": "Visual Effect",
+            "value": "Subtle Cyber Outline"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Wing Overlap"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Speed Defender"
+        }
+    ],
+    "properties": {
+        "files": [
+            {
+                "uri": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/506_thapelo_more-flash.webp",
+                "type": "image/webp"
+            }
+        ],
+        "category": "image",
+        "creators": [
+            {
+                "address": "Fndrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 1
+            },
+            {
+                "address": "BldrFundxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 10
+            },
+            {
+                "address": "CmntyTreasuryxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 89
+            }
+        ]
+    }
+}

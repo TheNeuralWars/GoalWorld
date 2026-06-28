@@ -1,0 +1,77 @@
+{
+    "name": "goalworld Genesis #029 — Jordan Pick-Ledger",
+    "symbol": "GCG",
+    "description": "A world-class GK verified as a rare asset. Known globally for being a Quick Reflexes, this player is a cornerstone of the goalworld ecosystem",
+    "seller_fee_basis_points": 100,
+    "image": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/029_jordan_pick-ledger.webp",
+    "external_url": "https://goalworld.fun/nft/29",
+    "attributes": [
+        {
+            "trait_type": "Rarity",
+            "value": "Rare"
+        },
+        {
+            "trait_type": "Position",
+            "value": "GK"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Inglaterra"
+        },
+        {
+            "trait_type": "Real Name",
+            "value": "Jordan Pickford"
+        },
+        {
+            "trait_type": "ATK",
+            "value": 10
+        },
+        {
+            "trait_type": "DEF",
+            "value": 73
+        },
+        {
+            "trait_type": "HYPE",
+            "value": 73
+        },
+        {
+            "trait_type": "Jersey Number",
+            "value": "1"
+        },
+        {
+            "trait_type": "Parody Club",
+            "value": "Paris Sapphire PSG"
+        },
+        {
+            "trait_type": "Visual Effect",
+            "value": "Subtle Cyber Outline"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Quick Reflexes"
+        }
+    ],
+    "properties": {
+        "files": [
+            {
+                "uri": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/029_jordan_pick-ledger.webp",
+                "type": "image/webp"
+            }
+        ],
+        "category": "image",
+        "creators": [
+            {
+                "address": "Fndrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 1
+            },
+            {
+                "address": "BldrFundxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 10
+            },
+            {
+                "address": "CmntyTreasuryxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 89
+            }
+        ]
+    }
+}

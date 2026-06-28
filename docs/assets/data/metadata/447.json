@@ -1,0 +1,81 @@
+{
+    "name": "goalworld Genesis #447 — Ramin Reza-Bolt",
+    "symbol": "GCG",
+    "description": "A world-class DEF verified as a rare asset. Known globally for being a Wing Overlap, Defensive Hustle, this player is a cornerstone of the goalworld ecosystem",
+    "seller_fee_basis_points": 100,
+    "image": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/447_ramin_reza-bolt.webp",
+    "external_url": "https://goalworld.fun/nft/447",
+    "attributes": [
+        {
+            "trait_type": "Rarity",
+            "value": "Rare"
+        },
+        {
+            "trait_type": "Position",
+            "value": "DEF"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Irán"
+        },
+        {
+            "trait_type": "Real Name",
+            "value": "Ramin Rezaeian"
+        },
+        {
+            "trait_type": "ATK",
+            "value": 45
+        },
+        {
+            "trait_type": "DEF",
+            "value": 65
+        },
+        {
+            "trait_type": "HYPE",
+            "value": 55
+        },
+        {
+            "trait_type": "Jersey Number",
+            "value": "2"
+        },
+        {
+            "trait_type": "Parody Club",
+            "value": "Manchester Red Devils"
+        },
+        {
+            "trait_type": "Visual Effect",
+            "value": "Subtle Cyber Outline"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Wing Overlap"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Defensive Hustle"
+        }
+    ],
+    "properties": {
+        "files": [
+            {
+                "uri": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/447_ramin_reza-bolt.webp",
+                "type": "image/webp"
+            }
+        ],
+        "category": "image",
+        "creators": [
+            {
+                "address": "Fndrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 1
+            },
+            {
+                "address": "BldrFundxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 10
+            },
+            {
+                "address": "CmntyTreasuryxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 89
+            }
+        ]
+    }
+}

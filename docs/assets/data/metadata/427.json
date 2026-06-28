@@ -1,0 +1,81 @@
+{
+    "name": "goalworld Genesis #427 — Derrick Etien-Flash",
+    "symbol": "GCG",
+    "description": "A world-class FWD verified as a epic asset. Known globally for being a Speed Winger, Creative Spark, this player is a cornerstone of the goalworld ecosystem",
+    "seller_fee_basis_points": 100,
+    "image": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/427_derrick_etien-flash.webp",
+    "external_url": "https://goalworld.fun/nft/427",
+    "attributes": [
+        {
+            "trait_type": "Rarity",
+            "value": "Epic"
+        },
+        {
+            "trait_type": "Position",
+            "value": "FWD"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Haití"
+        },
+        {
+            "trait_type": "Real Name",
+            "value": "Derrick Etienne Jr."
+        },
+        {
+            "trait_type": "ATK",
+            "value": 68
+        },
+        {
+            "trait_type": "DEF",
+            "value": 28
+        },
+        {
+            "trait_type": "HYPE",
+            "value": 62
+        },
+        {
+            "trait_type": "Jersey Number",
+            "value": "10"
+        },
+        {
+            "trait_type": "Parody Club",
+            "value": "Columbus Yellow Jackets"
+        },
+        {
+            "trait_type": "Visual Effect",
+            "value": "Neon Flash"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Speed Winger"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Creative Spark"
+        }
+    ],
+    "properties": {
+        "files": [
+            {
+                "uri": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/427_derrick_etien-flash.webp",
+                "type": "image/webp"
+            }
+        ],
+        "category": "image",
+        "creators": [
+            {
+                "address": "Fndrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 1
+            },
+            {
+                "address": "BldrFundxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 10
+            },
+            {
+                "address": "CmntyTreasuryxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 89
+            }
+        ]
+    }
+}

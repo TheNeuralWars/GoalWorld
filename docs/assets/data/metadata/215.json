@@ -1,0 +1,81 @@
+{
+    "name": "goalworld Genesis #215 — Ivan Peri-Swap",
+    "symbol": "GCG",
+    "description": "A world-class FWD verified as a epic asset. Known globally for being a Wing Titan, Header King, this player is a cornerstone of the goalworld ecosystem",
+    "seller_fee_basis_points": 100,
+    "image": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/215_ivan_peri-swap.webp",
+    "external_url": "https://goalworld.fun/nft/215",
+    "attributes": [
+        {
+            "trait_type": "Rarity",
+            "value": "Epic"
+        },
+        {
+            "trait_type": "Position",
+            "value": "FWD"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Croacia"
+        },
+        {
+            "trait_type": "Real Name",
+            "value": "Ivan Perišić"
+        },
+        {
+            "trait_type": "ATK",
+            "value": 78
+        },
+        {
+            "trait_type": "DEF",
+            "value": 38
+        },
+        {
+            "trait_type": "HYPE",
+            "value": 75
+        },
+        {
+            "trait_type": "Jersey Number",
+            "value": "4"
+        },
+        {
+            "trait_type": "Parody Club",
+            "value": "Eindhoven Light Bulbs"
+        },
+        {
+            "trait_type": "Visual Effect",
+            "value": "Lightning Dash"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Wing Titan"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Header King"
+        }
+    ],
+    "properties": {
+        "files": [
+            {
+                "uri": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/215_ivan_peri-swap.webp",
+                "type": "image/webp"
+            }
+        ],
+        "category": "image",
+        "creators": [
+            {
+                "address": "Fndrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 1
+            },
+            {
+                "address": "BldrFundxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 10
+            },
+            {
+                "address": "CmntyTreasuryxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 89
+            }
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+name: hermes-ceo
+version: 1.0.0
+description: "goalworld Master Developer and Autonomous Operator Agent"
+hermes_requires: ">=0.12.0"
+author: "goalworld Team"
+license: "MIT"
+env_requires:
+  - name: GROK_API_KEY
+    description: "xAI API key (or Nous Research inference key for Grok models)"
+    required: true
+  - name: goalworld_REPO_PATH
+    description: "Path to the goalworld repository clone"
+    required: true

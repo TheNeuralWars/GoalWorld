@@ -1,0 +1,81 @@
+{
+    "name": "goalworld Genesis #186 — Abdu Al-Mind",
+    "symbol": "GCG",
+    "description": "A world-class FWD verified as a epic asset. Known globally for being a Speedster, Dribbling Wizard, this player is a cornerstone of the goalworld ecosystem",
+    "seller_fee_basis_points": 100,
+    "image": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/186_abdu_al-mind.webp",
+    "external_url": "https://goalworld.fun/nft/186",
+    "attributes": [
+        {
+            "trait_type": "Rarity",
+            "value": "Epic"
+        },
+        {
+            "trait_type": "Position",
+            "value": "FWD"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Arabia saudí"
+        },
+        {
+            "trait_type": "Real Name",
+            "value": "Abdulrahman Al-Oboud"
+        },
+        {
+            "trait_type": "ATK",
+            "value": 75
+        },
+        {
+            "trait_type": "DEF",
+            "value": 36
+        },
+        {
+            "trait_type": "HYPE",
+            "value": 77
+        },
+        {
+            "trait_type": "Jersey Number",
+            "value": "24"
+        },
+        {
+            "trait_type": "Parody Club",
+            "value": "Manchester Red Devils"
+        },
+        {
+            "trait_type": "Visual Effect",
+            "value": "Electric Neon Pulse"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Speedster"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Dribbling Wizard"
+        }
+    ],
+    "properties": {
+        "files": [
+            {
+                "uri": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/186_abdu_al-mind.webp",
+                "type": "image/webp"
+            }
+        ],
+        "category": "image",
+        "creators": [
+            {
+                "address": "Fndrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 1
+            },
+            {
+                "address": "BldrFundxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 10
+            },
+            {
+                "address": "CmntyTreasuryxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 89
+            }
+        ]
+    }
+}

@@ -1,0 +1,36 @@
+model:
+  default: nvidia/nemotron-3-super-120b-a12b  # Issue #832: NVIDIA NIM (was: nvidia/nemotron-3-ultra:free via Nous)
+  provider: nvidia
+  base_url: https://integrate.api.nvidia.com/v1
+display:
+  background_process_notifications: all
+  bell_on_complete: false
+  compact: false
+  language: en
+  platforms:
+    telegram:
+      streaming: true
+    discord:
+      streaming: false
+    whatsapp:
+      streaming: true
+  streaming: true
+agent:
+  max_turns: 60
+  gateway_timeout: 1800
+  system_prompt: "You are a technical expert. Provide detailed, accurate technical information."
+mcp_servers:
+  gbrain:
+    command: gbrain
+    args:
+      - serve
+  goalworld-ops:
+    command: python3
+    args:
+      - ops/hermes/mcp-goalworld-ops.py
+    env:
+      goalworld_API_BASE: https://crm.goalworld.fun/goalworld-api
+      RPC_URL: https://api.devnet.solana.com
+      PROGRAM_ID: FbDhM4itBS2Cco7c7PbNvC98Fx7Y5HxqXS1JuXdNcBwg
+      goalworld_REPO_PATH: .
+    timeout: 90

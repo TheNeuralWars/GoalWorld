@@ -1,0 +1,85 @@
+{
+    "name": "goalworld Genesis #078 — Virgil van DEX",
+    "symbol": "GCG",
+    "description": "A world-class DEF verified as a legendary asset. Known globally for being a The Wall, Aerial Master, Leader of Men, this player is a cornerstone of the goalworld ecosystem",
+    "seller_fee_basis_points": 100,
+    "image": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/078_virgil_van_dex.webp",
+    "external_url": "https://goalworld.fun/nft/78",
+    "attributes": [
+        {
+            "trait_type": "Rarity",
+            "value": "Legendary"
+        },
+        {
+            "trait_type": "Position",
+            "value": "DEF"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Países bajos"
+        },
+        {
+            "trait_type": "Real Name",
+            "value": "Virgil van Dijk"
+        },
+        {
+            "trait_type": "ATK",
+            "value": 10
+        },
+        {
+            "trait_type": "DEF",
+            "value": 87
+        },
+        {
+            "trait_type": "HYPE",
+            "value": 88
+        },
+        {
+            "trait_type": "Jersey Number",
+            "value": "4"
+        },
+        {
+            "trait_type": "Parody Club",
+            "value": "Rio Samba Digital"
+        },
+        {
+            "trait_type": "Visual Effect",
+            "value": "Holographic Glitch & Silver Spark"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "The Wall"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Aerial Master"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Leader of Men"
+        }
+    ],
+    "properties": {
+        "files": [
+            {
+                "uri": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/078_virgil_van_dex.webp",
+                "type": "image/webp"
+            }
+        ],
+        "category": "image",
+        "creators": [
+            {
+                "address": "Fndrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 1
+            },
+            {
+                "address": "BldrFundxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 10
+            },
+            {
+                "address": "CmntyTreasuryxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 89
+            }
+        ]
+    }
+}

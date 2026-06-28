@@ -1,0 +1,85 @@
+{
+    "name": "goalworld Genesis #067 — Cristiano Siu-toshi",
+    "symbol": "GCG",
+    "description": "A world-class FWD verified as a mythic asset. Known globally for being a Clutch Finisher, Physical Specimen, Aerial Threat, this player is a cornerstone of the goalworld ecosystem",
+    "seller_fee_basis_points": 100,
+    "image": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/067_cristiano_siu-toshi.webp",
+    "external_url": "https://goalworld.fun/nft/67",
+    "attributes": [
+        {
+            "trait_type": "Rarity",
+            "value": "Mythic"
+        },
+        {
+            "trait_type": "Position",
+            "value": "FWD"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Portugal"
+        },
+        {
+            "trait_type": "Real Name",
+            "value": "Cristiano Ronaldo"
+        },
+        {
+            "trait_type": "ATK",
+            "value": 94
+        },
+        {
+            "trait_type": "DEF",
+            "value": 13
+        },
+        {
+            "trait_type": "HYPE",
+            "value": 90
+        },
+        {
+            "trait_type": "Jersey Number",
+            "value": "7"
+        },
+        {
+            "trait_type": "Parody Club",
+            "value": "Riyadh Victory Nodes"
+        },
+        {
+            "trait_type": "Visual Effect",
+            "value": "Cosmic Aura & Golden Supernova"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Clutch Finisher"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Physical Specimen"
+        },
+        {
+            "trait_type": "Trait",
+            "value": "Aerial Threat"
+        }
+    ],
+    "properties": {
+        "files": [
+            {
+                "uri": "https://raw.githubusercontent.com/TheNeuralWars/goalworld/main/docs/assets/img/nfts/067_cristiano_siu-toshi.webp",
+                "type": "image/webp"
+            }
+        ],
+        "category": "image",
+        "creators": [
+            {
+                "address": "Fndrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 1
+            },
+            {
+                "address": "BldrFundxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 10
+            },
+            {
+                "address": "CmntyTreasuryxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "share": 89
+            }
+        ]
+    }
+}

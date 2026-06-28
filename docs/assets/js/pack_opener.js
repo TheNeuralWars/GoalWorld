@@ -1,0 +1,323 @@
+/**
+ * pack_opener.js - Lógica de Apertura de Sobres goalworld (v3.1 - Epic Reveal)
+ */
+
+var packState = window.packState || {
+    isOpening: false,
+    players: [],
+    inventory: JSON.parse(localStorage.getItem('goalworld_inventory')) || []
+};
+
+var SURVIVOR_COUNTRIES = [
+    "Argentina", "Brasil", "Francia", "España", "Inglaterra", "Alemania", "México", "Uruguay", 
+    "Portugal", "Italia", "Países Bajos", "Bélgica", "EEUU", "Canadá", "Colombia", "Croacia"
+];
+
+async function initPackOpener() {
+    try {
+        const response = await fetch(`assets/data/players.json?v=${new Date().getTime()}`);
+        packState.players = await response.json();
+        
+        // Override UI texts dynamically for the Survivor Pack launch
+        const openBtn = document.getElementById('openPackBtn');
+        if (openBtn) {
+            openBtn.innerHTML = '<span>ABRIR SOBRE SURVIVOR (250 $GCH)</span>';
+        }
+        const title = document.querySelector('.section-title');
+        if (title) title.innerText = "Survivor Pack Opener (Eliminatorias)";
+        const sub = document.querySelector('.section-subtitle');
+        if (sub) sub.innerText = "Exclusivo early adopters. Solo selecciones clasificadas. ¡Probabilidades aumentadas de cartas Legendarias y Míticas!";
+        const oddsText = document.querySelector('.pack-odds');
+        if (oddsText) oddsText.innerText = "Mythic chance: 1.0% | Legendary: 4.0% | Epic: 10.0% | Rare: 25.0%";
+
+        setupPackEvents();
+        renderInventory();
+    } catch (error) {
+        console.error("Error al cargar jugadores:", error);
+    }
+}
+
+function setupPackEvents() {
+    const pack = document.getElementById('mysteryPack');
+    const openBtn = document.getElementById('openPackBtn');
+    const closeBtn = document.getElementById('closeRevealBtn');
+
+    if (openBtn) {
+        openBtn.addEventListener('click', () => {
+            if (packState.isOpening) return;
+            triggerPackOpening();
+        });
+    }
+
+    if (pack) {
+        pack.addEventListener('click', () => {
+            if (packState.isOpening) return;
+            triggerPackOpening();
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            const modal = document.getElementById('revealModal');
+            modal.classList.remove('is-active');
+            document.getElementById('revealedCardContainer').innerHTML = '';
+            closeBtn.style.display = 'none';
+            packState.isOpening = false;
+            renderInventory(); 
+        });
+    }
+}
+
+async function triggerPackOpening() {
+    const walletAddress = localStorage.getItem('goalworld_wallet');
+    if (!walletAddress) {
+        if (window.notifier) window.notifier.show('ERROR', 'Debes conectar tu wallet para abrir un sobre.', 'error');
+        return;
+    }
+
+    packState.isOpening = true;
+    const pack = document.getElementById('mysteryPack');
+    const openBtn = document.getElementById('openPackBtn');
+
+    if (openBtn) {
+        openBtn.disabled = true;
+        openBtn.innerText = "WAITING FOR SIGNATURE...";
+    }
+
+    // Si es una wallet real, hacemos una transacción en Devnet
+    if (!walletAddress.startsWith("DevGoaL")) {
+        try {
+            const connection = new solanaWeb3.Connection("https://api.devnet.solana.com", "confirmed");
+            const fromPubkey = new solanaWeb3.PublicKey(walletAddress);
+            const toPubkey = new solanaWeb3.PublicKey("FbDhM4itBS2Cco7c7PbNvC98Fx7Y5HxqXS1JuXdNcBwg"); // Tesorería
+
+            // Cobramos un micro-fee de 0.0005 SOL para simular la acuñación de cNFT/Asset
+            const transaction = new solanaWeb3.Transaction().add(
+                solanaWeb3.SystemProgram.transfer({
+                    fromPubkey: fromPubkey,
+                    toPubkey: toPubkey,
+                    lamports: 500000, // 0.0005 SOL
+                })
+            );
+
+            const { blockhash } = await connection.getLatestBlockhash();
+            transaction.recentBlockhash = blockhash;
+            transaction.feePayer = fromPubkey;
+
+            const provider = window.solana;
+            if (!provider) throw new Error("Phantom Wallet no encontrada.");
+
+            const { signature } = await provider.signAndSendTransaction(transaction);
+            console.log("Transacción de sobre enviada:", signature);
+
+            if (openBtn) openBtn.innerText = "CONFIRMING ON DEVNET...";
+            await connection.confirmTransaction(signature, "confirmed");
+            console.log("Transacción de sobre confirmada!");
+
+            if (window.notifier) window.notifier.show('ÉXITO', 'Transacción de sobre confirmada en Devnet!', 'success');
+
+        } catch (error) {
+            console.error("Error en la transacción real de Solana:", error);
+            if (window.notifier) window.notifier.show('ERROR', 'La transacción fue cancelada o falló.', 'error');
+            if (openBtn) {
+                openBtn.disabled = false;
+                openBtn.innerText = "ABRIR SOBRE (100 $GCH)";
+            }
+            packState.isOpening = false;
+            return;
+        }
+    }
+
+    if (openBtn) {
+        const messages = ["CONNECTING TO VAULT...", "FETCHING BIOMETRICS...", "SYNCING SOLANA...", "MINTING NFT...", "REVEALING..."];
+        let msgIdx = 0;
+        const msgInterval = setInterval(() => {
+            openBtn.innerText = messages[msgIdx++];
+            if(msgIdx >= messages.length) clearInterval(msgInterval);
+        }, 400);
+    }
+    
+    if (pack) {
+        pack.classList.add('is-shaking');
+        pack.style.filter = "brightness(1.5) drop-shadow(0 0 30px var(--primary))";
+    }
+
+    if (window.notifier) window.notifier.play('click');
+
+    setTimeout(() => {
+        if (pack) {
+            pack.style.animationDuration = "0.05s";
+            pack.style.transform = "scale(1.2)";
+        }
+    }, 1500);
+
+    setTimeout(() => {
+        if (pack) {
+            pack.classList.remove('is-shaking');
+            pack.style.filter = "";
+            pack.style.transform = "";
+        }
+        executeReveal();
+        if (openBtn) openBtn.innerText = "ABRIR SOBRE (100 $GCH)";
+    }, 2500);
+}
+
+function executeReveal() {
+    const modal = document.getElementById('revealModal');
+    const container = document.getElementById('revealedCardContainer');
+    const closeBtn = document.getElementById('closeRevealBtn');
+
+    // Create a Flash Effect
+    const flash = document.createElement('div');
+    flash.style.position = 'fixed';
+    flash.style.top = '0'; flash.style.left = '0';
+    flash.style.width = '100vw'; flash.style.height = '100vh';
+    flash.style.background = 'white';
+    flash.style.zIndex = '9999';
+    flash.style.opacity = '1';
+    flash.style.transition = 'opacity 0.8s ease-out';
+    document.body.appendChild(flash);
+    setTimeout(() => { flash.style.opacity = '0'; setTimeout(() => flash.remove(), 800); }, 50);
+
+    if (window.notifier) {
+        window.notifier.play('success');
+    }
+
+    const rand = Math.random() * 100;
+    let rarity = "common";
+    if (rand < 1) rarity = "mythic"; // 1%
+    else if (rand < 5) rarity = "legendary"; // 4%
+    else if (rand < 15) rarity = "epic"; // 10%
+    else if (rand < 40) rarity = "rare"; // 25%
+
+    // Filter pool to survivor countries
+    const survivorPool = packState.players.filter(p => SURVIVOR_COUNTRIES.includes(p.country));
+    const pool = survivorPool.filter(p => p.rarity === rarity);
+    
+    // Fallback in case a specific rarity doesn't exist in survivor pool
+    const finalPool = pool.length > 0 ? pool : packState.players.filter(p => p.rarity === rarity);
+    const player = finalPool[Math.floor(Math.random() * finalPool.length)];
+
+    packState.inventory.push(player);
+    localStorage.setItem('goalworld_inventory', JSON.stringify(packState.inventory));
+
+    modal.classList.add('is-active');
+    
+    const imgPath = `assets/img/nfts/${player.filename}`;
+    const flag = PACK_FLAG_MAP[player.country] || "🏳️";
+
+    container.innerHTML = `
+        <div class="nft-card-3d in-view active reveal-animation" data-rarity="${player.rarity}" id="revealedCard">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="glare"></div>
+                    <img src="${imgPath}" alt="${player.name}" onerror="this.src='assets/img/nfts/card_placeholder_soon.png'">
+                    <div class="nft-overlay">
+                        <div class="player-info">
+                            <span class="player-name">${player.name}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:20px; animation: fadeIn 1s ease 1s both;">
+            <h2 style="color:var(--gold); font-size: 1.5rem; text-shadow: 0 0 20px var(--gold);">${player.rarity.toUpperCase()} FOUND!</h2>
+            <p style="color:white; opacity: 0.8;">${player.name} has joined your squad.</p>
+        </div>
+    `;
+
+    const card = document.getElementById('revealedCard');
+    if (card) {
+        card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+    }
+
+    triggerExplosion(player.rarity);
+
+    setTimeout(() => {
+        if (closeBtn) closeBtn.style.display = 'block';
+        if (document.getElementById('openPackBtn')) {
+            document.getElementById('openPackBtn').disabled = false;
+        }
+    }, 2000);
+}
+
+function renderInventory(filter = 'all') {
+    const grid = document.getElementById('collectionGrid');
+    if (!grid) return;
+
+    const filteredItems = filter === 'all' 
+        ? packState.inventory 
+        : packState.inventory.filter(p => p.rarity === filter);
+
+    if (filteredItems.length === 0) {
+        grid.innerHTML = `<div class="empty-inventory" style="grid-column: 1/-1; text-align: center; padding: 40px;"><p>No tenés jugadores en esta categoría.</p></div>`;
+        return;
+    }
+
+    grid.innerHTML = filteredItems.map(player => {
+        const imgPath = `assets/img/nfts/${player.filename}`;
+        return `
+            <div class="nft-card-3d in-view" data-rarity="${player.rarity}" style="transform: scale(0.6); margin: -50px;">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="${imgPath}" alt="${player.name}" onerror="this.src='assets/img/nfts/card_placeholder_soon.png'">
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function triggerExplosion(rarity) {
+    const canvas = document.getElementById('revealParticles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particleColor = '#14f195';
+    if(rarity === 'mythic') particleColor = '#ffffff';
+    if(rarity === 'legendary') particleColor = '#ffd700';
+    if(rarity === 'epic') particleColor = '#9945ff';
+
+    const particles = [];
+    for (let i = 0; i < 200; i++) {
+        particles.push({
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            vx: (Math.random() - 0.5) * 20,
+            vy: (Math.random() - 0.5) * 20,
+            size: Math.random() * 5 + 2,
+            color: Math.random() > 0.2 ? particleColor : '#fff',
+            life: 1,
+            gravity: 0.15
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, i) => {
+            p.vx *= 0.98;
+            p.vy += p.gravity;
+            p.x += p.vx; p.y += p.vy; p.life -= 0.015;
+            if (p.life <= 0) particles.splice(i, 1);
+            ctx.fillStyle = p.color;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = p.color;
+            ctx.globalAlpha = p.life;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        if (particles.length > 0) requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+const PACK_FLAG_MAP = {
+    "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Francia": "🇫🇷", "España": "🇪🇸",
+    "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Alemania": "🇩🇪", "México": "🇲🇽", "Uruguay": "🇺🇾",
+    "Portugal": "🇵🇹", "Italia": "🇮🇹", "Bélgica": "🇧🇪", "EEUU": "🇺🇸"
+};
+
+document.addEventListener('DOMContentLoaded', initPackOpener);
