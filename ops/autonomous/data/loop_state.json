@@ -1,0 +1,47 @@
+{
+  "cycle_count": 6,
+  "last_cycle": "2026-06-28T22:55:38Z",
+  "last_index": "2026-06-28T22:51:05Z",
+  "dispatched_tasks": [
+    {
+      "task_id": "deploy-api-down",
+      "title": "api deploy is unhealthy",
+      "priority": "P0",
+      "issue_url": "https://github.com/TheNeuralWars/GoalWorld/issues/1",
+      "dispatched_at": "2026-06-28T22:55:37Z",
+      "status": "pending",
+      "decomposition": {
+        "task": "api deploy is unhealthy",
+        "rationale": "api at https://crm.goalworld.fun/goalworld-api/health is down or erroring",
+        "context": "deploys.api",
+        "relevant_symbols": [],
+        "subtasks": [
+          {
+            "step": 1,
+            "action": "Investigate root cause",
+            "detail": "Examine "
+          },
+          {
+            "step": 2,
+            "action": "Implement fix",
+            "detail": "Minimal change to resolve the issue"
+          },
+          {
+            "step": 3,
+            "action": "Add/update test",
+            "detail": "Prevent regression"
+          },
+          {
+            "step": 4,
+            "action": "Verify fix",
+            "detail": "Run tests and check deploy health"
+          }
+        ],
+        "timestamp": "2026-06-28T22:55:36Z"
+      }
+    }
+  ],
+  "consecutive_failures": {},
+  "paused_tasks": [],
+  "last_indexed_head": "dc4dfcdeb1e1a64ff27f0f143a9f57401c36c283"
+}

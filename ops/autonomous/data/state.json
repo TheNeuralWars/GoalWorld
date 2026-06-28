@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-06-28T22:55:11Z",
+  "git": {
+    "branch": "main",
+    "dirty": true,
+    "uncommitted": 8,
+    "stale_branches": [],
+    "recent_commits": [
+      "dc4dfcd docs: add Open Graph + Twitter Card meta tags for social previews",
+      "5b8e58c docs: add MongoDB + HubSpot application answers (12 programs total)",
+      "213a643 docs: add MongoDB+HubSpot programs, executive summary one-pager",
+      "84824e1 docs: add startup credits submission runbook (P0 step-by-step)",
+      "0033bcc docs: startup credits application package (AWS/GCP/Azure + 7 SaaS programs)",
+      "81ecb5a chore: complete GoalChain \u2192 GoalWorld rebrand"
+    ],
+    "ahead_behind": {
+      "behind_origin": 0,
+      "ahead_origin": 0
+    }
+  },
+  "tests": {
+    "rust": {
+      "compiles": true,
+      "error": "warning: unused import: `SEED_BUILDER_VAULT`\n --> programs/goalworld_program/src/state/builder_fund.rs:3:24\n  |\n3 |     SEED_BUILDER_FUND, SEED_BUILDER_VAULT, SEED_CONTRIBUTOR_SCORE,\n  |                        ^^^^^^^^^^^^^^^^^^\n  |\n  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\nwarning: unused import: `SEED_FIXTURE_VAULT`\n --> programs/goalworld_program/src/state/fixture.rs:2:48\n  |\n2 | use crate::constants::{SEED_FIXTURE, SEED_BET, SEED_FIXTURE_VAULT};\n  |      "
+    },
+    "typescript": {
+      "test_files": 112,
+      "files": [
+        "/data/apps/GoalWorld/sdk/node_modules/no-case/dist/index.spec.js",
+        "/data/apps/GoalWorld/sdk/node_modules/no-case/dist/index.spec.d.ts",
+        "/data/apps/GoalWorld/sdk/node_modules/no-case/dist/index.spec.js.map",
+        "/data/apps/GoalWorld/sdk/node_modules/no-case/dist.es2015/index.spec.js",
+        "/data/apps/GoalWorld/sdk/node_modules/no-case/dist.es2015/index.spec.d.ts",
+        "/data/apps/GoalWorld/sdk/node_modules/no-case/dist.es2015/index.spec.js.map",
+        "/data/apps/GoalWorld/sdk/node_modules/dot-case/dist/index.spec.js",
+        "/data/apps/GoalWorld/sdk/node_modules/dot-case/dist/index.spec.d.ts",
+        "/data/apps/GoalWorld/sdk/node_modules/dot-case/dist/index.spec.js.map",
+        "/data/apps/GoalWorld/sdk/node_modules/dot-case/dist.es2015/index.spec.js"
+      ]
+    },
+    "python": {
+      "test_files": 13,
+      "files": [
+        "/data/apps/GoalWorld/scripts/test_twitter.py",
+        "/data/apps/GoalWorld/scripts/test_grok.py",
+        "/data/apps/GoalWorld/scripts/discord_test.py",
+        "/data/apps/GoalWorld/scripts/tests/test_video_pipeline_831.py",
+        "/data/apps/GoalWorld/ops/goalchain-multiagent/tests/test_graph.py",
+        "/data/apps/GoalWorld/ops/goalchain-multiagent/tests/test_slack_api.py",
+        "/data/apps/GoalWorld/ops/goalchain-multiagent/tests/test_twenty_api.py",
+        "/data/apps/GoalWorld/ops/goalchain-multiagent/tests/test_llm.py",
+        "/data/apps/GoalWorld/ops/goalchain-multiagent/tests/test_nemoclaw.py",
+        "/data/apps/GoalWorld/ops/goalchain-multiagent/tests/test_fcc_dispatch.py"
+      ]
+    }
+  },
+  "builds": {
+    "webapp": {
+      "buildable": true
+    },
+    "api": {
+      "valid_package": true
+    }
+  },
+  "deploys": {
+    "api": {
+      "url": "https://crm.goalworld.fun/goalworld-api/health",
+      "healthy": false,
+      "error": "HTTPSConnectionPool(host='crm.goalworld.fun', port=443): Max retries exceeded with url: /goalworld-api/health (Caused by NameResolutionError(\"HTTPSConnection(host='crm.goalworld.fun', port=443): Faile"
+    },
+    "webapp": {
+      "url": "https://play.goalworld.fun",
+      "status_code": 200,
+      "healthy": true,
+      "response_time_ms": 127
+    },
+    "marketing": {
+      "url": "https://goalworld.fun",
+      "status_code": 200,
+      "healthy": true,
+      "response_time_ms": 77
+    }
+  },
+  "onchain": {
+    "program_info": {},
+    "economy_health": {}
+  },
+  "issues": {
+    "open_issues": [],
+    "open_prs": [],
+    "stale_prs": []
+  },
+  "code_health": {
+    "todos": [],
+    "fixmes": [],
+    "total_todos": 25,
+    "total_fixmes": 11
+  },
+  "backlog": [
+    {
+      "id": "deploy-api-down",
+      "title": "api deploy is unhealthy",
+      "category": "ops",
+      "priority_score": 90,
+      "rationale": "api at https://crm.goalworld.fun/goalworld-api/health is down or erroring",
+      "source": "deploys.api"
+    },
+    {
+      "id": "git-dirty",
+      "title": "8 uncommitted changes on main",
+      "category": "hygiene",
+      "priority_score": 40,
+      "rationale": "Working tree has many uncommitted changes",
+      "source": "git"
+    }
+  ]
+}

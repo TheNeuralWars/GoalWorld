@@ -1,0 +1,18 @@
+[
+  {
+    "id": "deploy-api-down",
+    "title": "api deploy is unhealthy",
+    "category": "ops",
+    "priority_score": 90,
+    "rationale": "api at https://crm.goalworld.fun/goalworld-api/health is down or erroring",
+    "source": "deploys.api"
+  },
+  {
+    "id": "git-dirty",
+    "title": "8 uncommitted changes on main",
+    "category": "hygiene",
+    "priority_score": 40,
+    "rationale": "Working tree has many uncommitted changes",
+    "source": "git"
+  }
+]

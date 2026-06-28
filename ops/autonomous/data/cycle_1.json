@@ -1,0 +1,34 @@
+{
+  "cycle": 1,
+  "timestamp": "2026-06-28T22:46:05Z",
+  "steps": {
+    "reindex": {
+      "action": "dry_run"
+    },
+    "scan_state": {
+      "action": "dry_run"
+    },
+    "build_queue": {
+      "action": "dry_run"
+    },
+    "dispatch": {
+      "action": "dry_run",
+      "task": {
+        "id": "deploy-api-down",
+        "title": "api deploy is unhealthy",
+        "category": "ops",
+        "rationale": "api at https://crm.goalworld.fun/goalworld-api/health is down or erroring",
+        "priority_score": 100,
+        "strategic_objectives": [],
+        "source": "deploys.api",
+        "dispatch_ready": true
+      }
+    },
+    "monitor": {
+      "action": "dry_run"
+    },
+    "self_assess": {
+      "action": "dry_run"
+    }
+  }
+}

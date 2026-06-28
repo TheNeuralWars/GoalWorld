@@ -1,0 +1,55 @@
+{
+  "cycle": 2,
+  "timestamp": "2026-06-28T22:46:25Z",
+  "steps": {
+    "reindex": {
+      "action": "reindex",
+      "result": {
+        "files": 335,
+        "symbols": 5963,
+        "deps": 10075,
+        "elapsed_s": 3.9
+      }
+    },
+    "scan_state": {
+      "action": "scan",
+      "backlog_items": 2,
+      "deploys_healthy": {
+        "api": false,
+        "webapp": true,
+        "marketing": true
+      },
+      "open_issues": 0
+    },
+    "build_queue": {
+      "action": "build",
+      "total_items": 5,
+      "dispatchable": 4,
+      "top_task": {
+        "id": "deploy-api-down",
+        "title": "api deploy is unhealthy",
+        "category": "ops",
+        "rationale": "api at https://crm.goalworld.fun/goalworld-api/health is down or erroring",
+        "priority_score": 100,
+        "strategic_objectives": [],
+        "source": "deploys.api",
+        "dispatch_ready": true
+      }
+    },
+    "dispatch": {
+      "action": "error",
+      "error": "/data/apps/GoalWorld/ops/hermes/create-task.sh: line 7: /home/ubuntu/.hermes/profiles/hermes-ceo/config.env: No such file or directory",
+      "stdout": ""
+    },
+    "monitor": {
+      "action": "monitor",
+      "results": []
+    },
+    "self_assess": {
+      "action": "assess",
+      "success_rate": 0.0,
+      "trend": null,
+      "recommendations": []
+    }
+  }
+}

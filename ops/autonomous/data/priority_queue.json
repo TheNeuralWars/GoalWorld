@@ -1,0 +1,59 @@
+[
+  {
+    "id": "deploy-api-down",
+    "title": "api deploy is unhealthy",
+    "category": "ops",
+    "rationale": "api at https://crm.goalworld.fun/goalworld-api/health is down or erroring",
+    "priority_score": 100,
+    "strategic_objectives": [],
+    "source": "deploys.api",
+    "dispatch_ready": true
+  },
+  {
+    "id": "proactive-api-fix",
+    "title": "Fix API deploy health",
+    "category": "bug",
+    "rationale": "API is down \u2014 critical for webapp and ops",
+    "priority_score": 95,
+    "strategic_objectives": [
+      "mundial-mvp",
+      "automation"
+    ],
+    "source": "proactive",
+    "dispatch_ready": true
+  },
+  {
+    "id": "proactive-commit",
+    "title": "Commit and push uncommitted changes",
+    "category": "hygiene",
+    "rationale": "8 uncommitted changes on main",
+    "priority_score": 45,
+    "strategic_objectives": [
+      "merge-stack"
+    ],
+    "source": "proactive",
+    "dispatch_ready": false
+  },
+  {
+    "id": "git-dirty",
+    "title": "8 uncommitted changes on main",
+    "category": "hygiene",
+    "rationale": "Working tree has many uncommitted changes",
+    "priority_score": 37.0,
+    "strategic_objectives": [],
+    "source": "git",
+    "dispatch_ready": true
+  },
+  {
+    "id": "proactive-todo-cleanup",
+    "title": "Tech debt sprint: resolve TODOs in codebase",
+    "category": "tech-debt",
+    "rationale": "25 TODOs accumulated",
+    "priority_score": 30,
+    "strategic_objectives": [
+      "merge-stack"
+    ],
+    "source": "proactive",
+    "dispatch_ready": true
+  }
+]
