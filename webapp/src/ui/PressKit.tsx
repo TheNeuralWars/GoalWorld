@@ -77,8 +77,8 @@ export function PressKit() {
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <a
-              href="/PressKit_goalworld.zip"
-              download="PressKit_goalworld.zip"
+              href="/PressKit_GoalWorld.zip"
+              download="PressKit_GoalWorld.zip"
               className="press-kit-download-btn"
               style={{
                 display: 'inline-flex',

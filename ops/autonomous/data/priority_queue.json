@@ -23,10 +23,34 @@
     "dispatch_ready": true
   },
   {
+    "id": "todo-ops/autonomous/lib/state_awareness.py-329",
+    "title": "TODO in ops/autonomous/lib/state_awareness.py:329 (can_code_health(s)",
+    "category": "tech-debt",
+    "rationale": "Unfinished TODO in codebase",
+    "priority_score": 50.0,
+    "strategic_objectives": [
+      "automation"
+    ],
+    "source": "code_health.todos",
+    "dispatch_ready": true
+  },
+  {
+    "id": "todo-ops/autonomous/lib/state_awareness.py-340",
+    "title": "TODO in ops/autonomous/lib/state_awareness.py:340 (ws =)",
+    "category": "tech-debt",
+    "rationale": "Unfinished TODO in codebase",
+    "priority_score": 50.0,
+    "strategic_objectives": [
+      "automation"
+    ],
+    "source": "code_health.todos",
+    "dispatch_ready": true
+  },
+  {
     "id": "proactive-commit",
     "title": "Commit and push uncommitted changes",
     "category": "hygiene",
-    "rationale": "8 uncommitted changes on main",
+    "rationale": "17 uncommitted changes on main",
     "priority_score": 45,
     "strategic_objectives": [
       "merge-stack"
@@ -35,8 +59,18 @@
     "dispatch_ready": false
   },
   {
+    "id": "todo-docs/assets/js/marketplace.js-85",
+    "title": "TODO in docs/assets/js/marketplace.js:85 (ML = '';\n\n  )",
+    "category": "tech-debt",
+    "rationale": "Unfinished TODO in codebase",
+    "priority_score": 44.0,
+    "strategic_objectives": [],
+    "source": "code_health.todos",
+    "dispatch_ready": true
+  },
+  {
     "id": "git-dirty",
-    "title": "8 uncommitted changes on main",
+    "title": "17 uncommitted changes on main",
     "category": "hygiene",
     "rationale": "Working tree has many uncommitted changes",
     "priority_score": 37.0,

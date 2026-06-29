@@ -9,10 +9,34 @@
   },
   {
     "id": "git-dirty",
-    "title": "8 uncommitted changes on main",
+    "title": "17 uncommitted changes on main",
     "category": "hygiene",
     "priority_score": 40,
     "rationale": "Working tree has many uncommitted changes",
     "source": "git"
+  },
+  {
+    "id": "todo-docs/assets/js/marketplace.js-85",
+    "title": "TODO in docs/assets/js/marketplace.js:85 (ML = '';\n\n  )",
+    "category": "tech-debt",
+    "priority_score": 30,
+    "rationale": "Unfinished TODO in codebase",
+    "source": "code_health.todos"
+  },
+  {
+    "id": "todo-ops/autonomous/lib/state_awareness.py-329",
+    "title": "TODO in ops/autonomous/lib/state_awareness.py:329 (can_code_health(s)",
+    "category": "tech-debt",
+    "priority_score": 30,
+    "rationale": "Unfinished TODO in codebase",
+    "source": "code_health.todos"
+  },
+  {
+    "id": "todo-ops/autonomous/lib/state_awareness.py-340",
+    "title": "TODO in ops/autonomous/lib/state_awareness.py:340 (ws =)",
+    "category": "tech-debt",
+    "priority_score": 30,
+    "rationale": "Unfinished TODO in codebase",
+    "source": "code_health.todos"
   }
 ]

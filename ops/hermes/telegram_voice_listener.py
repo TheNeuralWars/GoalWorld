@@ -1,8 +1,8 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
-Telegram Voice Listener Bot for GoalWorld (Humans-0 Pipeline)
+Telegram Voice Listener Bot for GoalChain (Humans-0 Pipeline)
 Escucha notas de voz de Telegram, las transcribe con Gemini v1beta,
-genera un brief de ingesta en docs/intake/ y detona el flujo aut??nomo de c??digo y push.
+genera un brief de ingesta en docs/intake/ y detona el flujo autónomo de código y push.
 """
 
 import os
@@ -12,6 +12,7 @@ import time
 import base64
 import requests
 import subprocess
+import yaml
 
 # === CONFIGURATION ===
 BOT_TOKEN = "8677250341:AAFK4UIJzXxgnGL_qLhXrq_RmRKeWKmCNIg"
@@ -71,7 +72,7 @@ def save_history(chat_id, history):
         log(f"Error saving history: {e}")
 
 def chat_with_hermes(text, chat_id=None):
-    """Llama a la CLI de Hermes de forma s??ncrona con memoria de conversaci??n (continuidad)"""
+    """Llama a la CLI de Hermes de forma síncrona con memoria de conversación (continuidad)"""
     # Build context from history if chat_id is provided
     context = ""
     history = []
@@ -88,6 +89,7 @@ def chat_with_hermes(text, chat_id=None):
     
     try:
         env = os.environ.copy()
+        env["HERMES_HOME"] = HERMES_HOME
         local_bin = os.path.expanduser("~/.local/bin")
         if local_bin not in env.get("PATH", ""):
             env["PATH"] = f"{local_bin}:{env.get('PATH', '')}"
@@ -107,13 +109,13 @@ def chat_with_hermes(text, chat_id=None):
             return reply
         else:
             log(f"ERROR: Hermes CLI returned code {result.returncode}. Stderr: {result.stderr}")
-            return f"??? **Error de Hermes CLI:**\n{result.stderr.strip() or 'C??digo de salida no cero'}"
+            return f"❌ **Error de Hermes CLI:**\n{result.stderr.strip() or 'Código de salida no cero'}"
     except subprocess.TimeoutExpired:
         log("ERROR: Hermes CLI execution timed out.")
-        return "??? **Hermes tard?? demasiado en responder.**"
+        return "⏰ **Hermes tardó demasiado en responder.**"
     except Exception as e:
         log(f"ERROR: Exception executing Hermes CLI: {e}")
-        return f"??? **Error llamando a Hermes:** {e}"
+        return f"❌ **Error llamando a Hermes:** {e}"
 
 
 def transcribe_audio_gemini(audio_bytes, mime_type="audio/ogg"):
@@ -137,10 +139,10 @@ def transcribe_audio_gemini(audio_bytes, mime_type="audio/ogg"):
                     },
                     {
                         "text": (
-                            "Transcrib?? este audio con alta precisi??n en el idioma original. "
-                            "Si contiene mezclas de ingl??s y espa??ol o jerga t??cnica de programaci??n/blockchain "
+                            "Transcribí este audio con alta precisión en el idioma original. "
+                            "Si contiene mezclas de inglés y español o jerga técnica de programación/blockchain "
                             "(como React, components, NFTs, Solana, PDA, SDK, etc.), mantenelos exactos "
-                            "y no los traduzcas. Devolv?? ??NICAMENTE la transcripci??n limpia sin comentarios."
+                            "y no los traduzcas. Devolvé ÚNICAMENTE la transcripción limpia sin comentarios."
                         )
                     }
                 ]
@@ -161,6 +163,40 @@ def transcribe_audio_gemini(audio_bytes, mime_type="audio/ogg"):
     else:
         raise Exception(f"Gemini API returned status {response.status_code}: {response.text}")
 
+def transcribe_audio_omniroute(audio_bytes, mime_type="audio/ogg"):
+    """Llama a la API local de OmniRoute Whisper como failover"""
+    url = "http://127.0.0.1:20128/v1/audio/transcriptions"
+    
+    # Use the omniroute API key from config.yaml if possible, otherwise fallback hardcoded
+    api_key = "sk-cac9fb818e70e6bb-f4dcba-60525661"
+    config_file = os.path.join(HERMES_HOME, "config.yaml")
+    if os.path.exists(config_file):
+        try:
+            with open(config_file, "r") as f:
+                cfg = yaml.safe_load(f)
+                api_key = cfg.get("providers", {}).get("omniroute", {}).get("api_key", api_key)
+        except Exception:
+            pass
+            
+    headers = {
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    files = {
+        "file": ("voice.ogg", audio_bytes, "audio/ogg")
+    }
+    data = {
+        "model": "nvidia/openai/whisper-large-v3"
+    }
+    
+    log("Calling local OmniRoute Whisper endpoint...")
+    response = requests.post(url, headers=headers, files=files, data=data)
+    if response.status_code == 200:
+        res_data = response.json()
+        return res_data.get("text", "").strip()
+    else:
+        raise Exception(f"OmniRoute Whisper returned status {response.status_code}: {response.text}")
+
 def create_intake_brief_from_voice(transcription_text):
     """Crea un brief de ingesta en docs/intake/ y lo guarda en disco"""
     os.makedirs(INTAKE_DIR, exist_ok=True)
@@ -180,29 +216,29 @@ def create_intake_brief_from_voice(transcription_text):
     title = f"Voice Task: {title_str}"
     
     markdown_content = f"""# {title}
-
+ 
 - **Status:** ready-for-hermes
 - **Priority:** P1
 - **Owner:** hermes
 - **Created:** {date_str}
 - **Source:** Voice Note via Telegram Bot
-
+ 
 ## Objective
-
+ 
 This task was received as a voice note from Nico via the Telegram Bot and transcribed autonomously using the Gemini Multimodal Audio engine.
-
+ 
 ## Transcription
-
+ 
 > {transcription_text}
-
+ 
 ## Recommended Path Forward
-
+ 
 - [ ] Parse and generate implementation tasks via autonomic-intake-processor.
 - [ ] Auto-dispatch to FCC/Hermes for code implementation.
 - [ ] Run typescript checks and auto-merge to main if clean.
-
+ 
 ## Tags
-
+ 
 #voice-task #telegram-bot #gemini-transcribe #humans-0 #autonomous-push
 """
     
@@ -213,7 +249,7 @@ This task was received as a voice note from Nico via the Telegram Bot and transc
     return filepath
 
 def handle_voice_message(voice_data, file_id):
-    """Descarga el audio de Telegram, lo transcribe y decide si es chat o tarea de c??digo"""
+    """Descarga el audio de Telegram, lo transcribe y decide si es chat o tarea de código"""
     log(f"Downloading voice note {file_id} from Telegram...")
     
     # getFile API call
@@ -234,10 +270,16 @@ def handle_voice_message(voice_data, file_id):
         return
         
     audio_bytes = audio_res.content
-    log("Voice note downloaded. Transcribing using Gemini multimodal...")
+    log("Voice note downloaded. Transcribing...")
     
     try:
-        transcription = transcribe_audio_gemini(audio_bytes, mime_type="audio/ogg")
+        try:
+            log("Transcribing using Gemini multimodal...")
+            transcription = transcribe_audio_gemini(audio_bytes, mime_type="audio/ogg")
+        except Exception as gemini_err:
+            log(f"Gemini transcription failed ({gemini_err}). Trying OmniRoute Whisper fallback...")
+            transcription = transcribe_audio_omniroute(audio_bytes, mime_type="audio/ogg")
+            
         log(f"Transcription result: '{transcription}'")
         
         if len(transcription.strip()) < 3:
@@ -253,24 +295,24 @@ def handle_voice_message(voice_data, file_id):
             
             # Respond back to Telegram user
             success_msg = (
-                f"???? **Hermes Voice Ingestion Success** ????\n\n"
-                f"???? **Transcription:**\n_\"{transcription}\"_\n\n"
-                f"???? **Intake Brief Created:** `{os.path.basename(brief_path)}`\n"
-                f"??? **Task status:** Enqueued autonomously (`status:ready`). Worker is coding & testing now!"
+                f"🧠 **Hermes Voice Ingestion Success** 🚀\n\n"
+                f"📝 **Transcription:**\n_\"{transcription}\"_\n\n"
+                f"📁 **Intake Brief Created:** `{os.path.basename(brief_path)}`\n"
+                f"⚡ **Task status:** Enqueued autonomously (`status:ready`). Worker is coding & testing now!"
             )
             send_message(chat_id, success_msg)
         else:
             # Route as conversational query to Hermes CLI
-            send_message(chat_id, "??? *Hermes est?? procesando tu consulta de voz...*")
+            send_message(chat_id, "⏳ *Hermes está procesando tu consulta de voz...*")
             reply = chat_with_hermes(transcription, chat_id=chat_id)
             send_message(chat_id, reply)
             # Continuity follow-up listening prompt
-            send_message(chat_id, "???? _Te escucho..._")
+            send_message(chat_id, "🎤 _Te escucho..._")
         
     except Exception as e:
         log(f"ERROR during transcription/ingestion: {e}")
         chat_id = voice_data["chat"]["id"]
-        send_message(chat_id, f"??? **Error transcribing your voice note:** {e}")
+        send_message(chat_id, f"❌ **Error transcribing your voice note:** {e}")
 
 def send_message(chat_id, text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
@@ -315,22 +357,22 @@ def main_loop():
                     
                     if text.lower().startswith("/start") or text.lower().startswith("/help"):
                         help_msg = (
-                            "??????? **GoalWorld Humans-0 Voice Bot (Dual Chat/Intake) ????**\n\n"
-                            "- Env??a un mensaje de voz o texto normal para chatear conmigo (usando Hermes en el VPS).\n"
-                            "- Empieza tu mensaje de voz o texto con **xq** (ej: *xq crear una nueva vista*) para generar una tarea de c??digo y ejecutar el pipeline aut??nomo."
+                            "🎙️ **GoalChain Humans-0 Voice Bot (Dual Chat/Intake) 🎤**\n\n"
+                            "- Envía un mensaje de voz o texto normal para chatear conmigo (usando Hermes en el VPS).\n"
+                            "- Empieza tu mensaje de voz o texto con **xq** (ej: *xq crear una nueva vista*) para generar una tarea de código y ejecutar el pipeline autónomo."
                         )
                         send_message(chat_id, help_msg)
                     elif text.strip().lower().startswith("xq"):
                         # Process text as direct task ingestion
                         brief_path = create_intake_brief_from_voice(text)
-                        send_message(chat_id, f"???? **Text Brief Ingested!**\n\n???? **Brief:** `{os.path.basename(brief_path)}`\n??? Task enqueued autonomously. Worker started!")
+                        send_message(chat_id, f"📝 **Text Brief Ingested!**\n\n📁 **Brief:** `{os.path.basename(brief_path)}`\n⚡ Task enqueued autonomously. Worker started!")
                     else:
                         # Process as direct chat with Hermes
-                        send_message(chat_id, "??? *Hermes est?? procesando...*")
+                        send_message(chat_id, "⏳ *Hermes está procesando...*")
                         reply = chat_with_hermes(text, chat_id=chat_id)
                         send_message(chat_id, reply)
                         # Continuity follow-up listening prompt
-                        send_message(chat_id, "???? _Te escucho..._")
+                        send_message(chat_id, "🎤 _Te escucho..._")
                         
         except Exception as e:
             log(f"Exception in polling loop: {e}")
@@ -338,4 +380,3 @@ def main_loop():
 
 if __name__ == "__main__":
     main_loop()
-
