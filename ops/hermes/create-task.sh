@@ -2,9 +2,11 @@
 # Create a goalworld task issue from server with owner labels.
 set -euo pipefail
 
-HERMES_HOME="${HERMES_HOME:-$HOME/hermes}"
+# config.env lives at ~/hermes/config.env (symlink → /data/apps/hermes/config.env)
+# Do NOT use $HERMES_HOME — that's the Hermes Agent profile dir, not the ops dir.
+GOALWORLD_OPS_HOME="${GOALWORLD_OPS_HOME:-$HOME/hermes}"
 # shellcheck disable=SC1090
-source "$HERMES_HOME/config.env"
+source "$GOALWORLD_OPS_HOME/config.env"
 
 if [[ $# -lt 4 ]]; then
   echo "Usage: $0 <owner:cursor|antigravity|hermes|code|grok> <priority:P0|P1|P2> <title> <objective>"

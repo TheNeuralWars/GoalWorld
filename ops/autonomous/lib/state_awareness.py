@@ -338,7 +338,7 @@ class StateAwareness:
             # Search body_preview for TODO/FIXME
             try:
                 rows = db.execute(
-                    "SELECT name, file_path, start_line, body_preview FROM symbols "
+                    "SELECT name, file_path, start_line, body_preview, docstring FROM symbols "
                     "WHERE body_preview LIKE '%TODO%' OR body_preview LIKE '%FIXME%' "
                     "OR docstring LIKE '%TODO%' OR docstring LIKE '%FIXME%' LIMIT 50"
                 ).fetchall()

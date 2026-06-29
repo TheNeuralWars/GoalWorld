@@ -165,10 +165,9 @@ class CodebaseBrain:
             CREATE INDEX IF NOT EXISTS idx_symbols_package ON symbols(package);
 
             CREATE VIRTUAL TABLE IF NOT EXISTS symbols_fts USING fts5(
-                name, qualified_name, kind, docstring, body_preview, package,
-                content='symbols', content_rowid='id'
+                name, qualified_name, kind, docstring, body_preview, package
+                /* Standalone FTS5 (stores own content) — avoids contentless sync issues */
             );
-
             CREATE TABLE IF NOT EXISTS dependencies (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 source_file TEXT NOT NULL,
@@ -195,9 +194,9 @@ class CodebaseBrain:
         log(f"Starting {'forced ' if force else ''}reindex of {self.repo_root}")
         start = datetime.now(timezone.utc)
 
-        # Clear existing data
-        self.db.executescript("DELETE FROM symbols; DELETE FROM files; DELETE FROM dependencies;")
+        # Clear existing data (FTS first, then symbols — contentless-safe order)
         self.db.execute("DELETE FROM symbols_fts;")
+        self.db.executescript("DELETE FROM symbols; DELETE FROM files; DELETE FROM dependencies;")
         self.db.commit()
 
         total_files = 0
@@ -524,14 +523,27 @@ class CodebaseBrain:
         # Use OR for multi-word queries to maximize recall
         fts_query = ' OR '.join(safe_query.split())
         rows = self.db.execute(
-            "SELECT s.id, s.name, s.qualified_name, s.kind, s.file_path, s.start_line, "
-            "s.end_line, s.package, s.docstring, bm25(symbols_fts) as score "
-            "FROM symbols_fts f JOIN symbols s ON f.rowid = s.id "
+            "SELECT f.rowid as id, f.name, f.qualified_name, f.kind, f.docstring, "
+            "f.body_preview, f.package, bm25(symbols_fts) as score "
+            "FROM symbols_fts f "
             "WHERE symbols_fts MATCH ? "
             "ORDER BY score LIMIT ?",
             (fts_query, limit)
         ).fetchall()
-        return [dict(r) for r in rows]
+        # Enrich with file_path and line numbers from symbols table
+        results = []
+        for r in rows:
+            d = dict(r)
+            sym = self.db.execute(
+                "SELECT file_path, start_line, end_line FROM symbols WHERE id = ?",
+                (d['id'],)
+            ).fetchone()
+            if sym:
+                d['file_path'] = sym['file_path']
+                d['start_line'] = sym['start_line']
+                d['end_line'] = sym['end_line']
+            results.append(d)
+        return results
 
     def semantic_search(self, query, limit=10):
         """TF-IDF cosine similarity search."""
