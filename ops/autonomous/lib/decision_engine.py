@@ -21,6 +21,7 @@ import os
 import sys
 import json
 import sqlite3
+import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
 from collections import defaultdict
@@ -315,23 +316,65 @@ class DecisionEngine:
         db.row_factory = sqlite3.Row
         symbols = []
 
-        # FTS search
+        # FTS search (standalone table — no JOIN needed)
         try:
-            safe = query.replace("'", " ").replace('"', ' ')
-            rows = db.execute(
-                "SELECT s.name, s.kind, s.file_path, s.start_line, s.package, s.docstring "
-                "FROM symbols_fts f JOIN symbols s ON f.rowid = s.id "
-                "WHERE symbols_fts MATCH ? "
-                "ORDER BY bm25(symbols_fts) LIMIT 10",
-                (safe,)
-            ).fetchall()
-            symbols = [dict(r) for r in rows]
+            import re as _re
+            safe = _re.sub(r'[^\w\s]', ' ', query).strip()
+            if safe:
+                fts_query = ' OR '.join(safe.split())
+                rows = db.execute(
+                    "SELECT f.rowid as id, f.name, f.kind, f.docstring, f.package "
+                    "FROM symbols_fts f "
+                    "WHERE symbols_fts MATCH ? "
+                    "ORDER BY bm25(symbols_fts) LIMIT 10",
+                    (fts_query,)
+                ).fetchall()
+                # Enrich with file_path and line numbers
+                for r in rows:
+                    d = dict(r)
+                    sym = db.execute(
+                        "SELECT file_path, start_line FROM symbols WHERE id = ?",
+                        (d['id'],)
+                    ).fetchone()
+                    if sym:
+                        d['file_path'] = sym['file_path']
+                        d['start_line'] = sym['start_line']
+                    symbols.append(d)
         except Exception:
             pass
         finally:
             db.close()
 
+        # Also query GBrain for institutional memory (if available)
+        gbrain_context = self._query_gbrain(query)
+        if gbrain_context:
+            # Add GBrain pages as virtual "symbols" for decomposition context
+            for page in gbrain_context[:3]:
+                symbols.append({
+                    'name': page.get('title', 'gbrain-page'),
+                    'kind': 'gbrain-memory',
+                    'file_path': f"gbrain://{page.get('slug', '')}",
+                    'start_line': 0,
+                    'package': 'gbrain',
+                    'docstring': page.get('snippet', '')[:200],
+                })
+
         return symbols
+
+    def _query_gbrain(self, query):
+        """Query GBrain for institutional memory relevant to a task."""
+        try:
+            result = subprocess.run(
+                ['gbrain', 'query', query, '--limit', '5', '--format', 'json'],
+                capture_output=True, text=True, timeout=10,
+                env={**os.environ, 'GBRAIN_HOME': str(Path.home() / '.gbrain')}
+            )
+            if result.returncode == 0 and result.stdout:
+                data = json.loads(result.stdout)
+                return data.get('results', [])
+        except Exception:
+            pass
+        return []
 
     def _auto_decompose(self, title, rationale, context_symbols):
         """

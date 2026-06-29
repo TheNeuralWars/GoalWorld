@@ -131,7 +131,8 @@ class CodebaseBrain:
     def _init_db(self):
         self.db = sqlite3.connect(str(self.db_path))
         self.db.row_factory = sqlite3.Row
-        self.db.execute("PRAGMA journal_mode=WAL")
+        # Use DELETE journal mode (not WAL) so external readers see committed data immediately
+        self.db.execute("PRAGMA journal_mode=DELETE")
         self.db.execute("PRAGMA synchronous=NORMAL")
         self.db.executescript("""
             CREATE TABLE IF NOT EXISTS files (
