@@ -571,4 +571,77 @@ No (direct application)
 
 ---
 
-*All answers prepared by Manager — 2026-06-28*
+## 13. NVIDIA Inception — Application Answers (NEW)
+
+**URL:** https://www.nvidia.com/en-us/startups/apply/
+**Login:** NVIDIA developer account
+
+### Company Name
+```
+GoalWorld
+```
+
+### Company Website
+```
+https://goalworld.fun
+```
+
+### What does your company do?
+```
+GoalWorld is the world's first SportsFi Protocol on Solana, built to capture the 5 billion fan base of the 2026 FIFA World Cup. We transform passive football spectators into Professional Player Agents and Sports Traders.
+
+Our platform features 528 real football players minted as high-fidelity NFTs (Genesis Squad), powered by the Infinity Engine — a "Zero Value Loss" economic model where 100% of NFT sales revenue is deposited into liquid staking protocols (JitoSOL, mSOL). The yield automatically buys back and burns our $GCH token.
+```
+
+### What AI use case does your startup have?
+```
+We run a 24/7 autonomous AI agent infrastructure (Hermes) that:
+1. Generates daily video marketing content (TikTok, Instagram Reels, YouTube Shorts) using LLMs (Grok, Nemotron) for narrative generation, TTS for voice, and AI-generated visuals
+2. Monitors on-chain Solana data and API health autonomously
+3. Makes development decisions via a 5-layer autonomous loop (codebase understanding, state awareness, decision engine, self-improvement, continuous operation)
+4. Processes real-time sports data and converts it into blockchain interactions
+
+Our AI pipeline uses NVIDIA NIM models (Nemotron-3-Ultra/Super) for code generation and content creation. We need GPU compute for video rendering, LLM inference, and image generation at scale.
+```
+
+### What stage is your startup?
+```
+Early stage — Pre-revenue, pre-seed. Devnet MVP live. Mainnet launch Q3 2026.
+```
+
+### What NVIDIA technologies are you interested in?
+```
+- NVIDIA NIM (we already use Nemotron models via NVIDIA API)
+- DGX Cloud for LLM fine-tuning and video rendering
+- CUDA for on-chain data processing
+- TensorRT for inference optimization
+- NVIDIA Omniverse for potential 3D NFT visualization
+```
+
+### How will you use NVIDIA credits/hardware?
+```
+1. GPU compute for video rendering pipeline (daily 9:16 video generation)
+2. LLM inference for autonomous content generation (currently using NVIDIA NIM)
+3. Image generation for NFT artwork and marketing assets
+4. Fine-tuning models on Solana blockchain data for prediction accuracy
+5. Training custom models for sports data analysis
+```
+
+### Funding Stage
+```
+Pre-seed (self-funded)
+```
+
+### Year Founded
+```
+2025
+```
+
+### Number of Employees
+```
+2-10
+```
+
+---
+
+*All answers prepared by Manager — 2026-06-28. NVIDIA Inception answers added 2026-06-29.*

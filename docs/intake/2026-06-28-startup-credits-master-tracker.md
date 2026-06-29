@@ -88,10 +88,20 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 | ☐ | Microsoft account |
 | ☐ | Company website (✅) |
 | ☐ | Privately held company |
-| ☐ | < $10M in funding |
+| ☐ | < $10M funding |
 | ☐ | Building a software product (✅) |
 | **Key benefit** | $150k Azure credits + OpenAI/Azure AI access + GitHub Enterprise + Microsoft 365 + go-to-market support + technical support |
 | **Strategy** | Apply immediately. Highlight AI agent infrastructure (Hermes) and potential for Azure OpenAI integration. |
+| **Status** | 🔲 NOT STARTED |
+
+### 3b. NVIDIA Inception (NEW — verified 2026-06-29)
+| Field | Detail |
+|-------|--------|
+| **Credits** | Free cloud credits from NVIDIA + partners + preferred hardware pricing + DGX Cloud access + VC network exposure |
+| **URL** | https://www.nvidia.com/en-us/startups/apply/ |
+| **Requirements** | AI startup (prototype to production), free to apply |
+| **Key benefit** | Cloud credits + hardware discounts + training + go-to-market support + Inception Capital Connect (VC intros) |
+| **Strategy** | GoalWorld qualifies (Hermes AI agents, autonomous content pipeline, AI/ML workloads). Apply immediately — zero cost, high value. |
 | **Status** | 🔲 NOT STARTED |
 
 ---
@@ -274,6 +284,7 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 | 1 | AWS Activate | 🔲 Not started | | | $100k | Answers ready in application-answers.md |
 | 2 | Google for Startups | 🔲 Not started | | | $350k | Answers ready. Biggest priority. |
 | 3 | MS Founders Hub | 🔲 Not started | | | $150k | Answers ready. Fast approval. |
+| 3b | NVIDIA Inception | 🔲 Not started | | | Cloud credits+HW | Answers ready. Already use NIM. |
 | 4 | Vercel Startup | 🔲 Not started | | | Pro free | Already using Vercel |
 | 5 | Supabase | 🔲 Not started | | | $500 | |
 | 6 | Notion | 🔲 Not started | | | 1yr free | |
