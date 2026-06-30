@@ -1,24 +1,28 @@
-// Config instructions
 use anchor_lang::prelude::*;
-use crate::state::config::GlobalConfig;
-use crate::errors::goalworldError;
+use crate::errors::GoalWorldError;
 use crate::constants::{MAX_FEE_BPS, BPS_DENOMINATOR, DEFAULT_FEE_BURN_BPS, DEFAULT_FEE_JACKPOT_BPS};
+use crate::InitializeConfig;
+use crate::UpdateConfig;
 
-pub fn initialize_config(ctx: Context<InitializeConfig>, oracle_authority: Pubkey, treasury_token_account: Pubkey, jackpot_token_account: Pubkey, fee_bps: u16, cutoff_buffer_seconds: i64, max_sol_per_user: u64, presale_active: bool) -> Result<()> {
-    require!(fee_bps <= MAX_FEE_BPS, goalworldError::InvalidConfig);
-    require!(cutoff_buffer_seconds >= 0, goalworldError::InvalidConfig);
-    require!(
-        cutoff_buffer_seconds <= 24 * 60 * 60,
-        goalworldError::InvalidConfig
-    );
-    require!(max_sol_per_user > 0, goalworldError::InvalidConfig);
+pub fn initialize_config(
+    ctx: Context<InitializeConfig>,
+    oracle_authority: Pubkey,
+    treasury_token_account: Pubkey,
+    jackpot_token_account: Pubkey,
+    fee_bps: u16,
+    cutoff_buffer_seconds: i64,
+    max_sol_per_user: u64,
+    presale_active: bool,
+) -> Result<()> {
+    require!(fee_bps <= MAX_FEE_BPS, GoalWorldError::InvalidFee);
+    require!(cutoff_buffer_seconds >= 0, GoalWorldError::InvalidConfig);
+    require!(cutoff_buffer_seconds <= 24 * 60 * 60, GoalWorldError::InvalidConfig);
+    require!(max_sol_per_user > 0, GoalWorldError::InvalidConfig);
+
     let fee_stream_bps = (DEFAULT_FEE_BURN_BPS as u32)
         .checked_add(DEFAULT_FEE_JACKPOT_BPS as u32)
-        .ok_or(goalworldError::MathOverflow)?;
-    require!(
-        fee_stream_bps <= BPS_DENOMINATOR as u32,
-        goalworldError::InvalidConfig
-    );
+        .ok_or(GoalWorldError::MathOverflow)?;
+    require!(fee_stream_bps <= BPS_DENOMINATOR as u32, GoalWorldError::InvalidConfig);
 
     let cfg = &mut ctx.accounts.config;
     cfg.admin = ctx.accounts.admin.key();
@@ -36,21 +40,25 @@ pub fn initialize_config(ctx: Context<InitializeConfig>, oracle_authority: Pubke
     Ok(())
 }
 
-pub fn update_config(ctx: Context<UpdateConfig>, oracle_authority: Pubkey, treasury_token_account: Pubkey, jackpot_token_account: Pubkey, fee_bps: u16, cutoff_buffer_seconds: i64, max_sol_per_user: u64, presale_active: bool) -> Result<()> {
-    require!(fee_bps <= MAX_FEE_BPS, goalworldError::InvalidConfig);
-    require!(cutoff_buffer_seconds >= 0, goalworldError::InvalidConfig);
-    require!(
-        cutoff_buffer_seconds <= 24 * 60 * 60,
-        goalworldError::InvalidConfig
-    );
-    require!(max_sol_per_user > 0, goalworldError::InvalidConfig);
+pub fn update_config(
+    ctx: Context<UpdateConfig>,
+    oracle_authority: Pubkey,
+    treasury_token_account: Pubkey,
+    jackpot_token_account: Pubkey,
+    fee_bps: u16,
+    cutoff_buffer_seconds: i64,
+    max_sol_per_user: u64,
+    presale_active: bool,
+) -> Result<()> {
+    require!(fee_bps <= MAX_FEE_BPS, GoalWorldError::InvalidConfig);
+    require!(cutoff_buffer_seconds >= 0, GoalWorldError::InvalidConfig);
+    require!(cutoff_buffer_seconds <= 24 * 60 * 60, GoalWorldError::InvalidConfig);
+    require!(max_sol_per_user > 0, GoalWorldError::InvalidConfig);
+
     let fee_stream_bps = (ctx.accounts.config.fee_burn_bps as u32)
         .checked_add(ctx.accounts.config.fee_jackpot_bps as u32)
-        .ok_or(goalworldError::MathOverflow)?;
-    require!(
-        fee_stream_bps <= BPS_DENOMINATOR as u32,
-        goalworldError::InvalidConfig
-    );
+        .ok_or(GoalWorldError::MathOverflow)?;
+    require!(fee_stream_bps <= BPS_DENOMINATOR as u32, GoalWorldError::InvalidConfig);
 
     let cfg = &mut ctx.accounts.config;
     cfg.oracle_authority = oracle_authority;

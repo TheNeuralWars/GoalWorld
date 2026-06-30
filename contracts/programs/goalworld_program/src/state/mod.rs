@@ -14,6 +14,8 @@ pub mod vault;
 pub mod stake_pool;
 pub mod reward_pool;
 pub mod contributor;
+pub mod wager;
+pub mod user_bet;
 
 // Re-export all account structs
 pub use config::GlobalConfig;
@@ -21,10 +23,12 @@ pub use builder_fund::{
     BuilderFund, ContributorScore, BuilderContributorEpoch,
     EpochContributorSnapshot, EpochContributorClaim, BuilderFundBucket,
 };
-pub use fixture::{Fixture, MatchStatus, MatchResult, UserBet};
+pub use fixture::{Fixture, MatchStatus, MatchResult};
 pub use live_state::LiveMatchState;
 pub use market::{Market, MarketType, MarketStatus};
 pub use position::MarketPosition;
+pub use user_bet::UserBet;
+pub use wager::{Wager, WagerState};
 pub use player::{ParodyPlayer, RentalListing};
 pub use player_match::PlayerMatchRecord;
 pub use stake_pool::UserStake;

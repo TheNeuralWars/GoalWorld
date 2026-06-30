@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use crate::constants::{SEED_STAKE, SEED_STAKE_VAULT};
+use crate::constants::SEED_STAKE;
 
 #[account]
 #[derive(InitSpace)]

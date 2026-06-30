@@ -12,6 +12,8 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 
 **Total addressable credits: $500k–$600k+** across cloud + SaaS.
 
+**Email blocker: RESOLVED** — nico@goalworld.fun now active via Cloudflare Email Routing (MX, SPF, DMARC all configured).
+
 ---
 
 ## 🏢 Company Profile (use across all applications)
@@ -47,7 +49,7 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 | **Credits** | Up to $100,000 (Founders tier) or $1,000 (Portfolio tier) |
 | **Validity** | 2 years |
 | **Timeline** | 5–7 business days review |
-| **Apply URL** | https://aws.amazon.com/activate/apply/ |
+| **Apply URL** | https://startups.aws.com/join?destination=%2Fcredits%2Fapply |
 | **Login** | AWS Builder ID → fill profile → apply |
 | **Requirements** | |
 | ☐ | AWS account (free tier) |
@@ -83,7 +85,7 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 | **Credits** | Up to $150,000 USD in Azure credits |
 | **Validity** | Up to 4 years (staged) |
 | **Timeline** | Rolling admission, ~1-2 weeks |
-| **Apply URL** | https://foundershub.startup.microsoft.com/ (or https://startups.microsoft.com/) |
+| **Apply URL** | https://www.microsoft.com/en-us/startups (Founders Hub: https://foundershub.startup.microsoft.com/) |
 | **Requirements** | |
 | ☐ | Microsoft account |
 | ☐ | Company website (✅) |
@@ -98,7 +100,7 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 | Field | Detail |
 |-------|--------|
 | **Credits** | Free cloud credits from NVIDIA + partners + preferred hardware pricing + DGX Cloud access + VC network exposure |
-| **URL** | https://www.nvidia.com/en-us/startups/apply/ |
+| **Apply URL** | https://www.nvidia.com/en-us/startups/ (apply: https://programs.nvidia.com/phoenix/application) |
 | **Requirements** | AI startup (prototype to production), free to apply |
 | **Key benefit** | Cloud credits + hardware discounts + training + go-to-market support + Inception Capital Connect (VC intros) |
 | **Strategy** | GoalWorld qualifies (Hermes AI agents, autonomous content pipeline, AI/ML workloads). Apply immediately — zero cost, high value. |
@@ -129,7 +131,7 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 | Field | Detail |
 |-------|--------|
 | **Credits** | Supabase Team plan free for 1 year + $500 credits |
-| **Apply URL** | https://supabase.com/startups |
+| **Apply URL** | https://supabase.com/solutions/startups |
 | **Requirements** | < $5M funding, building on Supabase |
 | **Status** | 🔲 NOT STARTED |
 
@@ -171,7 +173,7 @@ GoalWorld qualifies for multiple startup credit programs as a **pre-revenue, ear
 | Field | Detail |
 |-------|--------|
 | **Credits** | PostHog free for 1 year + $50k credits |
-| **Apply URL** | https://posthog.com/startups |
+| **Apply URL** | https://us.posthog.com/startup-program (requires login) |
 | **Requirements** | < $5M funding, < 50 employees |
 | **Status** | 🔲 NOT STARTED |
 

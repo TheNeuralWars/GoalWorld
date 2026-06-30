@@ -1,15 +1,138 @@
 {
-  "cycle_count": 12,
-  "last_cycle": "2026-06-29T00:27:10Z",
+  "cycle_count": 83,
+  "last_cycle": "2026-06-30T11:53:10Z",
   "last_index": "2026-06-29T00:26:47Z",
   "dispatched_tasks": [
+    {
+      "task_id": "rust-compile-fail",
+      "title": "Rust program does not compile",
+      "priority": "P0",
+      "issue_url": "https://github.com/TheNeuralWars/GoalWorld/issues/3",
+      "dispatched_at": "2026-06-29T23:52:32Z",
+      "status": "pending",
+      "decomposition": {
+        "task": "Rust program does not compile",
+        "rationale": "Contracts do not compile \u2014 blocks all on-chain work",
+        "context": "tests.rust",
+        "relevant_symbols": [
+          {
+            "id": 4381,
+            "name": "enerate_backlog(s",
+            "kind": "function_definition",
+            "docstring": "",
+            "package": "ops",
+            "file_path": "ops/autonomous/lib/state_awareness.py",
+            "start_line": 389
+          },
+          {
+            "id": 5409,
+            "name": "test_dry_run_does_not_call_dispatch",
+            "kind": "function_definition",
+            "docstring": "",
+            "package": "ops",
+            "file_path": "ops/goalchain-multiagent/tests/test_fcc_dispatch.py",
+            "start_line": 90
+          },
+          {
+            "id": 4339,
+            "name": "tests",
+            "kind": "assignment",
+            "docstring": "",
+            "package": "ops",
+            "file_path": "ops/autonomous/lib/state_awareness.py",
+            "start_line": 159
+          },
+          {
+            "id": 4338,
+            "name": "_scan_tests",
+            "kind": "function_definition",
+            "docstring": "",
+            "package": "ops",
+            "file_path": "ops/autonomous/lib/state_awareness.py",
+            "start_line": 156
+          },
+          {
+            "id": 1562,
+            "name": "ion\" / \"out",
+            "kind": "assignment",
+            "docstring": "",
+            "package": "scripts",
+            "file_path": "scripts/video_automation/long_video_generator.py",
+            "start_line": 177
+          },
+          {
+            "id": 5107,
+            "name": "--force\\b|\\bgi",
+            "kind": "assignment",
+            "docstring": "",
+            "package": "ops",
+            "file_path": "ops/goalchain-multiagent/goalchain_multiagent/player_quorum.py",
+            "start_line": 29
+          },
+          {
+            "id": 5408,
+            "name": "TestRunDispatchCycle",
+            "kind": "class_definition",
+            "docstring": "# ---------------------------------------------------------------------------",
+            "package": "ops",
+            "file_path": "ops/goalchain-multiagent/tests/test_fcc_dispatch.py",
+            "start_line": 89
+          },
+          {
+            "id": 4528,
+            "name": "erns = [",
+            "kind": "assignment",
+            "docstring": "",
+            "package": "ops",
+            "file_path": "ops/autonomous/lib/self_improvement.py",
+            "start_line": 167
+          },
+          {
+            "id": 4656,
+            "name": "pt()),\n  ",
+            "kind": "assignment",
+            "docstring": "",
+            "package": "ops",
+            "file_path": "ops/autonomous/lib/codebase_brain.py",
+            "start_line": 51
+          },
+          {
+            "id": 3238,
+            "name": "_MENTION_RE",
+            "kind": "assignment",
+            "docstring": "",
+            "package": "ops",
+            "file_path": "ops/hermes/__init__.py",
+            "start_line": 19
+          }
+        ],
+        "subtasks": [
+          {
+            "step": 1,
+            "action": "Analyze requirements",
+            "detail": "Understand what needs to be done"
+          },
+          {
+            "step": 2,
+            "action": "Implement solution",
+            "detail": "Follow existing patterns"
+          },
+          {
+            "step": 3,
+            "action": "Verify result",
+            "detail": "Test and validate"
+          }
+        ],
+        "timestamp": "2026-06-29T23:52:30Z"
+      }
+    },
     {
       "task_id": "deploy-api-down",
       "title": "api deploy is unhealthy",
       "priority": "P0",
       "issue_url": "https://github.com/TheNeuralWars/GoalWorld/issues/1",
       "dispatched_at": "2026-06-28T22:55:37Z",
-      "status": "pending",
+      "status": "stale",
       "decomposition": {
         "task": "api deploy is unhealthy",
         "rationale": "api at https://crm.goalworld.fun/goalworld-api/health is down or erroring",
@@ -38,7 +161,8 @@
           }
         ],
         "timestamp": "2026-06-28T22:55:36Z"
-      }
+      },
+      "stale_at": "2026-06-29T23:22:27Z"
     },
     {
       "task_id": "rust-compile-fail",
@@ -46,7 +170,7 @@
       "priority": "P0",
       "issue_url": "https://github.com/TheNeuralWars/GoalWorld/issues/2",
       "dispatched_at": "2026-06-28T23:20:55Z",
-      "status": "pending",
+      "status": "stale",
       "decomposition": {
         "task": "Rust program does not compile",
         "rationale": "Contracts do not compile \u2014 blocks all on-chain work",
@@ -79,7 +203,8 @@
           }
         ],
         "timestamp": "2026-06-28T23:20:54Z"
-      }
+      },
+      "stale_at": "2026-06-29T23:22:28Z"
     }
   ],
   "consecutive_failures": {},

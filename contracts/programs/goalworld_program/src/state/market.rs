@@ -1,19 +1,25 @@
 use anchor_lang::prelude::*;
-use crate::constants::{SEED_MARKET, SEED_MARKET_VAULT};
+use crate::constants::SEED_MARKET;
 
-#[derive(AnchorSerialize, AnchorDeserialize, Clone, Copy, PartialEq, Eq, InitSpace)]
+#[derive(AnchorSerialize, AnchorDeserialize, Clone, Copy, PartialEq, Eq, InitSpace, Debug)]
 pub enum MarketType {
     MatchResultLive,
     NextGoal,
     Custom,
 }
 
-#[derive(AnchorSerialize, AnchorDeserialize, Clone, PartialEq, Eq, InitSpace)]
+#[derive(AnchorSerialize, AnchorDeserialize, Clone, Copy, PartialEq, Eq, InitSpace, Debug)]
 pub enum MarketStatus {
     Open,
     Closed,
     Resolved,
     Cancelled,
+}
+
+impl std::fmt::Display for MarketStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self)
+    }
 }
 
 #[account]

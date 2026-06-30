@@ -1,5 +1,13 @@
 [
   {
+    "id": "rust-compile-fail",
+    "title": "Rust program does not compile",
+    "category": "bug",
+    "priority_score": 100,
+    "rationale": "Contracts do not compile \u2014 blocks all on-chain work",
+    "source": "tests.rust"
+  },
+  {
     "id": "deploy-api-down",
     "title": "api deploy is unhealthy",
     "category": "ops",
@@ -9,7 +17,7 @@
   },
   {
     "id": "git-dirty",
-    "title": "17 uncommitted changes on main",
+    "title": "33 uncommitted changes on main",
     "category": "hygiene",
     "priority_score": 40,
     "rationale": "Working tree has many uncommitted changes",

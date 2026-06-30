@@ -1,5 +1,18 @@
 [
   {
+    "id": "rust-compile-fail",
+    "title": "Rust program does not compile",
+    "category": "bug",
+    "rationale": "Contracts do not compile \u2014 blocks all on-chain work",
+    "priority_score": 100,
+    "strategic_objectives": [
+      "economy",
+      "merge-stack"
+    ],
+    "source": "tests.rust",
+    "dispatch_ready": true
+  },
+  {
     "id": "deploy-api-down",
     "title": "api deploy is unhealthy",
     "category": "ops",
@@ -50,7 +63,7 @@
     "id": "proactive-commit",
     "title": "Commit and push uncommitted changes",
     "category": "hygiene",
-    "rationale": "17 uncommitted changes on main",
+    "rationale": "33 uncommitted changes on main",
     "priority_score": 45,
     "strategic_objectives": [
       "merge-stack"
@@ -70,7 +83,7 @@
   },
   {
     "id": "git-dirty",
-    "title": "17 uncommitted changes on main",
+    "title": "33 uncommitted changes on main",
     "category": "hygiene",
     "rationale": "Working tree has many uncommitted changes",
     "priority_score": 37.0,
