@@ -27,6 +27,7 @@ try:
     from hashtag_researcher import choose as choose_hashtags  # type: ignore
     from quality_scorer import score_run as score_quality  # type: ignore
     import captions_burnin as captions_burnin_module  # type: ignore
+    from brand_safety import check_image as check_brand_safety  # type: ignore
     MARKETING_STACK_AVAILABLE = True
 except ImportError as _me:
     pick_variants = None  # type: ignore
@@ -35,6 +36,7 @@ except ImportError as _me:
     choose_hashtags = None  # type: ignore
     score_quality = None  # type: ignore
     captions_burnin_module = None  # type: ignore
+    check_brand_safety = None  # type: ignore
     MARKETING_STACK_AVAILABLE = False
     print(f"[Aviso] módulos de marketing no disponibles: {_me}")
 
@@ -824,6 +826,22 @@ def run_pipeline(topic: str, account_name: str, run_id: str, auto_topic: bool = 
     img_url = f"https://api.goalworld.fun/pilot/{img_name}"
     print(f"Imagen lista en pilot: {img_url}")
     update_run_state(run_id, {"image_url": img_url})
+
+    # ── 3b. Brand-safety verification (Face Similarity check) ──
+    if MARKETING_STACK_AVAILABLE and check_brand_safety is not None:
+        try:
+            raw_img_path = Path("/home/ubuntu/scratch/grok_batches/batch_01/outputs") / img_name
+            safety_result = check_brand_safety(raw_img_path)
+            print(f"[BrandSafety] Verdict: {safety_result}")
+            update_run_state(run_id, {"brand_safety": safety_result})
+            if safety_result.get("status") == "blocked":
+                raise RuntimeError(
+                    f"Brand Safety blocked this run: {safety_result.get('reason')}"
+                )
+        except RuntimeError:
+            raise
+        except Exception as _e:
+            print(f"[Aviso] brand safety check falló: {_e}")
     
     if not _cost_guard_check_and_increment("video-generation"):
         raise RuntimeError(

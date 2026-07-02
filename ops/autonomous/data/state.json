@@ -1,11 +1,12 @@
 {
-  "timestamp": "2026-07-02T03:56:15Z",
+  "timestamp": "2026-07-02T05:56:18Z",
   "git": {
     "branch": "main",
     "dirty": true,
     "uncommitted": 8,
     "stale_branches": [],
     "recent_commits": [
+      "22bbcb4 chore: complete typescript and webapp compilation sync",
       "968503b chore: sync code updates and test configurations",
       "be4d493 feat/security: implement full MoA audit fixes (C1-H4, M1-M5, L1-L3) & rebrand docs",
       "9c45b46 feat(credits): add NVIDIA Inception to startup credits tracker + application answers",
@@ -14,8 +15,7 @@
       "81926c6 fix(autonomous): fix 4 bugs blocking 5-layer autonomous loop",
       "543bebe feat: autonomous 5-layer agent system (codebase brain, state awareness, decision engine, self-improvement, continuous loop)",
       "dc4dfcd docs: add Open Graph + Twitter Card meta tags for social previews",
-      "5b8e58c docs: add MongoDB + HubSpot application answers (12 programs total)",
-      "213a643 docs: add MongoDB+HubSpot programs, executive summary one-pager"
+      "5b8e58c docs: add MongoDB + HubSpot application answers (12 programs total)"
     ],
     "ahead_behind": {
       "behind_origin": 0,
@@ -76,13 +76,13 @@
       "url": "https://play.goalworld.fun",
       "status_code": 200,
       "healthy": true,
-      "response_time_ms": 501
+      "response_time_ms": 165
     },
     "marketing": {
       "url": "https://goalworld.fun",
       "status_code": 200,
       "healthy": true,
-      "response_time_ms": 399
+      "response_time_ms": 165
     }
   },
   "onchain": {
@@ -92,7 +92,7 @@
   "issues": {
     "open_issues": [
       {
-        "createdAt": "2026-07-02T00:56:43Z",
+        "createdAt": "2026-07-02T04:56:37Z",
         "labels": [
           {
             "id": "LA_kwDOTHHeZ88AAAACpVLvNg",
@@ -119,9 +119,9 @@
             "color": "8b5cf6"
           }
         ],
-        "number": 5,
+        "number": 6,
         "title": "[AUTO] Rust program does not compile",
-        "updatedAt": "2026-07-02T00:56:43Z"
+        "updatedAt": "2026-07-02T04:56:37Z"
       }
     ],
     "open_prs": [],
