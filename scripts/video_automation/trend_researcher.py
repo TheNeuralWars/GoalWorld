@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(BASE_DIR / "scripts" / "video_automation"))
 from config import ACCOUNTS
+from script_generator import call_llm
 
 RUNS_FILE = BASE_DIR / "data" / "marketing_pipeline" / "runs.json"
 
@@ -59,6 +60,12 @@ def get_research_prompt(account_name: str, niche: str, count: int = 5, recent_to
     if recent_topics:
         avoid_str = f"\n    EVITA ESTOS TEMAS (ya fueron cubiertos recientemente): {', '.join(recent_topics[:8])}\n"
     
+    handle_mapping = {
+        "NicoPezDorado": "@goalchain (TikTok oficial de NicoPez)",
+        "goalworldSol": "@GoalChainSOL (Twitter oficial e institucional, y misma marca histórica para YouTube)"
+    }
+    actual_handle = handle_mapping.get(account_name, account_name)
+
     if account_name in ("goalworldSol", "NicoPezDorado"):
         focus = (
             f"Enfócate EXCLUSIVAMENTE en la Copa del Mundo FIFA 2026 y los jugadores que están participando. "
@@ -69,7 +76,7 @@ def get_research_prompt(account_name: str, niche: str, count: int = 5, recent_to
 
     return f"""
     Eres Hermes, el estratega de marketing y creador de contenido estrella de goalworld.
-    Tu tarea hoy es realizar un estudio de mercado y análisis de tendencias para planificar los próximos {count} videos cortos (9:16) para la cuenta "{account_name}" en el nicho: "{niche}".
+    Tu tarea hoy es realizar un estudio de mercado y análisis de tendencias para planificar los próximos {count} videos cortos (9:16) para la cuenta "{actual_handle}" en el nicho: "{niche}".
     
     Instrucciones específicas de contenido:
     {focus}
@@ -150,9 +157,8 @@ def research_and_queue():
         print(f"  Evitando temas recientes: {recent_topics[:5]}")
         prompt = get_research_prompt(account_name, details["niche"], count=5, recent_topics=recent_topics)
         
-        cmd = f"/home/ubuntu/.local/bin/grok --single {shlex.quote(prompt)}"
         try:
-            raw = ssh_run(cmd)
+            raw = call_llm(prompt, json_mode=True, skip_grok=True)
             json_match = re.search(r"\[\s*\{.*\}\s*\]", raw, re.DOTALL)
             if not json_match:
                 print(f"⚠️ No se pudo extraer array JSON de Grok para {account_name}. Intento alternativo buscando llaves...")

@@ -1,11 +1,12 @@
 {
-  "timestamp": "2026-07-02T05:56:18Z",
+  "timestamp": "2026-07-02T08:26:25Z",
   "git": {
     "branch": "main",
     "dirty": true,
-    "uncommitted": 8,
+    "uncommitted": 5,
     "stale_branches": [],
     "recent_commits": [
+      "722fc0c feat(marketing): implement production-ready Brand Safety check with InsightFace det & cos-sim blocker",
       "22bbcb4 chore: complete typescript and webapp compilation sync",
       "968503b chore: sync code updates and test configurations",
       "be4d493 feat/security: implement full MoA audit fixes (C1-H4, M1-M5, L1-L3) & rebrand docs",
@@ -14,8 +15,7 @@
       "e4edece fix: FTS5 contentless table bug + GBrain integration in decision engine",
       "81926c6 fix(autonomous): fix 4 bugs blocking 5-layer autonomous loop",
       "543bebe feat: autonomous 5-layer agent system (codebase brain, state awareness, decision engine, self-improvement, continuous loop)",
-      "dc4dfcd docs: add Open Graph + Twitter Card meta tags for social previews",
-      "5b8e58c docs: add MongoDB + HubSpot application answers (12 programs total)"
+      "dc4dfcd docs: add Open Graph + Twitter Card meta tags for social previews"
     ],
     "ahead_behind": {
       "behind_origin": 0,
@@ -76,13 +76,13 @@
       "url": "https://play.goalworld.fun",
       "status_code": 200,
       "healthy": true,
-      "response_time_ms": 165
+      "response_time_ms": 143
     },
     "marketing": {
       "url": "https://goalworld.fun",
       "status_code": 200,
       "healthy": true,
-      "response_time_ms": 165
+      "response_time_ms": 222
     }
   },
   "onchain": {
@@ -176,14 +176,6 @@
       "priority_score": 90,
       "rationale": "api at https://crm.goalworld.fun/goalworld-api/health is down or erroring",
       "source": "deploys.api"
-    },
-    {
-      "id": "git-dirty",
-      "title": "8 uncommitted changes on main",
-      "category": "hygiene",
-      "priority_score": 40,
-      "rationale": "Working tree has many uncommitted changes",
-      "source": "git"
     },
     {
       "id": "todo-docs/assets/js/marketplace.js-85",

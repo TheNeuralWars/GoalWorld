@@ -10,6 +10,7 @@ import re
 import argparse
 from pathlib import Path
 from datetime import datetime
+from typing import Optional
 
 # Base Directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -17,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Load configs
 sys.path.append(str(BASE_DIR / "scripts" / "video_automation"))
 from config import ACCOUNTS
+from script_generator import call_llm
 
 # Marketing smarts (added 2026-06-24 by Hermes Manager — Bloque C).
 # Each module is independently optional so a single missing import only
@@ -376,8 +378,8 @@ Selecciona UNO y construye la narrativa."""
     }}
     """
     
-    print(f"[{account_name}] Generando tema de tendencia de Mundial 2026 usando Grok CLI...")
-    raw = run_grok_with_prompt_file(prompt)
+    print(f"[{account_name}] Generando tema de tendencia de Mundial 2026 usando LLM conversacional...")
+    raw = call_llm(prompt, json_mode=True, skip_grok=True)
     
     json_match = re.search(r"\{.*\}", raw, re.DOTALL)
     if not json_match:
@@ -418,8 +420,8 @@ def generate_visual_prompts(topic: str, account_name: str, feedback_str: str) ->
     }}
     """
     
-    print(f"[{account_name}] Diseñando prompts creativos para: '{topic}'...")
-    raw = run_grok_with_prompt_file(prompt)
+    print(f"[{account_name}] Diseñando prompts creativos usando LLM conversacional para: '{topic}'...")
+    raw = call_llm(prompt, json_mode=True, skip_grok=True)
     
     json_match = re.search(r"\{.*\}", raw, re.DOTALL)
     if not json_match:
@@ -428,7 +430,56 @@ def generate_visual_prompts(topic: str, account_name: str, feedback_str: str) ->
     cleaned = json_match.group(0).strip()
     return normalize_prompts(json.loads(cleaned))
 
-def generate_image_on_vps(image_prompt: str) -> str:
+def get_nft_reference_for_topic(topic: str) -> Optional[str]:
+    """Search for matching player in players.json based on topic key match,
+    and returns its canonical composed_card/grok_jpg NFT url if found.
+    This forces Grok to reuse pre-existing goalworld NFT avatars.
+    """
+    try:
+        players_path = BASE_DIR / "docs/assets/data/players.json"
+        manifest_path = BASE_DIR / "docs/assets/data/nft_gallery_manifest.json"
+        
+        if not players_path.exists() or not manifest_path.exists():
+            return None
+            
+        with open(players_path, "r", encoding="utf-8") as f:
+            players = json.load(f)
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+            
+        topic_lower = topic.lower()
+        matched_id = None
+        
+        # Simple keywords filtering
+        for p in players:
+            pid = p.get("id")
+            name = p.get("name", "").lower()
+            real_name = p.get("real_name", "").lower()
+            
+            # Extract main components of name (e.g. "messi", "satoshi")
+            real_parts = [part for part in real_name.split() if len(part) > 2]
+            name_parts = [part for part in name.split() if len(part) > 2]
+            
+            # Check for overlaps
+            for part in real_parts + name_parts:
+                if part in topic_lower:
+                    matched_id = pid
+                    break
+            if matched_id:
+                break
+                
+        if matched_id:
+            # Locate composed_card/grok_jpg url from manifest
+            for item in manifest.get("players", []):
+                if item.get("id") == matched_id:
+                    urls = item.get("urls", {})
+                    return urls.get("composed_card") or urls.get("grok_jpg")
+                    
+    except Exception as e:
+        print(f"[BrandSafety/NFTLinker] Error locating NFT reference mapping: {e}")
+    return None
+
+def generate_image_on_vps(image_prompt: str, topic: str = "") -> str:
     """Generate image on host using Grok CLI and return its filename in pilot.
     Clears Grok image cache first to ensure each run gets a fresh, unique image.
     Uses a per-invocation session lock so concurrent pipeline runs don't
@@ -462,11 +513,14 @@ def generate_image_on_vps(image_prompt: str) -> str:
             pass
     
     print("Generando imagen de inicio en el host con Grok CLI...")
-    grok_prompt = f"Genera una imagen con el modelo de alta calidad (grok-imagine-image-quality): {image_prompt}"
+    nft_ref = get_nft_reference_for_topic(topic)
+    if nft_ref:
+        print(f"[NFTLinker] Linkeada imagen del NFT del jugador {nft_ref} para consistencia visual.")
+        grok_prompt = f"Genera una imagen con el modelo de alta calidad (grok-imagine-image-quality). Usa la cara, el estilo, el uniforme y la composición del jugador parodiado de referencia {nft_ref}: {image_prompt}"
+    else:
+        grok_prompt = f"Genera una imagen con el modelo de alta calidad (grok-imagine-image-quality): {image_prompt}"
     
     output = run_grok_with_prompt_file(grok_prompt)
-    
-    # Wait 1s to let mkdir/fs sync the new file
     time.sleep(1)
 
     copy_cmd = (
@@ -822,7 +876,7 @@ def run_pipeline(topic: str, account_name: str, run_id: str, auto_topic: bool = 
             f"Cost guard bloqueó la generación (límite {MAX_GROK_GENERATIONS_PER_DAY}/día)."
         )
     # 3. Image
-    img_name = generate_image_on_vps(prompts["image_prompt"])
+    img_name = generate_image_on_vps(prompts["image_prompt"], topic)
     img_url = f"https://api.goalworld.fun/pilot/{img_name}"
     print(f"Imagen lista en pilot: {img_url}")
     update_run_state(run_id, {"image_url": img_url})
