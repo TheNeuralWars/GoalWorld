@@ -100,7 +100,9 @@ The following Antigravity skills are mandatory references:
 1. **English-only on public surfaces** (Discord, X, Zealy, ads, docs marketing copy). Zero Spanish. Marketing generators and validators must enforce this.
 2. **Channel-overload discipline** — each info gets one channel; never cross-blast identical blocks. See `ops/discord/discord_channel_router.js` + `LAUNCH_CAMPAIGN_AGGRESSIVE.md`.
 3. **VPS-only writes** for `/data/apps/goalworld`. Local edits can happen for preview but deploys come from the VPS repo.
-4. **One implementer per task** — FCC pipeline via `oa-run-code.sh`, draft PRs only. Never merge to main unless the issue body has `cambio urgente`.
+4. **One implementer per task** — Hermes CEO (Nemotron-3-Ultra-free) pipeline via `oa-run-code.sh`, draft PRs only. Never merge to main unless the issue body has `cambio urgente`.
+
+5. **Code agent**: Only **Hermes CEO** (Nemotron-3-Ultra-free) implements issues. Legacy "Free Claude Code" references are obsolete and should be ignored.
 
 ---
 

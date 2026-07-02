@@ -1684,13 +1684,11 @@ describe("goalworld_program", () => {
       await program.methods
         .oracleCreateMarket(
           1, // market_id
-          { nextGoal: {} },
           new anchor.BN(0), // Sin delay (localnet clock no avanza con setTimeout)
           new anchor.BN(0), // Sin cooldown
           90, // Cierra en el minuto 90
           1, // Diferencia máxima de 1 gol
           true, // Requiere empate
-          betMint
         )
         .accounts({
           oracleAuthority: oracleAuthority.publicKey,
@@ -1706,7 +1704,6 @@ describe("goalworld_program", () => {
 
       const market = await program.account.market.fetch(marketPda);
       assert.deepEqual(market.status, { open: {} });
-      assert.deepEqual(market.marketType, { nextGoal: {} });
     });
 
     it("Permite a un usuario apostar en vivo sobre un mercado abierto", async () => {
@@ -1715,7 +1712,7 @@ describe("goalworld_program", () => {
 
       const [posPda] = PublicKey.findProgramAddressSync(
         [
-          Buffer.from("position"),
+          Buffer.from("market_position"),
           user1.publicKey.toBuffer(),
           marketPda.toBuffer(),
           ticketId.toArrayLike(Buffer, "le", 8),

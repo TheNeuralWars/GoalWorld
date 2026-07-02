@@ -5,8 +5,6 @@ use crate::OracleCreateMarket;
 pub fn handler(
     ctx: Context<OracleCreateMarket>,
     market_id: u8,
-    fixture: Pubkey,
-    token_mint: Pubkey,
     delay_seconds: i64,
     cooldown_seconds: i64,
     close_minute: u16,
@@ -14,11 +12,11 @@ pub fn handler(
     require_tied: bool,
 ) -> Result<()> {
     let market = &mut ctx.accounts.market;
-    market.fixture = fixture;
+    market.fixture = ctx.accounts.fixture.key();
     market.market_id = market_id;
     market.market_type = MarketType::MatchResultLive;
     market.status = MarketStatus::Open;
-    market.token_mint = token_mint;
+    market.token_mint = ctx.accounts.token_mint.key();
     market.delay_seconds = delay_seconds;
     market.cooldown_seconds = cooldown_seconds;
     market.close_minute = close_minute;

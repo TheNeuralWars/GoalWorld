@@ -22,8 +22,10 @@ pub fn handler(ctx: Context<ClaimMarketPayout>) -> Result<()> {
     let decimals = ctx.accounts.market_token_mint.decimals;
     let market_bump = market.bump;
     let market_id_bytes = market.market_id.to_le_bytes();
+    let fixture_key = market.fixture;
     let signer_seeds: &[&[&[u8]]] = &[&[
         b"market",
+        fixture_key.as_ref(),
         market_id_bytes.as_ref(),
         &[market_bump],
     ]];

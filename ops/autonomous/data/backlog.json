@@ -17,7 +17,7 @@
   },
   {
     "id": "git-dirty",
-    "title": "33 uncommitted changes on main",
+    "title": "15 uncommitted changes on main",
     "category": "hygiene",
     "priority_score": 40,
     "rationale": "Working tree has many uncommitted changes",

@@ -49,16 +49,16 @@ export async function createLiveMarket(
   const maxGoalDiff = input.maxGoalDiff ?? 1;
   const requireTied = input.requireTied ?? true;
 
+  // Updated signature: (market_id, delay_seconds, cooldown_seconds, close_minute, max_goal_diff, require_tied)
+  // fixture and token_mint are now accounts, not args
   const method = deps.program.methods
     .oracleCreateMarket(
       input.marketId,
-      toAnchorMarketType(input.marketType),
       new BN(input.delaySeconds),
       new BN(cooldownSeconds),
       input.closeMinute,
       maxGoalDiff,
       requireTied,
-      input.tokenMint,
     )
     .accounts({
       oracleAuthority: deps.wallet.publicKey,

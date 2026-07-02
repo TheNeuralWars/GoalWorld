@@ -115,15 +115,13 @@ pub mod goalworld {
     pub fn oracle_create_market(
         ctx: Context<OracleCreateMarket>,
         market_id: u8,
-        fixture: Pubkey,
-        token_mint: Pubkey,
         delay_seconds: i64,
         cooldown_seconds: i64,
         close_minute: u16,
         max_goal_diff: u8,
         require_tied: bool,
     ) -> Result<()> {
-        instructions::betting::live_markets::oracle_create_market::handler(ctx, market_id, fixture, token_mint, delay_seconds, cooldown_seconds, close_minute, max_goal_diff, require_tied)
+        instructions::betting::live_markets::oracle_create_market::handler(ctx, market_id, delay_seconds, cooldown_seconds, close_minute, max_goal_diff, require_tied)
     }
 
     pub fn oracle_update_market_status(
@@ -406,8 +404,6 @@ pub struct OracleUpsertLiveState<'info> {
 #[derive(Accounts)]
 #[instruction(
     market_id: u8,
-    fixture: Pubkey,
-    token_mint: Pubkey,
     delay_seconds: i64,
     cooldown_seconds: i64,
     close_minute: u16,
@@ -427,10 +423,13 @@ pub struct OracleCreateMarket<'info> {
         init,
         payer = oracle_authority,
         space = 8 + Market::INIT_SPACE,
-        seeds = [b"market", market_id.to_le_bytes().as_ref()],
+        seeds = [b"market", fixture.key().as_ref(), market_id.to_le_bytes().as_ref()],
         bump
     )]
     pub market: Account<'info, Market>,
+    pub fixture: Account<'info, Fixture>,
+    /// CHECK: Token mint address for the market's betting token
+    pub token_mint: Account<'info, Mint>,
     pub system_program: Program<'info, System>,
 }
 

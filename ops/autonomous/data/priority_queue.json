@@ -63,7 +63,7 @@
     "id": "proactive-commit",
     "title": "Commit and push uncommitted changes",
     "category": "hygiene",
-    "rationale": "33 uncommitted changes on main",
+    "rationale": "15 uncommitted changes on main",
     "priority_score": 45,
     "strategic_objectives": [
       "merge-stack"
@@ -83,7 +83,7 @@
   },
   {
     "id": "git-dirty",
-    "title": "33 uncommitted changes on main",
+    "title": "15 uncommitted changes on main",
     "category": "hygiene",
     "rationale": "Working tree has many uncommitted changes",
     "priority_score": 37.0,

@@ -1,17 +1,17 @@
-"""FCC Dispatch Loop.
+"""Hermes CEO Dispatch Loop.
 
-Scans the GitHub repo for issues labelled ``status:ready`` + ``agent:opencode``
-and dispatches them one-by-one to the local FCC/OpenCode worker via the
-``oa-queue`` shell mechanism that already exists on the VPS.
+Scans the GitHub repo for issues labelled `status:ready` + `agent:hermes`
+and dispatches them one-by-one to the Hermes CEO worker via the
+`oa-queue` shell mechanism that already exists on the VPS.
 
 Lifecycle per issue:
-  1. Add label ``status:in-progress``  (remove ``status:ready``)
-  2. Enqueue to FCC via ``oa-queue <issue_number>``
-  3. On success → add comment + label ``status:dispatched``
-  4. On failure → revert to ``status:ready`` so the next cycle retries
+ 1. Add label `status:in-progress` (remove `status:ready`)
+ 2. Enqueue to Hermes CEO via `oa-queue <issue_number>`
+ 3. On success → add comment + label `status:dispatched`
+ 4. On failure → revert to `status:ready` so the next cycle retries
 
 Safe to run concurrently with the LangGraph API: all writes are idempotent
-GitHub label operations.  Never modifies source code directly.
+GitHub label operations. Never modifies source code directly.
 """
 
 from __future__ import annotations
@@ -114,13 +114,13 @@ def _oa_queue(issue_number: int, timeout: int = 60) -> bool:
 # ---------------------------------------------------------------------------
 
 def fetch_ready_issues(repo: str, limit: int = 5) -> list[dict]:
-    """Return list of open issues with status:ready + agent:opencode."""
+    """Return list of open issues with status:ready + agent:hermes."""
     rc, out, err = _gh(
         [
             "issue", "list",
             "--repo", repo,
             "--label", "status:ready",
-            "--label", "agent:opencode",
+            "--label", "agent:hermes",
             "--state", "open",
             "--limit", str(limit),
             "--json", "number,title,labels,url",
@@ -159,7 +159,7 @@ def dispatch_issue(repo: str, issue: dict) -> bool:
         _label_add(repo, num, "status:dispatched")
         _comment(
             repo, num,
-            f"🤖 **goalworld Agent Dispatch** — Issue #{num} ha sido enviado al worker FCC/OpenCode.\n\n"
+            f"🤖 **GoalWorld Agent Dispatch** — Issue #{num} ha sido enviado al worker **Hermes CEO (Nemotron-3-Ultra-free)**.\n\n"
             f"El agente procesará esta tarea y abrirá un Draft PR cuando esté listo.\n"
             f"Label actual: `status:dispatched`",
         )
