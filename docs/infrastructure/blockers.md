@@ -5,12 +5,8 @@
 - **LinkedIn**: Blocker #2 for startup credits.
 
 ## Operational
-- **gbrain-sync daemon**: Not running (no service/pm2 entry).
-  - **Impact**: Obsidian→gBrain sync broken.
-  - **Solution**: Install via `pip install gbrain-core` and configure systemd/pm2.
-- **api-server**: Not registered as service/pm2.
-  - **Impact**: `goalworld.fun/api` endpoints unavailable.
-  - **Solution**: Register with `pm2 start "node /path/to/server.js" --name hermes-api-server`.
+- **gbrain-sync**: ✅ Active — systemd service on `:8648`, timer every 5 min. No action needed.
+- **hermes-api-server**: ✅ Active — pm2 id=12, port `:3001`, health confirmed. Persisted via `pm2 save`.
 
 ## DNS
 - **crm.goalworld.fun**: Missing CNAME record.
