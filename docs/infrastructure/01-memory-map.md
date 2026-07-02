@@ -75,7 +75,7 @@ graph TD
 
 ## OmniRoute Combos
 
-> Detailed config: `[[combos]]`
+> Detailed config: `[[02-combos]]`
 
 | Combo | Tier 1 | Tier 2 | Tier 3 | Key Rule |
 |-------|--------|--------|--------|----------|
@@ -127,13 +127,13 @@ pm2 save  # persists current process list across reboots
 |---------------|----------------------|
 | Process logs, run IDs, pipeline outputs | Session search (`session_search()`) |
 | Temporary task status ("issue #42 in progress") | `todo()` or GitHub Issues |
-| Duplicated configs from OmniRoute | Link to `[[combos]]` |
+| Duplicated configs from OmniRoute | Link to `[[02-combos]]` |
 | Tutorial/how-to content | Skills (`skill_manage()`) |
 | Stale facts (>7 days, version-specific) | Remove from memory |
 
 ---
 
 ## Related Docs
-- `[[combos]]` — OmniRoute combo configs
-- `[[blockers]]` — Active infrastructure blockers
-- `[[startup-credits]]` — $600K credits program tracker
+- `[[02-combos]]` — OmniRoute combo configs
+- `[[04-blockers]]` — Active infrastructure blockers
+- `[[03-startup-credits]]` — $600K credits program tracker

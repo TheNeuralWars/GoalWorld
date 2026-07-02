@@ -87,5 +87,5 @@ Today → Register Delaware C-Corp (Stripe Atlas, $500, 9–16 days)
 ---
 
 ## Related Docs
-- `[[memory-map]]` — Full systems architecture
-- `[[blockers]]` — Infrastructure blockers
+- `[[01-memory-map]]` — Full systems architecture
+- `[[04-blockers]]` — Infrastructure blockers
