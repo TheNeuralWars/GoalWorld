@@ -31,7 +31,7 @@ mcp = FastMCP(
 
 API_BASE = os.environ.get(
     "goalworld_API_BASE",
-    "https://crm.goalworld.fun/goalworld-api",
+    "http://127.0.0.1:3001",
 ).rstrip("/")
 RPC_URL = os.environ.get("RPC_URL", "https://api.devnet.solana.com")
 PROGRAM_ID = os.environ.get(

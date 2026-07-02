@@ -26,7 +26,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 HERMES_LOG_DIR="${HERMES_LOG_DIR:-$HOME/hermes/logs}"
 mkdir -p "$HERMES_LOG_DIR"
 HC_LOG="$HERMES_LOG_DIR/healthcheck.log"
-API_BASE="${goalworld_API_BASE:-https://crm.goalworld.fun/goalworld-api}"
+API_BASE="${goalworld_API_BASE:-http://127.0.0.1:3001}"
 TODAY="$(date -u +%F)"
 AUDIT_LOG="$HERMES_LOG_DIR/cron-audit-$TODAY.log"
 

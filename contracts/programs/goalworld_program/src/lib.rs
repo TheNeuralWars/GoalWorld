@@ -429,7 +429,7 @@ pub struct OracleCreateMarket<'info> {
     pub market: Account<'info, Market>,
     pub fixture: Account<'info, Fixture>,
     /// CHECK: Token mint address for the market's betting token
-    pub token_mint: Account<'info, Mint>,
+    pub token_mint: InterfaceAccount<'info, Mint>,
     pub system_program: Program<'info, System>,
 }
 
