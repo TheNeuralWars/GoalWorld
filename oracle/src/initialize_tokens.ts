@@ -1,9 +1,10 @@
-import { Connection, Keypair, PublicKey } from "@solana/web3.js";
+import { Keypair, PublicKey } from "@solana/web3.js";
 import { createMint, getOrCreateAssociatedTokenAccount, mintTo } from "@solana/spl-token";
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
 import * as dotenv from "dotenv";
+import { getConnection, getProgramId } from "@goalworld/sdk";
 
 dotenv.config();
 
@@ -11,8 +12,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function main() {
-    const rpcUrl = "https://api.devnet.solana.com";
-    const keypairPath = "~/.config/solana/id.json";
+    const connection = getConnection("confirmed");
+    const programId = getProgramId();
+    const keypairPath = process.env.ORACLE_KEYPAIR_PATH || "~/.config/solana/id.json";
 
     const resolvedPath = keypairPath.startsWith("~") 
         ? keypairPath.replace("~", process.env.HOME || "") 
@@ -20,9 +22,9 @@ async function main() {
     const secretKey = JSON.parse(fs.readFileSync(path.resolve(resolvedPath), "utf8"));
     const payer = Keypair.fromSecretKey(new Uint8Array(secretKey));
 
-    console.log(`📡 Connecting to Solana Devnet...`);
-    const connection = new Connection(rpcUrl, "confirmed");
+    console.log(`📡 Connecting to Solana via SDK environment wrapper...`);
     console.log(`✅ Loaded Wallet: ${payer.publicKey.toBase58()}`);
+    console.log(`🎯 Target Program ID: ${programId.toBase58()}`);
 
     try {
         console.log(`🪙 Creating official $GCH SPL Mint...`);
@@ -60,9 +62,9 @@ async function main() {
         console.log("📝 COPY THESE INTO YOUR goalworld_oracle/.env FILE:");
         console.log("=========================================");
         console.log(`NODE_ENV=production`);
-        console.log(`RPC_URL=https://api.devnet.solana.com`);
+        console.log(`RPC_URL=${connection.rpcEndpoint}`);
         console.log(`ORACLE_KEYPAIR_PATH=${keypairPath}`);
-        console.log(`PROGRAM_ID=FbDhM4itBS2Cco7c7PbNvC98Fx7Y5HxqXS1JuXdNcBwg`);
+        console.log(`PROGRAM_ID=${programId.toBase58()}`);
         console.log(`GCH_MINT=${mint.toBase58()}`);
         console.log(`TREASURY_TOKEN_ACCOUNT=${tokenAccount.address.toBase58()}`);
         console.log("=========================================");
