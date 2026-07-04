@@ -16,6 +16,14 @@
     "source": "deploys.api"
   },
   {
+    "id": "git-dirty",
+    "title": "9 uncommitted changes on main",
+    "category": "hygiene",
+    "priority_score": 40,
+    "rationale": "Working tree has many uncommitted changes",
+    "source": "git"
+  },
+  {
     "id": "todo-docs/assets/js/marketplace.js-85",
     "title": "TODO in docs/assets/js/marketplace.js:85 (ML = '';\n\n  )",
     "category": "tech-debt",
