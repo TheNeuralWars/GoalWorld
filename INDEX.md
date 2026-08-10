@@ -9,8 +9,9 @@
 ### ACTIVE — open these
 | File/Folder | What it is | When to open it |
 |-------------|------------|-----------------|
-| `docs/infrastructure/systems-index.md` | Master nav hub — points to every system | Orientation, "where do I look?" |
-| `docs/infrastructure/memory-map.md` | Full architecture, live services, DNS, combos | System health, infra questions |
+|| `docs/infrastructure/00-systems-index.md` | Master nav hub — points to every system | Orientation, "where do I look?" |
+|| `docs/infrastructure/05-achievements-manifesto.md` | Core pivot: GoalWorld as "World of Achievements" | Pivot manifesto & side-projects design |
+|| `docs/infrastructure/memory-map.md` | Full architecture, live services, DNS, combos | System health, infra questions |
 | `docs/infrastructure/startup-credits.md` | $600K credits dashboard + critical path | Credits work |
 | `docs/infrastructure/blockers.md` | Active blockers (business + infra) | Prioritization |
 | `docs/IMPLEMENTATION_STATUS.md` | What is implemented in code vs pending | Before any code task |
@@ -27,6 +28,8 @@
 | `docs/GOALCHAIN_*.md` | Pre-rebrand. Archive context only. |
 | `docs/assets/` | Static assets. Not context. |
 | `docs/scratch/` | Throwaway. Never canonical. |
+| `contracts/` | GoalChain Soccer smart contracts (Relegated to Side-Project vertical). |
+| `oracle/` | GoalChain Soccer fixture oracle database (Relegated to Side-Project vertical). |
 
 ---
 
@@ -38,8 +41,9 @@
 | **Infra / services** | `docs/infrastructure/systems-index.md` |
 | **OmniRoute / combos** | `docs/infrastructure/combos.md` |
 | **Startup credits** | `docs/infrastructure/startup-credits.md` |
-| **New task from Nico** | `docs/intake/` → write intake note → create issue if code needed |
-| **Economy / tokenomics** | `docs/ECONOMIC_CANONICAL_CONFIG.json` + `docs/ECONOMIC_BLUEPRINT.md` |
+|| **New task from Nico** | `docs/intake/` → write intake note → create issue if code needed |
+|| **Ecosistema de Logros / Manifiesto** | `docs/infrastructure/05-achievements-manifesto.md` |
+|| **Economy / tokenomics (GoalChain)** | `docs/ECONOMIC_CANONICAL_CONFIG.json` + `docs/ECONOMIC_BLUEPRINT.md` |
 | **On-chain / Anchor** | `contracts/` + `docs/IMPLEMENTATION_STATUS.md` |
 | **Marketing / video** | `scripts/video_automation/` + `data/marketing_pipeline/runs.json` |
 | **Historical context** | `session_search(query="...")` — not files |

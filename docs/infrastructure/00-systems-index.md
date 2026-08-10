@@ -11,8 +11,9 @@
 | Understand system architecture | `[[01-memory-map]]` |
 | Check/update OmniRoute combos | `[[02-combos]]` |
 | Track startup credit applications | `[[03-startup-credits]]` |
-| See current blockers | `[[04-blockers]]` |
-| Recall a past session or task | `session_search(query="...")` |
+|| See current blockers | `[[04-blockers]]` |
+|| Read the Achievements Manifesto | `[[05-achievements-manifesto]]` |
+|| Recall a past session or task | `session_search(query="...")` |
 | Read user preferences / rules | Hermes Memory (`memory()`) |
 | Query past context semantically | `honcho_search(query="...")` |
 | SSH into VPS | `ssh ubuntu@100.101.211.44` |
@@ -29,6 +30,7 @@
 | `combos.md` | OmniRoute combo configs (tiers, models, rules) | Before touching OmniRoute |
 | `startup-credits.md` | Credits dashboard, critical path, deliverables, company profile | Working on applications |
 | `blockers.md` | Active infrastructure and business blockers | Prioritization, weekly review |
+| `05-achievements-manifesto.md` | Core pivot to "Mundo de Logros" (SaaS Saga, AI Video, Trading, GoalChain) | General vision, side-project orientation |
 | `systems-index.md` | This file — navigation hub | When lost |
 
 ---
