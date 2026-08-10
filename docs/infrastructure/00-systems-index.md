@@ -11,9 +11,9 @@
 | Understand system architecture | `[[01-memory-map]]` |
 | Check/update OmniRoute combos | `[[02-combos]]` |
 | Track startup credit applications | `[[03-startup-credits]]` |
-|| See current blockers | `[[04-blockers]]` |
-|| Read the Achievements Manifesto | `[[05-achievements-manifesto]]` |
-|| Recall a past session or task | `session_search(query="...")` |
+| See current blockers | `[[04-blockers]]` |
+| Read the Achievements Manifesto | `[[05-achievements-manifesto]]` |
+| Recall a past session or task | `session_search(query="...")` |
 | Read user preferences / rules | Hermes Memory (`memory()`) |
 | Query past context semantically | `honcho_search(query="...")` |
 | SSH into VPS | `ssh ubuntu@100.101.211.44` |

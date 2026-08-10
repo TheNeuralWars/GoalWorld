@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GoalWorldLoreSchema",
+  "description": "Schema for validating GoalWorld creative lore, sagas, and characters.",
+  "type": "object",
+  "properties": {
+    "saga_id": { "type": "string" },
+    "title": { "type": "string" },
+    "genre": { "type": "string", "enum": ["fantasy", "sci-fi", "cyberpunk", "historical", "other"] },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "author": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "version": { "type": "string" }
+      },
+      "required": ["author", "created_at"]
+    },
+    "world_building": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "rules_of_magic_or_physics": { "type": "string" }
+      },
+      "required": ["name", "description"]
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "role": { "type": "string", "enum": ["protagonist", "antagonist", "supporting", "deuteragonist"] },
+          "biography": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          }
+        },
+        "required": ["id", "name", "role", "biography"]
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "chapter_number": { "type": "integer" },
+          "title": { "type": "string" },
+          "summary": { "type": "string" },
+          "content_markdown_path": { "type": "string" }
+        },
+        "required": ["chapter_number", "title", "content_markdown_path"]
+      }
+    }
+  },
+  "required": ["saga_id", "title", "genre", "metadata", "world_building", "characters", "chapters"]
+}
