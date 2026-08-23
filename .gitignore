@@ -113,3 +113,4 @@ agentic-inbox/
 data/marketing_pipeline/youtube_client_secrets.json
 data/marketing_pipeline/youtube_oauth_token.json
 .vercel
+ops/autonomous/data/
