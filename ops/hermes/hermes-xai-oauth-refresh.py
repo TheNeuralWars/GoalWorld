@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Proactive xAI Grok OAuth refresh for Hermes auth.json (same logic as gateway)."""
+"""Proactive xAI Grok OAuth refresh — SINGLETON root only.
+
+xAI rotates refresh_token on every refresh. Refreshing N profile copies of
+the same grant revokes the login (invalid_grant). Only refresh the fleet
+root auth.json; profiles inherit via Hermes write-through (#43589).
+"""
 from __future__ import annotations
 
 import argparse
@@ -8,20 +13,9 @@ import sys
 from pathlib import Path
 
 
-def _agent_profile_names(list_path: Path) -> list[str]:
-    if not list_path.is_file():
-        return []
-    names: list[str] = []
-    for line in list_path.read_text(encoding="utf-8").splitlines():
-        s = line.strip()
-        if s and not s.startswith("#"):
-            names.append(s)
-    return names
-
-
 def _refresh_one(hermes_home: Path, agent_root: Path, label: str) -> int:
     if not agent_root.is_dir():
-        print(f"ERROR: hermes-agent not found under {hermes_home}", file=sys.stderr)
+        print(f"ERROR: hermes-agent not found under {agent_root}", file=sys.stderr)
         return 2
 
     sys.path.insert(0, str(agent_root))
@@ -61,42 +55,46 @@ def _refresh_one(hermes_home: Path, agent_root: Path, label: str) -> int:
         return 1
 
 
+def _fleet_root() -> Path:
+    env = os.environ.get("HERMES_HOME", "").strip()
+    if env:
+        p = Path(env)
+        if p.name and p.parent.name == "profiles":
+            return p.parent.parent
+        return p
+    return Path.home() / ".hermes"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Refresh xAI OAuth in Hermes auth.json")
     parser.add_argument(
         "--all-agent-profiles",
         action="store_true",
-        help="Refresh default + every profile in goalworld-agent-profiles.list",
+        help="Refresh the SINGLETON fleet root only (profiles inherit; do not loop).",
     )
     args = parser.parse_args()
 
-    base = Path.home() / ".hermes"
-    agent_root = base / "hermes-agent"
-    script_dir = Path(__file__).resolve().parent
-    list_path = Path(
-        os.environ.get(
-            "goalworld_AGENT_PROFILES_LIST",
-            script_dir / "goalworld-agent-profiles.list",
-        )
-    ).expanduser()
+    agent_root = Path("/data/ubuntu/.hermes/hermes-agent")
+    if not agent_root.is_dir():
+        agent_root = Path.home() / ".hermes" / "hermes-agent"
+
+    # Always refresh the fleet root. --all-agent-profiles used to loop every
+    # profile and burn the rotating refresh_token. That flag is now an alias
+    # for "refresh the shared grant once".
+    if args.all_agent_profiles:
+        root = Path(os.environ.get("HERMES_HOME_ROOT", "/data/hermes-home"))
+        if not (root / "auth.json").is_file():
+            root = _fleet_root()
+        print(f"SINGLETON refresh at {root} (profiles inherit; not looped)")
+        return _refresh_one(root, agent_root, "fleet-root")
 
     profile = os.environ.get("HERMES_PROFILE", "").strip()
-    if args.all_agent_profiles:
-        targets: list[tuple[str, Path]] = [("default", base)]
-        for name in _agent_profile_names(list_path):
-            targets.append((name, base / "profiles" / name))
-        worst = 0
-        for label, home in targets:
-            if label != "default" and not home.is_dir():
-                print(f"SKIP [{label}]: profile dir missing")
-                continue
-            worst = max(worst, _refresh_one(home, agent_root, label))
-        return worst
-
-    hermes_home = base
+    hermes_home = _fleet_root()
     if profile and profile not in ("default", ""):
-        hermes_home = base / "profiles" / profile
-    return _refresh_one(hermes_home, agent_root, profile or "default")
+        # Explicit single-profile request: still redirect to fleet root so a
+        # cron that sets HERMES_PROFILE cannot rotate a shadow copy.
+        print(f"NOTE: ignoring HERMES_PROFILE={profile}; xai-oauth is a root singleton")
+    return _refresh_one(hermes_home, agent_root, profile or "fleet-root")
 
 
 if __name__ == "__main__":

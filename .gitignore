@@ -23,9 +23,15 @@ build/
 coverage/
 .tmp/
 .temp/
-# Do NOT ignore oracle/dist (we commit it)
-!oracle/dist/
-!oracle/dist/**
+# oracle/dist/ is build output: oracle/package.json has "main": "index.js" and
+# every oracle script runs `tsc && node dist/...`, so dist is regenerated on
+# demand. Nothing tracked imports it and the api/ package depends on
+# @goalworld/sdk, not on the oracle package. The previous rule here said
+# "Do NOT ignore oracle/dist (we commit it)" — but it was never committed
+# (53 untracked files, 300 KB) and would churn on every build, which is the
+# tree-dirtying pattern we are removing. Ignored now; run `cd oracle && npm run
+# build` after a fresh clone. Revert this block if you do want it vendored.
+oracle/dist/
 # --- Anchor / Solana ---
 .target/
 **/.anchor/
@@ -133,3 +139,19 @@ scripts/oracle_match_state.json
 tests/qa-output/
 *.bak-*
 *.bak
+
+# --- Neural Wars film renders (2026-09-16) ---
+# docs/assets/img/neuralwars/film_draft/ is the film pipeline's output: 8 MP4s
+# (~116 MB) plus storyboard frames, and nothing in the repo references it.
+# Large binaries in git bloat every future clone permanently, so they stay
+# local. Book covers at docs/assets/img/neuralwars/*.jpg ARE referenced by
+# docs/goalworld.html, docs/cinema.html and docs/go/reader/index.html and
+# remain tracked. Regenerate the cuts with the video pipeline when needed.
+docs/assets/img/neuralwars/film_draft/
+
+# --- Hermes / IDE config exports carry live credentials (2026-09-16) ---
+# antigravity-mcp-configs/hermes-config.yaml is a full Hermes config export: it
+# contains providers.omniroute.api_key and a 48-hex server token. Secret
+# redaction masks values in tool output, which makes this file look harmless
+# when grepped — it is not. Never track it.
+antigravity-mcp-configs/hermes-config.yaml

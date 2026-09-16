@@ -1,6 +1,8 @@
 # goalworld Frontend Ownership Policy (P3)
 
-Fecha: **2026-05-22**
+Fecha: **2026-05-22** · pointer update **2026-08-21**
+
+> Live marketing HTML source of truth is `/data/apps/GoalChain/docs` (GW-SRC-001). This file only splits *role* (read-only docs vs transactional webapp). Freeze pointer: [`README.md`](./README.md).
 
 ## Scope oficial por superficie
 

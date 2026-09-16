@@ -1,0 +1,81 @@
+{
+  "version": "1.1.0",
+  "last_updated": "2026-08-10T21:00:00Z",
+  "description": "Risk Controller configuration for the GoalWorld Agentic Trading Engine. Consumed by execution scripts (Execution Gateway / Risk Controller) to validate exposure, stop-loss, drawdown and position sizing before authorizing any transaction. See ventures/agentic-trading/README.md.",
+  "global_limits": {
+    "max_daily_drawdown_usd": 500.0,
+    "max_daily_drawdown_percent": 10.0,
+    "max_total_exposure_usd": 5000.0,
+    "max_leverage": 1.0,
+    "max_position_risk_percent": 5.0,
+    "max_positions_open": 10,
+    "max_position_size_percent": 20.0,
+    "emergency_stop_active": false,
+    "circuit_breaker_volatility_percent": 8.0,
+    "circuit_breaker_cooldown_minutes": 30,
+    "kelly_fraction": 0.25,
+    "min_edge_percent": 10.0
+  },
+  "per_token_limits": {
+    "SOL": {
+      "max_exposure_usd": 3000.0,
+      "max_slippage_percent": 1.0,
+      "stop_loss_percent": 5.0,
+      "take_profit_percent": 15.0,
+      "max_position_size_usd": 1000.0
+    },
+    "USDC": {
+      "max_exposure_usd": 5000.0,
+      "max_slippage_percent": 0.2,
+      "stop_loss_percent": 0.5,
+      "take_profit_percent": 2.0,
+      "max_position_size_usd": 5000.0
+    },
+    "GCH": {
+      "max_exposure_usd": 500.0,
+      "max_slippage_percent": 3.0,
+      "stop_loss_percent": 10.0,
+      "take_profit_percent": 30.0,
+      "max_position_size_usd": 250.0
+    },
+    "BTC": {
+      "max_exposure_usd": 3000.0,
+      "max_slippage_percent": 0.5,
+      "stop_loss_percent": 5.0,
+      "take_profit_percent": 15.0,
+      "max_position_size_usd": 1000.0
+    },
+    "ETH": {
+      "max_exposure_usd": 2000.0,
+      "max_slippage_percent": 0.5,
+      "stop_loss_percent": 5.0,
+      "take_profit_percent": 15.0,
+      "max_position_size_usd": 750.0
+    }
+  },
+  "execution_rules": {
+    "require_cooldown_minutes": 15,
+    "max_orders_per_minute": 5,
+    "allowed_exchanges": ["jupiter", "raydium", "meteora", "okx"],
+    "blocked_hours_utc": [
+      {"start": "00:00", "end": "06:00"},
+      {"start": "22:00", "end": "23:59"}
+    ],
+    "require_hitl_approval_above_usd": 1000.0,
+    "dry_run_default": true
+  },
+  "risk_controller": {
+    "checks": [
+      "exposure_per_token",
+      "total_exposure",
+      "daily_drawdown",
+      "position_size",
+      "slippage",
+      "circuit_breaker",
+      "liquidity_hours",
+      "hitl_approval"
+    ],
+    "on_violation": "block_order",
+    "log_path": "/data/apps/GoalWorld/data/trading/risk_events.log"
+  }
+}

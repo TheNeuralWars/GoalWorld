@@ -69,10 +69,12 @@ When running on the live Oracle VPS:
 
 ## goalworld Core Context
 
-goalworld is a Solana-based web3 football manager monorepo.
-- **Official Site**: goalworld.fun (presale active, ~30% raised, target 5,000 SOL hard cap)
-- **Staking & Yield**: stakes via Jito, auto-buys $GCH and performs an "Infinity Burn" (100% of Genesis NFT revenue goes to burns)
-- **Squad Data**: 528 unique players (10 Mythic, 50 Legendary) forged across 19 deliberate Grok batches, each with real biometrics and lore
+GoalWorld es un ecosistema Web3 en Solana centrado en el "Mundo de Logros" (IP Sandbox, Lore/SaaS Publisher, AI Cinema, Agentic Trading) que alberga la vertical deportiva GoalChain (Fútbol Manager) como side-project.
+- **Dominios Estratégicos**:
+  1. **Publisher SaaS & Lore**: Amazon KDP export + Solana IP Tokenization.
+  2. **AI Cinema**: Generación cinematográfica con IA a partir del Lore Engine.
+  3. **Agentic Trading**: Arbitraje y trading autónomo en Solana & OKX.
+  4. **GoalChain Soccer**: Fútbol Web3 Manager con 528 futbolistas reales (NFTs) y economía circular $GCH impulsada por el Infinity Engine Vault.
 
 ## Active Projects & Weekly Priorities
 
