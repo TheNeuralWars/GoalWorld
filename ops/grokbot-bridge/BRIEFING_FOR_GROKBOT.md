@@ -81,3 +81,36 @@ Use `/health` and `/api/*` — **not** `/v1/models`. On the neighbouring OmniRou
 router `/v1/models` answers 200 for *any* key (including garbage), so it proves
 nothing. On Hermes `:8642` auth is enforced properly (401 without a key), but keep
 the habit of probing `/health` first.
+
+## Model tiers — pick the right one per task
+
+Hermes is configured so that **real work is advanced and loops/small jobs are free**:
+
+| Task | Model | How you ask for it |
+|---|---|---|
+| Anything that matters (analysis, code, decisions, research) | `deepseek/deepseek-v4.1-flash` | it is the **default** — just call normally |
+| Tiny tasks, polling, summaries, loops, high-volume chatter | `upstage/solar-pro4:free` (free) | via the relay, pass the flag (below) |
+
+Through the **API** (`:8642`) every call runs the profile default, which is
+`deepseek/deepseek-v4.1-flash` — so your delegated work already gets the advanced
+model with no extra work on your side.
+
+Through the **SSH relay** you can choose per call, so a small job costs nothing:
+
+```bash
+ssh ubuntu@100.101.211.44 'hermes -z "summarise this" -m "upstage/solar-pro4:free"'
+```
+
+Both paths are verified live: the free flag returns a real completion, and the API
+reports `deepseek/deepseek-v4.1-flash via provider nous`.
+
+**Two rules that will save you from silent failures:**
+
+- Never pin **Super Grok** (`grok-4.6` / provider `xai-oauth`) on a loop or a
+  subagent. It is a scarce weekly budget reserved for chat and Grok Imagine media.
+  All Hermes cron jobs now run on the free tier.
+- Prefer `upstage/solar-pro4:free` for automated loops. `stepfun/step-3.7-flash:free`
+  and several other free slugs are **reasoning** models: under a small `max_tokens`
+  they spend the whole budget thinking and return `content: null`, which a loop
+  reads as an empty answer rather than an error.
+- Free slugs rot without notice. Re-check the live `/models` list before pinning one.
