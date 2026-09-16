@@ -97,7 +97,7 @@ graph TD
 ### OmniRoute: Update a Combo
 ```bash
 ssh ubuntu@100.101.211.44 "python3 /path/to/update_script.py --combo coding-fast"
-curl -X PATCH -H "Authorization: Bearer sk-cac9fb818e70e6bb-f4dcba-60525661" \
+curl -X PATCH -H "Authorization: Bearer $OMNIROUTE_API_KEY" \
   -d '{"retry": 3}' http://100.101.211.44:20128/api/resilience
 ```
 

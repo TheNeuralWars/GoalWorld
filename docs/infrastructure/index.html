@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GoalWorld Master Map Index</title>
+<style>
+:root{--bg:#08111f;--panel:#111a2d;--card:#15233d;--line:#334460;--text:#edf3fb;--muted:#9fb0cb;--accent:#70c4ff;--good:#64e0a2;--warn:#ffcf66}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{padding:24px;max-width:1280px;margin:0 auto}
+h1{margin:0 0 8px;font-size:34px}
+.sub{color:var(--muted);margin-bottom:18px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card,.section{background:linear-gradient(180deg,var(--panel),var(--card));border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h2,.section h2{margin:0 0 8px;font-size:18px}
+.card p,.section p{margin:0 0 12px;color:var(--muted);line-height:1.45}
+.btn{display:inline-block;padding:10px 14px;border-radius:12px;background:rgba(112,196,255,.12);border:1px solid rgba(112,196,255,.35);color:#d7ecff;text-decoration:none;font-weight:600;margin-right:8px;margin-top:6px}
+.btn:hover{background:rgba(112,196,255,.18)}
+.tag{display:inline-block;font-size:12px;padding:3px 8px;border-radius:999px;background:rgba(112,196,255,.13);color:#d5ecff;border:1px solid rgba(112,196,255,.35);margin:0 8px 8px 0}
+.good{background:rgba(100,224,162,.12);color:#d8ffe9;border-color:rgba(100,224,162,.35)}
+.warn{background:rgba(255,207,102,.12);color:#fff0c4;border-color:rgba(255,207,102,.35)}
+.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.item{padding:12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+.item b{display:block;margin-bottom:4px}
+.item span{color:var(--muted);font-size:13px}
+.footer{margin-top:18px;color:var(--muted);font-size:12px}
+code{background:#0a1222;padding:2px 6px;border-radius:6px;border:1px solid #22314b;color:#d7e6ff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>GoalWorld Master Map Index</h1>
+  <div class="sub">Unified navigation for the interactive repo maps, key docs, and venture hubs. Root: <code>/data/apps/GoalWorld</code>.</div>
+
+  <div class="grid">
+    <div class="card"><h2>Repo maps</h2><span class="tag good">interactive</span><p>Fast structural views of the repo by layer.</p><a class="btn" href="project-map.html">Project map</a><a class="btn" href="webapp-map.html">Webapp map</a><a class="btn" href="api-map.html">API map</a><a class="btn" href="contracts-map.html">Contracts map</a><a class="btn" href="ops-map.html">Ops map</a></div>
+    <div class="card"><h2>Readme & guidance</h2><span class="tag">docs</span><p>Best starting points for context and conventions.</p><a class="btn" href="../README.md">Repo README</a><a class="btn" href="../INDEX.md">Repo index</a><a class="btn" href="../AGENTS.md">AGENTS</a><a class="btn" href="../CLAUDE.md">CLAUDE</a></div>
+    <div class="card"><h2>Routing & ownership</h2><span class="tag warn">policy</span><p>Useful docs for frontend and merge policy.</p><a class="btn" href="../docs/FRONTEND_ROUTING.md">Frontend routing</a><a class="btn" href="../docs/FRONTEND_OWNERSHIP_POLICY.md">Frontend ownership</a><a class="btn" href="../docs/MERGE_POLICY.md">Merge policy</a></div>
+    <div class="card"><h2>Priority intake</h2><span class="tag">notes</span><p>Newest working notes and decisions live here.</p><a class="btn" href="../docs/intake/2026-08-21-mundo-completo-plan.md">Mundo completo plan</a><a class="btn" href="../docs/intake/2026-08-21-qa-matrix.md">QA matrix</a><a class="btn" href="../docs/intake/2026-08-21-gw-fix-001-wc2026-groups-audit.md">WC2026 audit</a><a class="btn" href="../docs/intake/2026-08-18-goalworld-hub.md">GoalWorld hub</a></div>
+  </div>
+
+  <div class="section" style="margin-top:18px;">
+    <h2>Ventures</h2>
+    <div class="list">
+      <div class="item"><b><a href="../ventures/README.md">Ventures overview</a></b><span>Top-level venture directory and project buckets.</span></div>
+      <div class="item"><b><a href="../ventures/ai-cinema/README.md">AI cinema</a></b><span>Movie / narrative / media production track.</span></div>
+      <div class="item"><b><a href="../ventures/publisher-lore/README.md">Publisher lore</a></b><span>Publishing, lore, and KDP-oriented pipeline.</span></div>
+      <div class="item"><b><a href="../ventures/goalchain-soccer/README.md">GoalChain soccer</a></b><span>Sports prediction / game layer.</span></div>
+      <div class="item"><b><a href="../ventures/agentic-trading/README.md">Agentic trading</a></b><span>Trading research and automation hub.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Map summary</h2>
+    <p>The repo is now split into five practical views:</p>
+    <div class="list">
+      <div class="item"><b>Project</b><span>Whole-repo topography and major flows.</span></div>
+      <div class="item"><b>Webapp</b><span>Routes, shell, state, and product domains.</span></div>
+      <div class="item"><b>API</b><span>Control plane, pipeline, social integrations.</span></div>
+      <div class="item"><b>Contracts</b><span>Anchor program state and instruction graph.</span></div>
+      <div class="item"><b>Ops</b><span>Hermes automation, sync, delivery, recovery.</span></div>
+    </div>
+  </div>
+
+  <div class="footer">Generated by Hermes from live repository inspection. Open a map above to jump into that layer.</div>
+</div>
+</body>
+</html>

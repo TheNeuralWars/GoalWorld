@@ -17,6 +17,11 @@
 # idempotent). Run it after `git pull` on each host to reconcile the brain
 # against the canonical `ai_context/`, `docs/intake/`, `docs/proposals/` dirs.
 #
+# Auto-sync modes:
+#   1. manual:   run this script directly
+#   2. cron:      install a periodic job with `ops/hermes/install-gbrain-vacuum-timer.sh`
+#   3. hook:     any host-side workflow may call `sync_one_host` after repo updates
+#
 # Does NOT touch ~/.gbrain/brain.pglite directly. Uses `gbrain import` only.
 #
 # Exit codes:

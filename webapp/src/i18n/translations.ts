@@ -195,10 +195,12 @@ export type TranslationKeys = {
   portal_estadio_desc: string;
   portal_inicio: string;
   portal_inicio_desc: string;
+  presale_badge: string;
   presale_btn: string;
   presale_calc_t: string;
   presale_footer_t: string;
   presale_min_contrib: string;
+  presale_network_note: string;
   presale_pay_label: string;
   presale_progress: string;
   presale_rate: string;
@@ -286,6 +288,12 @@ export type TranslationKeys = {
   xscout_active: string;
   xscout_btn: string;
   xscout_desc: string;
+  xscout_fiction_badge: string;
+  xscout_post_1_text: string;
+  xscout_post_2_text: string;
+  xscout_post_time: string;
+  xscout_stream_desc: string;
+  xscout_stream_title: string;
   xscout_title: string;
   zealy_badge: string;
   zealy_cta: string;
