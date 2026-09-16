@@ -114,3 +114,9 @@ data/marketing_pipeline/youtube_client_secrets.json
 data/marketing_pipeline/youtube_oauth_token.json
 .vercel
 ops/autonomous/data/
+
+# --- Autonomous loop runtime (2026-09-16) ---
+# Dedicated venv for ops/autonomous (documented in ops/autonomous/REENABLE_20260914.md).
+# ~301 MB of interpreter + site-packages sitting inside the repo; recreate it with
+# the steps in that doc. It must never be committed.
+ops/autonomous/.venv/
