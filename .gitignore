@@ -148,3 +148,10 @@ tests/qa-output/
 # docs/goalworld.html, docs/cinema.html and docs/go/reader/index.html and
 # remain tracked. Regenerate the cuts with the video pipeline when needed.
 docs/assets/img/neuralwars/film_draft/
+
+# --- Hermes / IDE config exports carry live credentials (2026-09-16) ---
+# antigravity-mcp-configs/hermes-config.yaml is a full Hermes config export: it
+# contains providers.omniroute.api_key and a 48-hex server token. Secret
+# redaction masks values in tool output, which makes this file look harmless
+# when grepped — it is not. Never track it.
+antigravity-mcp-configs/hermes-config.yaml
