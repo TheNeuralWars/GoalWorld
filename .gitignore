@@ -155,3 +155,6 @@ docs/assets/img/neuralwars/film_draft/
 # redaction masks values in tool output, which makes this file look harmless
 # when grepped — it is not. Never track it.
 antigravity-mcp-configs/hermes-config.yaml
+
+# --- Grokbot bridge: staged credentials, never tracked (repo is public) ---
+ops/grokbot-bridge/.staged/
