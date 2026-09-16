@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/reader", "destination": "/reader.html" },
+    { "source": "/read", "destination": "/reader.html" },
+    { "source": "/go/reader", "destination": "/go/reader/index.html" },
+    { "source": "/go/reader/", "destination": "/go/reader/index.html" }
+  ]
+}

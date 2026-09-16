@@ -139,3 +139,12 @@ scripts/oracle_match_state.json
 tests/qa-output/
 *.bak-*
 *.bak
+
+# --- Neural Wars film renders (2026-09-16) ---
+# docs/assets/img/neuralwars/film_draft/ is the film pipeline's output: 8 MP4s
+# (~116 MB) plus storyboard frames, and nothing in the repo references it.
+# Large binaries in git bloat every future clone permanently, so they stay
+# local. Book covers at docs/assets/img/neuralwars/*.jpg ARE referenced by
+# docs/goalworld.html, docs/cinema.html and docs/go/reader/index.html and
+# remain tracked. Regenerate the cuts with the video pipeline when needed.
+docs/assets/img/neuralwars/film_draft/
