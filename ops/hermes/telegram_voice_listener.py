@@ -168,7 +168,11 @@ def transcribe_audio_omniroute(audio_bytes, mime_type="audio/ogg"):
     url = "http://127.0.0.1:20128/v1/audio/transcriptions"
     
     # Use the omniroute API key from config.yaml if possible, otherwise fallback hardcoded
-    api_key = "sk-cac9fb818e70e6bb-f4dcba-60525661"
+    # No credential in the repo: export OMNIROUTE_API_KEY (see docs/infrastructure/01-memory-map.md).
+    # This key was committed here by accident and is public in git history.
+    api_key = os.environ.get("OMNIROUTE_API_KEY", "")
+    if not api_key:
+        raise SystemExit("OMNIROUTE_API_KEY is not set in the environment")
     config_file = os.path.join(HERMES_HOME, "config.yaml")
     if os.path.exists(config_file):
         try:
