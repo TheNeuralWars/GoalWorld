@@ -23,9 +23,15 @@ build/
 coverage/
 .tmp/
 .temp/
-# Do NOT ignore oracle/dist (we commit it)
-!oracle/dist/
-!oracle/dist/**
+# oracle/dist/ is build output: oracle/package.json has "main": "index.js" and
+# every oracle script runs `tsc && node dist/...`, so dist is regenerated on
+# demand. Nothing tracked imports it and the api/ package depends on
+# @goalworld/sdk, not on the oracle package. The previous rule here said
+# "Do NOT ignore oracle/dist (we commit it)" — but it was never committed
+# (53 untracked files, 300 KB) and would churn on every build, which is the
+# tree-dirtying pattern we are removing. Ignored now; run `cd oracle && npm run
+# build` after a fresh clone. Revert this block if you do want it vendored.
+oracle/dist/
 # --- Anchor / Solana ---
 .target/
 **/.anchor/

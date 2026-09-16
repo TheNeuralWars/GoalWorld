@@ -24,7 +24,7 @@ GoalWorld es un ecosistema multidisciplinario construido sobre **Solana**. Dise�
 - **Infinity Engine (Zero Value Loss):** El motor económico que deposita el 100% de la recaudación de venta de NFTs en de Liquid Staking protocols (JitoSOL, mSOL) para realizar recompras y quema de tokens de forma automática.
 
 ## 📂 Repository Structure
-- **/docs:** Marketing site (live at [goalworld.fun](https://goalworld.fun)); CTAs → play.
+- **/docs:** Operational docs + **frozen** marketing HTML snapshot. Live `goalworld.fun` is `/data/apps/GoalChain/docs` — see [`docs/README.md`](docs/README.md).
 - **/webapp:** Transactional Play (Play portal) — Mundial devnet MVP (bet + claim) (Side-project GoalChain).
 - **/api:** Economy + ops HTTP API (GoalChain back-end).
 - **/ai_context:** Agent orchestration, Hermes setup, META charter, and Universal Lore Hub.

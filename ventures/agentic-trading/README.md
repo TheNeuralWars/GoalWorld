@@ -13,5 +13,5 @@ Desplegar agentes de Hermes especializados en el análisis de sentimiento social
 
 ## 📋 Backlog Inmediato
 - [ ] Configurar el set de herramientas de trading (`trader` toolset) en el perfil de Hermes correspondiente.
-- [ ] Implementar un script de monitoreo de spreads en DEXs de Solana en `scripts/trading/dex_spread_monitor.py`.
-- [ ] Definir el archivo de configuración de límites de riesgo en `data/trading/risk_limits.json`.
+- [x] Implementar un script de monitoreo de spreads en DEXs de Solana en `scripts/trading/dex_spread_monitor.py`.
+- [x] Definir el archivo de configuración de límites de riesgo en `data/trading/risk_limits.json`.

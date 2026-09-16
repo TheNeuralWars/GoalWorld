@@ -52,22 +52,15 @@ export type PlayNavGroup = {
 /* ============================================================
    ZONA 1 — 🏟 MATCHDAY
    ============================================================ */
+/* Stadium on Play: one job = bet. No fake LIVE badge. */
 const MATCHDAY_ITEMS: PlayNavItem[] = [
   { id: 'inicio', label: 'Dashboard', i18n: 'nav_dashboard', icon: '🏠', to: '/' },
   {
     id: 'fixtures',
-    label: 'Fixtures',
+    label: 'Bet',
     i18n: 'nav_fixtures',
-    icon: '📅',
+    icon: '🎯',
     to: '/estadio',
-  },
-  {
-    id: 'live',
-    label: 'Live Match',
-    i18n: 'nav_live',
-    icon: '🔴',
-    to: '/',
-    badge: true,
   },
 ];
 
@@ -118,13 +111,6 @@ const DEFI_ITEMS: PlayNavItem[] = [
    ============================================================ */
 const CLUB_ITEMS: PlayNavItem[] = [
   { id: 'club', label: 'My Club', i18n: 'nav_myclub', icon: '🛡', to: '/club' },
-  {
-    id: 'estadio',
-    label: 'Stadium',
-    i18n: 'nav_stadium',
-    icon: '🏟',
-    to: '/estadio',
-  },
 ];
 
 /* ============================================================
@@ -186,7 +172,37 @@ export const RESOURCE_LINKS: PlayNavItem[] = [
 /* ============================================================
    GRUPOS — las 5 zonas del icon-rail / sidebar
    ============================================================ */
+const WORLD_ITEMS: PlayNavItem[] = [
+  {
+    id: 'hub',
+    label: 'GoalWorld hub',
+    icon: '🌐',
+    href: `${MARKETING_BASE}/`,
+    external: true,
+  },
+  {
+    id: 'map',
+    label: 'Map',
+    icon: '🗺',
+    href: `${MARKETING_BASE}/map.html`,
+    external: true,
+  },
+  {
+    id: 'matchday-site',
+    label: 'Matchday site',
+    icon: '⚽',
+    href: `${MARKETING_BASE}/goalchain.html`,
+    external: true,
+  },
+];
+
 export const PLAY_NAV_GROUPS: PlayNavGroup[] = [
+  {
+    id: 'world',
+    label: 'World',
+    icon: '🌐',
+    items: WORLD_ITEMS,
+  },
   {
     id: 'matchday',
     label: 'Matchday',

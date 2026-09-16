@@ -27,6 +27,7 @@
 | `docs/PROJECT_INDEX.md` | Points to Mac paths — stale. Superseded by this INDEX. |
 | `docs/GOALCHAIN_*.md` | Pre-rebrand. Archive context only. |
 | `docs/assets/` | Static assets. Not context. |
+| `docs/*.html`, `docs/go/`, `docs/play/` | Frozen marketing snapshot (GW-SRC-001). Live site is `/data/apps/GoalChain/docs`. See `docs/README.md`. |
 | `docs/scratch/` | Throwaway. Never canonical. |
 | `contracts/` | GoalChain Soccer smart contracts (Relegated to Side-Project vertical). |
 | `oracle/` | GoalChain Soccer fixture oracle database (Relegated to Side-Project vertical). |
@@ -45,6 +46,7 @@
 | **Ecosistema de Logros / Manifiesto** | `docs/infrastructure/05-achievements-manifesto.md` |
 | **Economy / tokenomics (GoalChain)** | `docs/ECONOMIC_CANONICAL_CONFIG.json` + `docs/ECONOMIC_BLUEPRINT.md` |
 | **On-chain / Anchor** | `contracts/` + `docs/IMPLEMENTATION_STATUS.md` |
+| **Marketing HTML / goalworld.fun** | `/data/apps/GoalChain/docs` — this repo's HTML is frozen (`docs/README.md`) |
 | **Marketing / video** | `scripts/video_automation/` + `data/marketing_pipeline/runs.json` |
 | **Historical context** | `session_search(query="...")` — not files |
 | **Semantic recall** | `honcho_search(query="...")` |

@@ -24,6 +24,7 @@ import { MarketingControlCenter } from './MarketingControlCenter';
 import { PressKit } from './PressKit';
 import { GenesisCollectionGallery } from './GenesisCollectionGallery';
 import { CorporateAutopilot } from './CorporateAutopilot';
+import Ventures from '../pages/Ventures';
 const StakingBurnDashboard = React.lazy(() => import('./StakingBurnDashboard').then(m => ({ default: m.StakingBurnDashboard })));
 
 
@@ -151,6 +152,7 @@ function App() {
 
                       }
                     />
+                    <Route path="/ventures" element={<Ventures />} />
                     <Route path="/hub" element={<ClassicHub />} />
                     <Route path="/crear-usuario" element={<CreateUser />} />
                     <Route path="/perfil/:username" element={<ProfilePage />} />
