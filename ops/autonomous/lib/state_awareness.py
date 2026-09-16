@@ -23,6 +23,7 @@ import os
 import sys
 import json
 import re
+import shutil
 import subprocess
 import sqlite3
 from pathlib import Path
@@ -66,6 +67,25 @@ def now_iso():
 
 def log(msg, level="INFO"):
     print(f"[{now_iso()}] [STATE-AWARENESS] [{level}] {msg}", flush=True)
+
+
+def resolve_tool(name):
+    """Locate a binary even when PATH is minimal (systemd / cron environments).
+
+    The autonomous loop runs non-interactively, so it does not inherit
+    ~/.cargo/bin the way an interactive shell does. Without this, `cargo` is
+    simply not found and the caller mistakes that for a broken build.
+
+    Returns an absolute path, or None when the tool is genuinely unavailable.
+    """
+    found = shutil.which(name)
+    if found:
+        return found
+    for d in (Path.home() / '.cargo' / 'bin', Path('/usr/local/bin'), Path('/usr/bin')):
+        cand = d / name
+        if cand.is_file() and os.access(cand, os.X_OK):
+            return str(cand)
+    return None
 
 
 def run_cmd(args, cwd=None, timeout=30):
@@ -161,12 +181,23 @@ class StateAwareness:
         # Rust tests (just check if it compiles — running tests is expensive)
         contracts_dir = self.repo_root / 'contracts'
         if contracts_dir.exists():
-            ok, out, err = run_cmd(['cargo', 'check', '--manifest-path',
-                                    str(contracts_dir / 'Cargo.toml')], timeout=120)
-            tests['rust'] = {
-                'compiles': ok,
-                'error': err[:500] if err else None,
-            }
+            cargo = resolve_tool('cargo')
+            if cargo is None:
+                # A missing toolchain is NOT a compile failure. Reporting one
+                # manufactured phantom P0s (#6, #7, #33, #34) that sat in the
+                # queue as status:ready for months. Record "unknown" instead.
+                tests['rust'] = {
+                    'compiles': None,
+                    'tool_missing': True,
+                    'error': 'cargo not found on PATH (non-interactive env)',
+                }
+            else:
+                ok, out, err = run_cmd([cargo, 'check', '--manifest-path',
+                                        str(contracts_dir / 'Cargo.toml')], timeout=120)
+                tests['rust'] = {
+                    'compiles': ok,
+                    'error': err[:500] if err else None,
+                }
 
         # TypeScript: check for test files and run if fast
         test_files = []
@@ -392,7 +423,9 @@ class StateAwareness:
         backlog = []
 
         # 1. Failing tests / broken builds
-        if not self.state['tests'].get('rust', {}).get('compiles', True):
+        # `is False` on purpose: compiles is None when the toolchain is absent,
+        # and unknown must not be reported as broken.
+        if self.state['tests'].get('rust', {}).get('compiles') is False:
             backlog.append({
                 'id': 'rust-compile-fail',
                 'title': 'Rust program does not compile',
