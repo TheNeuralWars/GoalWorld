@@ -120,3 +120,16 @@ ops/autonomous/data/
 # ~301 MB of interpreter + site-packages sitting inside the repo; recreate it with
 # the steps in that doc. It must never be committed.
 ops/autonomous/.venv/
+
+# --- Runtime state that must never be tracked (2026-09-16) ---
+# ops/autonomous/.gitignore already says data/ and logs/, but 12 of these were
+# committed before that rule existed, so git kept tracking them and every loop
+# cycle dirtied the tree. .gitignore does not apply to already-tracked files —
+# they have to be untracked once. Same for the oracle match state.
+ops/autonomous/data/
+ops/autonomous/logs/
+scripts/oracle_match_state.json
+# QA artifacts and ad-hoc operator backups
+tests/qa-output/
+*.bak-*
+*.bak
