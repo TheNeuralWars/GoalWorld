@@ -26,6 +26,7 @@ import re
 import shutil
 import subprocess
 import sqlite3
+import time
 from pathlib import Path
 from datetime import datetime, timezone
 from collections import defaultdict
@@ -265,16 +266,36 @@ class StateAwareness:
         try:
             import requests
             for name, url in HEALTH_ENDPOINTS.items():
-                try:
-                    r = requests.get(url, timeout=10, allow_redirects=True)
+                # Retry before declaring a deploy unhealthy. A single transient
+                # failure used to generate a P0 backlog item that was re-queued
+                # every hour forever (issue #54): this VPS has intermittent DNS
+                # resolution failures (Tailscale DNS, "[Errno -3] Temporary
+                # failure in name resolution"), which raised here and was
+                # indistinguishable from the site actually being down.
+                last_err = None
+                for attempt in range(3):
+                    try:
+                        r = requests.get(url, timeout=10, allow_redirects=True)
+                        deploys[name] = {
+                            'url': url,
+                            'status_code': r.status_code,
+                            'healthy': r.status_code < 400,
+                            'response_time_ms': int(r.elapsed.total_seconds() * 1000),
+                            'attempts': attempt + 1,
+                        }
+                        last_err = None
+                        break
+                    except Exception as e:
+                        last_err = str(e)[:200]
+                        if attempt < 2:
+                            time.sleep(2 * (attempt + 1))
+                if last_err is not None:
                     deploys[name] = {
                         'url': url,
-                        'status_code': r.status_code,
-                        'healthy': r.status_code < 400,
-                        'response_time_ms': int(r.elapsed.total_seconds() * 1000),
+                        'healthy': False,
+                        'error': last_err,
+                        'attempts': 3,
                     }
-                except Exception as e:
-                    deploys[name] = {'url': url, 'healthy': False, 'error': str(e)[:200]}
         except ImportError:
             # Fallback to curl
             for name, url in HEALTH_ENDPOINTS.items():
