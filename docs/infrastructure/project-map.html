@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoalWorld Project Map</title>
+  <style>
+    :root{--bg:#0b1020;--panel:#11182b;--card:#15203a;--line:#324160;--text:#e7edf7;--muted:#9fb0d0;--accent:#67b7ff;--good:#69e3a6;--warn:#ffcf5a;--danger:#ff8a8a}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    .wrap{padding:20px;max-width:1800px;margin:0 auto}
+    h1{margin:0 0 8px;font-size:30px}
+    .sub{color:var(--muted);margin-bottom:18px;line-height:1.5}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+    .card{background:linear-gradient(180deg,var(--panel),var(--card));border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 12px 24px rgba(0,0,0,.18)}
+    .card h2{margin:0 0 10px;font-size:18px;color:#fff}
+    .tag{display:inline-block;font-size:12px;padding:3px 8px;border-radius:999px;background:rgba(103,183,255,.13);color:#cfe6ff;border:1px solid rgba(103,183,255,.35);margin:0 8px 8px 0}
+    .good{background:rgba(105,227,166,.12);color:#c9ffe1;border-color:rgba(105,227,166,.35)}
+    .warn{background:rgba(255,207,90,.12);color:#ffeab0;border-color:rgba(255,207,90,.35)}
+    ul{margin:8px 0 0 18px;padding:0;color:var(--text)}
+    li{margin:5px 0}
+    .flow,.section{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;overflow:auto}
+    .flow h2,.section h2{margin:0 0 12px}
+    .lane{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .node{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:180px;text-align:center}
+    .node strong{display:block;font-size:14px;margin-bottom:4px}
+    .node span{font-size:12px;color:var(--muted)}
+    .arrow{color:var(--accent);font-size:22px;font-weight:700}
+    .legend{margin-top:14px;color:var(--muted);font-size:13px;line-height:1.45}
+    .footer{margin-top:18px;color:var(--muted);font-size:12px}
+    code{background:#0a1222;padding:2px 6px;border-radius:6px;border:1px solid #22314b;color:#d7e6ff}
+    .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+    .mini{padding:12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
+    .mini h3{margin:0 0 8px;font-size:15px}
+    .mini p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+    .metric{font-size:24px;font-weight:700;color:#fff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>GoalWorld Project Map</h1>
+    <div class="sub">Repo-wide structure and the main execution path for <code>/data/apps/GoalWorld</code>. This view is based on manifest inventory plus live import scan of the major source trees.</div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Core Apps</h2>
+        <span class="tag good">runtime</span><span class="tag">frontend</span><span class="tag">backend</span>
+        <ul>
+          <li><b>webapp/</b> — main UI and gameplay shell</li>
+          <li><b>api/</b> — backend + marketing/pipeline endpoints</li>
+          <li><b>contracts/</b> — Anchor/Solana on-chain programs</li>
+          <li><b>oracle/</b> — oracle / mint / config service</li>
+          <li><b>sdk/</b> &amp; <b>goalworld-sdk/</b> — shared client libraries</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Ops & Automation</h2>
+        <span class="tag good">automation</span><span class="tag">delivery</span><span class="tag">maintenance</span>
+        <ul>
+          <li><b>ops/</b> — Hermes/GoalWorld operational tooling</li>
+          <li><b>scripts/</b> — video/marketing/setup automation</li>
+          <li><b>logs/</b> — runtime logs and diagnostics</li>
+          <li><b>data/</b> — local persistent artifacts</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Knowledge & Control</h2>
+        <span class="tag good">docs</span><span class="tag">context</span><span class="tag">skills</span>
+        <ul>
+          <li><b>docs/</b> — implementation and status docs</li>
+          <li><b>ai_context/</b> — machine-facing memory/context</li>
+          <li><b>skills/</b> — Hermes workflow skills</li>
+          <li><b>ventures/</b> — venture planning / notes</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Testing Surface</h2>
+        <span class="tag warn">qa</span><span class="tag">build</span>
+        <ul>
+          <li><b>tests/</b> — repo-level tests and fixtures</li>
+          <li><b>webapp/package.json</b> — UI scripts</li>
+          <li><b>api/package.json</b> — server scripts</li>
+          <li><b>contracts/package.json</b> — Anchor test &amp; IDL scripts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flow">
+      <h2>Primary Execution Flow</h2>
+      <div class="lane">
+        <div class="node"><strong>webapp</strong><span>UI + game shell</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>api</strong><span>routes + business logic</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>contracts</strong><span>on-chain execution</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>oracle / sdk</strong><span>data &amp; client helpers</span></div>
+      </div>
+      <div class="legend">Supporting loop: <b>ops</b> and <b>scripts</b> automate delivery; <b>docs</b>, <b>ai_context</b>, and <b>skills</b> preserve decision context and operator knowledge.</div>
+    </div>
+
+    <div class="section">
+      <h2>What the codebase says</h2>
+      <div class="cols">
+        <div class="mini">
+          <h3>Webapp</h3>
+          <p>Contains React hooks/contexts/components and a marketing/play navigation layer. It is the user-facing layer that mounts gameplay and dashboard surfaces.</p>
+        </div>
+        <div class="mini">
+          <h3>API</h3>
+          <p>Exposes pipeline/marketing endpoints and integrates with social tooling. The source tree includes test helpers for Twitter/Grok integration and a pipeline health route.</p>
+        </div>
+        <div class="mini">
+          <h3>Contracts</h3>
+          <p>Anchor-based Solana programs and scripts for minting/token operations. This is the on-chain authority layer for protocol actions.</p>
+        </div>
+        <div class="mini">
+          <h3>Repo Scale</h3>
+          <p class="metric">~10</p>
+          <p>Top-level directories with operational significance, plus several workspaces and generated dependencies. The codebase is broad enough to warrant separate maps per domain.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Recommended next maps</h2>
+      <div class="cols">
+        <div class="mini"><h3>1. Webapp map</h3><p>Component tree, routes, contexts, hooks, game mount points.</p></div>
+        <div class="mini"><h3>2. API map</h3><p>Route groups, pipeline/marketing endpoints, external integrations.</p></div>
+        <div class="mini"><h3>3. Contracts map</h3><p>Program layout, accounts/state, instruction flow, deployment path.</p></div>
+        <div class="mini"><h3>4. Ops map</h3><p>Hermes scripts, timers, automations, and sync jobs.</p></div>
+      </div>
+    </div>
+
+    <div class="footer">Generated from live repo inspection. If you want, I can turn the next layer into a dependency graph or split this into per-package maps.</div>
+  </div>
+</body>
+</html>

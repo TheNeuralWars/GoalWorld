@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MCP server: goalworld on-chain + ops API for Hermes (native-mcp).
+MCP server: GoalChain on-chain + ops API for Hermes (native-mcp).
 
 Tools: ops status, economy health/config, program config snapshot.
 """
@@ -15,14 +15,17 @@ import requests
 
 try:
     from mcp.server.fastmcp import FastMCP
-except ImportError as e:  # pragma: no cover
-    raise SystemExit("pip install mcp (Hermes venv should include it)") from e
+except ImportError:
+    try:
+        from fastmcp import FastMCP
+    except ImportError as e:  # pragma: no cover
+        raise SystemExit("pip install fastmcp or mcp (Hermes venv should include it)") from e
 
 import sys
 is_sse = len(sys.argv) > 1 and sys.argv[1] == "sse"
 
 mcp = FastMCP(
-    "goalworld-ops",
+    "goalchain-ops",
     host="0.0.0.0" if is_sse else "127.0.0.1",
     port=8646 if is_sse else 8000,
     mount_path="/mcp-ops" if is_sse else "/"
@@ -30,8 +33,8 @@ mcp = FastMCP(
 
 
 API_BASE = os.environ.get(
-    "goalworld_API_BASE",
-    "http://127.0.0.1:3001",
+    "GOALCHAIN_API_BASE",
+    "https://crm.goalchain.fun/goalchain-api",
 ).rstrip("/")
 RPC_URL = os.environ.get("RPC_URL", "https://api.devnet.solana.com")
 PROGRAM_ID = os.environ.get(
@@ -39,8 +42,8 @@ PROGRAM_ID = os.environ.get(
     "FbDhM4itBS2Cco7c7PbNvC98Fx7Y5HxqXS1JuXdNcBwg",
 )
 REPO = os.environ.get(
-    "goalworld_REPO_PATH",
-    str(Path.home() / "hermes/workspace/goalworld"),
+    "GOALCHAIN_REPO_PATH",
+    str(Path.home() / "hermes/workspace/GoalChain"),
 )
 HEALTHCHECK_SCRIPT = Path(REPO) / "ops/hermes/healthcheck.sh"
 
@@ -62,25 +65,25 @@ def _get(path: str) -> dict:
 
 
 @mcp.tool()
-def goalworld_ops_status() -> str:
-    """Live goalworld ops status (API health, worker, deploy hints)."""
+def goalchain_ops_status() -> str:
+    """Live GoalChain ops status (API health, worker, deploy hints)."""
     return json.dumps(_get("/api/ops/status"), indent=2)
 
 
 @mcp.tool()
-def goalworld_economy_health() -> str:
+def goalchain_economy_health() -> str:
     """Economy health: canonical KPIs vs on-chain (healthy/warning/critical)."""
     return json.dumps(_get("/api/economy/health"), indent=2)
 
 
 @mcp.tool()
-def goalworld_economy_config() -> str:
+def goalchain_economy_config() -> str:
     """Canonical economy config + on-chain protocol config snapshot."""
     return json.dumps(_get("/api/economy/config"), indent=2)
 
 
 @mcp.tool()
-def goalworld_onchain_program_info() -> str:
+def goalchain_onchain_program_info() -> str:
     """Solana devnet program id + RPC + recent repo commits (context for scans)."""
     commits = ""
     repo = Path(REPO)
@@ -111,8 +114,8 @@ def goalworld_onchain_program_info() -> str:
 # another user). Issue #815 §4.
 
 
-@mcp.resource("goalworld-ops://.health")
-def goalworld_ops_health() -> str:
+@mcp.resource("goalchain-ops://.health")
+def goalchain_ops_health() -> str:
     """Latest centralized health envelope (PASS/WARN/FAIL + per-check detail)."""
     if not HEALTHCHECK_SCRIPT.exists():
         return _run_healthcheck()

@@ -28,6 +28,16 @@ copy_script() {
   chmod +x "${SCRIPTS_DIR}/${name}" || true
 }
 
+# Shared helper libraries: scripts source them relative to themselves, so they
+# must land next to (or one level up from) the installed script.
+mkdir -p "${SCRIPTS_DIR}/lib"
+cp "${SRC_DIR}/lib/"*.sh "${SCRIPTS_DIR}/lib/" 2>/dev/null || true
+# Flat copy too: oa-worker.sh checks ${SCRIPT_DIR}/oa-worker-common.sh first.
+for lib in "${SRC_DIR}/lib/"*.sh; do
+  [[ -f "${lib}" ]] || continue
+  cp "${lib}" "${SCRIPTS_DIR}/$(basename "${lib}")"
+done
+
 copy_script "create-task.sh"
 copy_script "oa-worker.sh"
 copy_script "oa-control.sh"

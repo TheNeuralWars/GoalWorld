@@ -4,10 +4,12 @@ import { EconomyConfigBanner } from './EconomyConfigBanner';
 import { OpsStatusPanel } from './OpsStatusPanel';
 import { SimulationBadge } from '../components/SimulationBadge';
 import { useUser } from '../contexts/UserContext';
+import { useTranslation } from '../i18n';
 
 export function DashboardGrid() {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { t } = useTranslation();
   const [showOpsConsole, setShowOpsConsole] = useState(false);
 
   return (
@@ -73,13 +75,13 @@ export function DashboardGrid() {
             <div className="launcher-card-icon">🏟️</div>
             <div className="launcher-card-badge">PORTAL ACTIVO</div>
           </div>
-          <h3>Portal del Estadio</h3>
+          <h3>Stadium — Bet</h3>
           <p>
-            Mira el fixture de partidos de la Copa del Mundo 2026, interactúa con el Cronista IA en tiempo real y realiza apuestas deportivas on-chain en devnet.
+            One job: place a World Cup fixture bet on Solana devnet. Paper only. Not mainnet. No real-money copy.
           </p>
           <div className="launcher-card-footer">
-            <span className="launcher-card-status"><span className="live-dot"></span> En Vivo</span>
-            <span className="launcher-card-btn text-neon-green">Ingresar al Estadio →</span>
+            <span className="launcher-card-status">Devnet / paper</span>
+            <span className="launcher-card-btn text-neon-green">Place a bet →</span>
           </div>
         </div>
 
@@ -135,33 +137,34 @@ export function DashboardGrid() {
         </div>
       </div>
 
-      {/* X-Scout Active Research Stream (Mock feed de Twitter AI Explorer) */}
-      <div className="xscout-stream glass-card">
+      {/* GW-XSC-001: canned matchday tweets — FICTION until a real radar markdown is wired */}
+      <div className="xscout-stream glass-card" data-xscout-source="fiction">
         <div className="xscout-stream-header">
-          <div className="xscout-badge">🤖 X-SCOUT INTEL</div>
-          <h3>Tendencias y Análisis de IA (X / Twitter)</h3>
-          <p>Exploración autónoma de arbitraje, tokens deportivos y oportunidades en Solana.</p>
+          <div className="xscout-badge xscout-badge--fiction">
+            🤖 X-SCOUT · {t('xscout_fiction_badge')}
+          </div>
+          <SimulationBadge label={t('xscout_fiction_badge')} />
+          <h3>{t('xscout_stream_title')}</h3>
+          <p>{t('xscout_stream_desc')}</p>
         </div>
         <div className="xscout-stream-content">
-          <div className="xscout-post">
+          <div className="xscout-post xscout-post--fiction">
             <div className="xscout-post-meta">
               <span className="xscout-avatar">🕵️‍♂️</span>
               <span className="xscout-username">@x-scout_bot</span>
-              <span className="xscout-time">hace 10m</span>
+              <span className="xscout-fiction-chip">{t('xscout_fiction_badge')}</span>
+              <span className="xscout-time">{t('xscout_post_time')}</span>
             </div>
-            <p className="xscout-post-text">
-              📈 <span className="hashtag">#ArbitrajeSolana</span>: Detectada discrepancia de 2.4% en el par de liquidez GOAL/USDC entre Raydium y Meteora. Los Swarm Vaults del DeFi Portal ya están ejecutando balanceos automáticos para capturar el spread. ¡Excelente día para los stakers!
-            </p>
+            <p className="xscout-post-text">{t('xscout_post_1_text')}</p>
           </div>
-          <div className="xscout-post">
+          <div className="xscout-post xscout-post--fiction">
             <div className="xscout-post-meta">
               <span className="xscout-avatar">🕵️‍♂️</span>
               <span className="xscout-username">@x-scout_bot</span>
-              <span className="xscout-time">hace 1h</span>
+              <span className="xscout-fiction-chip">{t('xscout_fiction_badge')}</span>
+              <span className="xscout-time">{t('xscout_post_time')}</span>
             </div>
-            <p className="xscout-post-text">
-              ⚽ <span className="hashtag">#WorldCup2026</span>: El Cronista IA reporta una alta volatilidad en los coeficientes del partido ARG vs FRA para el próximo encuentro. Las apuestas on-chain están abiertas en la pestaña Estadio.
-            </p>
+            <p className="xscout-post-text">{t('xscout_post_2_text')}</p>
           </div>
         </div>
       </div>

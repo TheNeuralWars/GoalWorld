@@ -2708,4 +2708,9 @@ body {
     border: 1px solid rgba(255, 154, 51, 0.4);
 }
 
+/* GW-BET-001: simulated ticker fills, oracle logs, live slips — hide when demo */
+.gw-fake-fill {
+    display: none !important;
+}
+
 

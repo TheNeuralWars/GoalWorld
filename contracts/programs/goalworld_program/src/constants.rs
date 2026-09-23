@@ -23,7 +23,7 @@ pub const SEED_STADIUM: &[u8] = b"stadium";
 pub const SEED_MANAGER_DAILY_CLAIM: &[u8] = b"manager_daily_claim";
 
 // Economy config
-pub const MAX_FEE_BPS: u16 = 1000;
+pub const MAX_FEE_BPS: u16 = 100; // 1% hard cap — matches ECONOMIC_CANONICAL_CONFIG.max_fee_bps
 pub const BPS_DENOMINATOR: u16 = 10000;
 pub const DEFAULT_FEE_BURN_BPS: u16 = 500;
 pub const DEFAULT_FEE_JACKPOT_BPS: u16 = 200;

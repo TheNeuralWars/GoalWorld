@@ -36,5 +36,5 @@
    ```
 2. **Apply resilience**:
    ```bash
-   curl -X PATCH -H "Authorization: Bearer sk-cac9fb818e70e6bb-f4dcba-60525661" -d '{"retry": 3}' http://100.101.211.44:20128/api/resilience
+   curl -X PATCH -H "Authorization: Bearer $OMNIROUTE_API_KEY" -d '{"retry": 3}' http://100.101.211.44:20128/api/resilience
    ```

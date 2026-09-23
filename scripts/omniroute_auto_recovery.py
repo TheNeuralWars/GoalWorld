@@ -10,10 +10,14 @@ import json
 import urllib.request
 import time
 import datetime
+import os
 
 DB = "/data/docker/volumes/omniroute-data/_data/storage.sqlite"
 URL = 'http://localhost:20128/v1/chat/completions'
-KEY = 'sk-cac9fb818e70e6bb-f4dcba-60525661'
+# No credential in the repo: export OMNIROUTE_API_KEY (previously hardcoded and public).
+KEY = os.environ.get("OMNIROUTE_API_KEY", "")
+if not KEY:
+    raise SystemExit("OMNIROUTE_API_KEY is not set in the environment")
 
 def now_ts():
     return datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00','Z')

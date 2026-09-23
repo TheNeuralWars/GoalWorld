@@ -164,12 +164,10 @@ Quest types live:
 Every quest you skip = allocation you leave on the table.
 👉 https://zealy.io/cw/goalworld`,
 
-    `🔍 **X-Scout Alpha**
+    `🔍 **X-Scout (research, not a live arb quote)**
 
-Our live AI agent is scanning Solana in real time.
-Recent signals: GOAL/USDC 2.4% arb detected. WC match volatility windows mapped.
-
-This is the on-chain infrastructure running before most people know goalworld exists.
+Radar markdown goes to Discord **#active-research** when a cycle has a real signal.
+This channel does not quote live DEX spreads. No GOAL/USDC 2.4% arb is live.
 
 Presale: 1 SOL = 50,000 $GCH | ~30% hard cap raised.
 Vault executing buybacks from every Genesis sale.

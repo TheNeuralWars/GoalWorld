@@ -1832,6 +1832,24 @@ input:checked + .slider-red:before {
   margin-bottom: 0.5rem;
 }
 
+.xscout-badge--fiction {
+  color: #f5c842;
+  background: rgba(245, 166, 35, 0.15);
+  border-color: rgba(245, 166, 35, 0.45);
+}
+
+.xscout-fiction-chip {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.12rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(245, 166, 35, 0.15);
+  border: 1px solid rgba(245, 166, 35, 0.45);
+  color: #f5c842;
+}
+
 .xscout-stream-header h3 {
   font-size: 1.2rem;
   margin: 0 0 4px 0;
