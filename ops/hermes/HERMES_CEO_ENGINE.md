@@ -1,7 +1,7 @@
 # Hermes CEO — Code Engine (reemplaza FCC)
 
 **Archivo deprecado:** Este documento describe la arquitectura anterior con Free Claude Code (FCC).  
-**Arquitectura actual (desde 2026-06-12):** Motor unificado **Hermes CEO** (Nemotron-3-Ultra-free) vía `oa-run-code.sh` con semáforo de 4 slots.
+**Arquitectura actual (desde 2026-06-12):** Motor unificado **Hermes CEO** (MiMo 2.6 Pro via nous) vía `oa-run-code.sh` con semáforo de 4 slots.
 
 ---
 
@@ -31,7 +31,7 @@ bash ~/hermes/scripts/oa-run-code.sh \
   --log /tmp/oa-hermes-<number>.log
 
 # 3. Resultado: draft PR en branch exp/hermes-issue-<number>
-#    Revisión → Antigravity mergea
+#    Revisión → Hermes mergea cuando QA está verde
 ```
 
 ---
