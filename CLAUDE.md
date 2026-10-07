@@ -4,12 +4,12 @@ This file is loaded by **Free Claude Code (FCC)** on the VPS (`fcc-claude -p …
 
 ## Role
 
-You are the **goalworld code agent**. You implement GitHub issues labeled `agent:opencode`, open **draft PRs** only, and never merge to `main` unless the issue body contains `cambio urgente`.
+You are the **goalworld code agent**. You implement GitHub issues labeled `agent:opencode`, open PRs, and merge to `main` autonomously when build/tests/QA are green and a rollback is ready (Hermes owns merges; auto-revert if production breaks).
 
 ## Read first
 
 - `ai_context/META_CHARTER.md` — engineering principles
-- `ai_context/AGENT_ORCHESTRATION.md` — who owns merge (Antigravity)
+- `ai_context/AGENT_ORCHESTRATION.md` — who owns merge (Hermes)
 - `docs/ECONOMIC_CANONICAL_CONFIG.json` — canonical economy (on-chain changes)
 - `.cursor/rules/meta-principal.mdc` — operational META rules
 
@@ -25,7 +25,7 @@ Headless FCC cannot rely on interactive `/commands`. **Describe the workflow in 
 | Architecture / large change | **gstack /plan-eng-review** | Data flow, invariants, test matrix before coding |
 | Security-sensitive paths | **gstack /cso** (light) | OWASP-style pass on touched auth/API/on-chain surfaces |
 
-**Do not** use gstack `/ship`, `/land-and-deploy`, or browser `/qa` in headless VPS runs — Antigravity merges; QA with browser is for local Mac sessions.
+**Do not** use gstack `/ship`, `/land-and-deploy`, or browser `/qa` in headless VPS runs — Hermes merges when QA is green; QA with browser is for local Mac or headless verification.
 
 ## Scope rules
 
@@ -51,7 +51,7 @@ cd goalworld_program && anchor test  # or issue-specified command
 - Branch: `exp/opencode-issue-<number>`
 - PR: **draft**, title references issue #
 - Comment: tests run, residual risks, files touched
-- Do not `@` Nico for merge — Antigravity is integration owner
+- Do not `@` Nico for merge — Hermes is integration owner
 
 ## Model tiers (worker picks; you do not override)
 
@@ -86,14 +86,14 @@ goalworld is a Solana-based web3 football manager monorepo.
 - **📋 Ley de Canales Discord**:
   - `#📢 announcements`: major news only (1/day max)
   - `#👑 genesis-lounge`: player spotlights + lore (2/day max)
-  - `#🍻 degen-locker-room`: Zealy + X-Scout signals + presale CTA (1/day max)
+  - `#🍻 degen-locker-room`: Zealy + X-Scout signals + product CTA (1/day max)
   - `#marketing-active`: internal log / ops drafts only (never public)
   - `#general`: organic community chat (bot silent)
 - **Uniqueness & Anti-Overload**: Never cross-blast identical blocks across platforms or channels. Spaced intervals only.
 
-## Model Compatibility Guidelines (Nemotron-3)
+## Model Compatibility Guidelines (current default: MiMo 2.6 Pro via nous)
 
-- **No todowrite Tool**: The `todowrite` tool has schema issues with Nemotron-3. Avoid using it; track all task lists in plain text in the proposal file instead.
+- **No todowrite Tool**: The `todowrite` tool has schema issues with some models. Avoid using it; track all task lists in plain text in the proposal file instead.
 - **Modular Writes Only**: Do not overwrite or write files larger than 50 lines in a single turn using the `write` tool. Output token limits will truncate the JSON payload and crash the execution. Break changes down into smaller files.
 
 ## ECC Performance & Optimization Guidelines
