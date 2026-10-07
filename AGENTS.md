@@ -100,9 +100,9 @@ The following Antigravity skills are mandatory references:
 1. **English-only on public surfaces** (Discord, X, Zealy, ads, docs marketing copy). Zero Spanish. Marketing generators and validators must enforce this.
 2. **Channel-overload discipline** — each info gets one channel; never cross-blast identical blocks. See `ops/discord/discord_channel_router.js` + `LAUNCH_CAMPAIGN_AGGRESSIVE.md`.
 3. **VPS-only writes** for `/data/apps/goalworld`. Local edits can happen for preview but deploys come from the VPS repo.
-4. **One implementer per task** — Hermes CEO (Nemotron-3-Ultra-free) pipeline via `oa-run-code.sh`, draft PRs only. Never merge to main unless the issue body has `cambio urgente`.
+4. **One implementer per task** — Hermes CEO (MiMo 2.6 Pro via nous) pipeline via `oa-run-code.sh`. Hermes owns merges: merge to `main` + deploy autonomously when build/tests/QA are green and a rollback is ready (auto-revert if production breaks).
 
-5. **Code agent**: Only **Hermes CEO** (Nemotron-3-Ultra-free) implements issues. Legacy "Free Claude Code" references are obsolete and should be ignored.
+5. **Code agent**: Only **Hermes CEO** (MiMo 2.6 Pro via nous) implements issues. Legacy "Free Claude Code" references are obsolete and should be ignored.
 
 ---
 
@@ -140,7 +140,7 @@ Each migration must ship in its own PR after a successful `anchor test` and the 
 - `ai_context/AGENT_ORCHESTRATION.md` — who merges what.
 - `docs/ECONOMIC_CANONICAL_CONFIG.json` — economy canonical config.
 - `WORKFLOW.md` — task workflow rules.
-- `CLAUDE.md` — FCC-specific instructions.
+- `CLAUDE.md` — coding-agent instructions.
 - `AGENT_TOOLS_GUIDE.md` — tools cheat sheet.
 
 ---
