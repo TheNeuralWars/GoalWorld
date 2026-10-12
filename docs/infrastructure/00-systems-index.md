@@ -92,6 +92,26 @@
 
 ---
 
+## Access — OmniRoute dashboard from Nico's Windows PC
+
+The dashboard port is published on **loopback + Tailscale IP only** (no public exposure, no Cloudflare tunnel).
+`docker inspect` → `20128/tcp → 127.0.0.1:20128` and `100.101.211.44:20128`.
+
+| Step | Action |
+|------|--------|
+| 1 | Tailscale tray icon (Windows, bottom-right `^`) → must read **Connected** on account `goalchain.fun@` |
+| 2 | Brave → `http://100.101.211.44:20128` (or `http://goalchain.taild2f3f7.ts.net:20128`) |
+| 3 | `/` redirects to `/login` → password login (`requireLogin: true`) |
+
+- Auth model: password login → `auth_token` cookie signed with `JWT_SECRET` (auto-generated in `/app/data/server.env`).
+- Password hash lives in `storage.sqlite` → `key_value` (`namespace='settings'`, `key='password'`, bcrypt cost 12).
+- Well-known default is `CHANGEME` — never leave it set; remote login is blocked while it is.
+- Change the password in the UI: **Settings → Security** (`newPassword` + `currentPassword` via `PATCH /api/settings`; the API refuses security-impacting keys without `currentPassword`).
+- `GET /api/settings` is reachable with the management `OMNIROUTE_API_KEY` (`/api/*` bypasses the cookie gate) — that is the recovery path when the dashboard password is lost.
+- Password reset (agent runbook): stop container → write new bcrypt hash into `key_value` + bump `_settingsRevision` → start container → verify with `POST /api/auth/login`. Do it with the container stopped so the in-memory settings cache cannot overwrite the row.
+
+---
+
 ## Current state (2026-08-16)
 
 - **API**: ✅ Docker `goalworld-api` :3001 healthy
