@@ -1,19 +1,52 @@
 #!/usr/bin/env bash
-# Create a goalworld task issue from server with owner labels.
+# Create a goalworld task issue from the server with owner labels.
+#
+#   create-task.sh <owner> <priority> <title> <objective>
+#   create-task.sh --source ceo <owner> <priority> <title> <objective>
+#
+# --source only changes the "## Context" line (who requested it).
+# create-task-ceo.sh is a shim that passes --source ceo.
 set -euo pipefail
 
-# config.env lives at ~/hermes/config.env (symlink → /data/apps/hermes/config.env)
-# Do NOT use $HERMES_HOME — that's the Hermes Agent profile dir, not the ops dir.
-GOALWORLD_OPS_HOME="${GOALWORLD_OPS_HOME:-$HOME/hermes}"
-# shellcheck disable=SC1090
-source "$GOALWORLD_OPS_HOME/config.env"
+SOURCE="manager"
+ARGS=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --source) SOURCE="${2:-manager}"; shift 2 ;;
+    --source=*) SOURCE="${1#*=}"; shift ;;
+    *) ARGS+=("$1"); shift ;;
+  esac
+done
+set -- ${ARGS[@]+"${ARGS[@]}"}
 
 if [[ $# -lt 4 ]]; then
-  echo "Usage: $0 <owner:cursor|antigravity|hermes|code|grok> <priority:P0|P1|P2> <title> <objective>"
-  echo "Example:"
-  echo "  $0 cursor P1 \"Webapp devnet bets\" \"Wire real place_bet tx in webapp\""
+  cat <<EOF
+Usage: $0 [--source manager|ceo] <owner:cursor|antigravity|hermes|code|grok> <priority:P0|P1|P2> <title> <objective>
+Example:
+  $0 cursor P1 "Webapp devnet bets" "Wire real place_bet tx in webapp"
+  $0 --source ceo hermes P0 "[DRAFT] Finish PR #32" "Finish consolidation"
+EOF
   exit 1
 fi
+
+# config.env lives in the ops dir, NOT the Hermes Agent profile dir.
+# Do NOT use $HERMES_HOME here — on a profile it points at the agent's home.
+CONFIG_ENV=""
+for candidate in \
+  "${GOALWORLD_OPS_HOME:-$HOME/hermes}/config.env" \
+  "$HOME/hermes/config.env" \
+  /home/goalworld/hermes/config.env; do
+  if [[ -f "$candidate" ]]; then
+    CONFIG_ENV="$candidate"
+    break
+  fi
+done
+if [[ -z "$CONFIG_ENV" ]]; then
+  echo "ERROR: config.env not found (looked in GOALWORLD_OPS_HOME, \$HOME/hermes, /home/goalworld/hermes)" >&2
+  exit 1
+fi
+# shellcheck disable=SC1090
+source "$CONFIG_ENV"
 
 OWNER="$1"
 PRIORITY="$2"
@@ -24,7 +57,7 @@ case "$OWNER" in
   code|opencode) OWNER="hermes" ;;
   cursor|antigravity|hermes|grok) ;;
   *)
-    echo "ERROR: owner must be one of: cursor|antigravity|hermes|code|grok"
+    echo "ERROR: owner must be one of: cursor|antigravity|hermes|code|grok" >&2
     exit 1
     ;;
 esac
@@ -32,21 +65,30 @@ esac
 case "$PRIORITY" in
   P0|P1|P2) ;;
   *)
-    echo "ERROR: priority must be P0, P1, or P2"
+    echo "ERROR: priority must be P0, P1, or P2" >&2
     exit 1
     ;;
 esac
 
 if ! command -v gh >/dev/null 2>&1; then
-  echo "ERROR: gh CLI not found"
+  echo "ERROR: gh CLI not found" >&2
   exit 1
 fi
 
+case "$SOURCE" in
+  ceo) REQUESTED_BY="Requested by Nico via Manager (hermes-ceo profile)." ;;
+  *)   REQUESTED_BY="Requested by Nico via Manager (WhatsApp/OpenClaw)." ;;
+esac
+
 # Ensure canonical labels exist (ignore if already present).
-gh label create "agent:${OWNER}" --repo "$GITHUB_REPO" --color "1f6feb" --description "Task owner ${OWNER}" >/dev/null 2>&1 || true
-gh label create "priority:${PRIORITY}" --repo "$GITHUB_REPO" --color "d73a4a" --description "Priority ${PRIORITY}" >/dev/null 2>&1 || true
-gh label create "status:ready" --repo "$GITHUB_REPO" --color "0e8a16" --description "Ready to start" >/dev/null 2>&1 || true
-gh label create "source:manager" --repo "$GITHUB_REPO" --color "5319e7" --description "Created by Manager/OpenClaw" >/dev/null 2>&1 || true
+for spec in \
+  "agent:${OWNER}|1f6feb|Task owner ${OWNER}" \
+  "priority:${PRIORITY}|d73a4a|Priority ${PRIORITY}" \
+  "status:ready|0e8a16|Ready to start" \
+  "source:manager|5319e7|Created by Manager/OpenClaw"; do
+  IFS='|' read -r label color desc <<<"$spec"
+  gh label create "$label" --repo "$GITHUB_REPO" --color "$color" --description "$desc" >/dev/null 2>&1 || true
+done
 
 ISSUE_TITLE="[${OWNER^^}] ${TITLE}"
 ISSUE_BODY="$(cat <<EOF
@@ -60,7 +102,7 @@ ${OWNER}
 ${PRIORITY}
 
 ## Context
-Requested by Nico via Manager (WhatsApp/OpenClaw). Keep scope tight and aligned with goalworld orchestration rules.
+${REQUESTED_BY} Keep scope tight and aligned with goalworld orchestration rules.
 
 ## Required output
 - Proposed file list

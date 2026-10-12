@@ -77,6 +77,12 @@ def run_cmd_with_env(args, cwd=None, env=None, timeout=60):
 
 class AutonomousLoop:
     def __init__(self):
+        # DATA_DIR/LOG_DIR hold gitignored runtime state, so a fresh clone has
+        # no data/ at all. _step_report and _save_loop_state write into it
+        # without creating it, which aborted the cycle with FileNotFoundError
+        # (verified: dry-run in a clean export died on cycle_1.json).
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        LOG_DIR.mkdir(parents=True, exist_ok=True)
         self.repo_root = REPO_ROOT
         self.cycle_count = 0
         self.loop_state = self._load_loop_state()

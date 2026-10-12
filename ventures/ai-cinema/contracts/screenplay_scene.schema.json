@@ -1,0 +1,350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://goalworld.fun/schemas/ai-cinema/screenplay_scene.schema.json",
+  "title": "Screenplay Scene Contract",
+  "description": "Structured scene contract used to transform lore chapters into cinematic scene prompts for Grok and ComfyUI.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source", "scene", "visual", "audio", "generation"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Version of the screenplay scene contract."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["chapter_id", "chapter_title", "lore_reference"],
+      "properties": {
+        "chapter_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable identifier for the lore chapter being adapted."
+        },
+        "chapter_title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable chapter title."
+        },
+        "lore_reference": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical lore reference, citation, slug, or source path used as the adaptation input."
+        },
+        "excerpt": {
+          "type": "string",
+          "description": "Optional excerpt from the chapter that directly inspired the scene."
+        }
+      }
+    },
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scene_id", "order", "beat", "summary", "duration_seconds"],
+      "properties": {
+        "scene_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique identifier for the scene within the screenplay."
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based scene order in the sequence."
+        },
+        "beat": {
+          "type": "string",
+          "enum": ["hook", "setup", "turn", "escalation", "reveal", "climax", "resolution"],
+          "description": "Narrative function of the scene."
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Short cinematic summary of what happens in the scene."
+        },
+        "duration_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 180,
+          "description": "Target runtime for the scene."
+        },
+        "pacing": {
+          "type": "string",
+          "enum": ["slow", "medium", "fast", "kinetic"],
+          "description": "Desired editorial tempo."
+        }
+      }
+    },
+    "visual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject", "action", "setting", "camera", "lighting", "composition", "style"],
+      "properties": {
+        "subject": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "description"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Primary on-screen subject, character, or object."
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Visual description that keeps the subject consistent for generation."
+            },
+            "wardrobe": {
+              "type": "string",
+              "description": "Clothing, costume, or outfit description."
+            },
+            "expression": {
+              "type": "string",
+              "description": "Facial expression or emotional read."
+            }
+          }
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What the subject is doing in the shot."
+        },
+        "setting": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["location", "environment"],
+          "properties": {
+            "location": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Where the shot takes place."
+            },
+            "environment": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Environmental details, time of day, weather, or atmospheric cues."
+            },
+            "props": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true,
+              "description": "Key props or objects present in frame."
+            }
+          }
+        },
+        "camera": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["shot_type", "framing"],
+          "properties": {
+            "shot_type": {
+              "type": "string",
+              "enum": ["extreme_wide", "wide", "medium", "medium_close", "close_up", "extreme_close_up", "over_the_shoulder", "top_down", "low_angle", "dutch_angle"],
+              "description": "Primary camera shot or angle."
+            },
+            "framing": {
+              "type": "string",
+              "description": "How the subject is framed within the shot."
+            },
+            "movement": {
+              "type": "string",
+              "enum": ["static", "pan", "tilt", "dolly_in", "dolly_out", "truck_left", "truck_right", "orbit", "handheld", "crane", "zoom"],
+              "description": "Camera movement for the shot."
+            },
+            "lens": {
+              "type": "string",
+              "description": "Lens feel or focal length reference."
+            }
+          }
+        },
+        "lighting": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mood", "key_light", "contrast"],
+          "properties": {
+            "mood": {
+              "type": "string",
+              "description": "Lighting mood, color temperature, or atmosphere."
+            },
+            "key_light": {
+              "type": "string",
+              "description": "Key light source or dominant illumination."
+            },
+            "contrast": {
+              "type": "string",
+              "enum": ["low", "medium", "high", "ultra_high"],
+              "description": "Overall contrast level."
+            },
+            "effects": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true,
+              "description": "Special light effects such as fog, bloom, lens flare, rim light, neon glow."
+            }
+          }
+        },
+        "composition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["focus", "depth", "visual_priority"],
+          "properties": {
+            "focus": {
+              "type": "string",
+              "description": "Primary focus of the frame."
+            },
+            "depth": {
+              "type": "string",
+              "enum": ["flat", "shallow", "moderate", "deep"],
+              "description": "Depth of field or spatial layering."
+            },
+            "visual_priority": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "description": "Ordered list of the elements that must read first in the frame."
+            }
+          }
+        },
+        "style": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["look", "render_notes"],
+          "properties": {
+            "look": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Overall visual style, genre, or aesthetic target."
+            },
+            "render_notes": {
+              "type": "string",
+              "description": "Important generation notes for Grok, ComfyUI, or downstream renderers."
+            },
+            "references": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true,
+              "description": "Optional style or composition references."
+            }
+          }
+        }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["music", "sfx", "dialogue"],
+      "properties": {
+        "music": {
+          "type": "string",
+          "description": "Music direction, or 'no music' if the scene should be silent."
+        },
+        "sfx": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "description": "Sound effects or ambient sounds to generate or layer."
+        },
+        "dialogue": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["speaker", "line"],
+            "properties": {
+              "speaker": {
+                "type": "string",
+                "minLength": 1
+              },
+              "line": {
+                "type": "string",
+                "minLength": 1
+              },
+              "timing": {
+                "type": "string",
+                "description": "When the line should land within the scene."
+              }
+            }
+          },
+          "description": "Optional dialogue beats."
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target", "aspect_ratio"],
+      "properties": {
+        "target": {
+          "type": "string",
+          "enum": ["grok", "comfyui", "hybrid"],
+          "description": "Primary generation backend for the scene." 
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "enum": ["auto", "16:9", "9:16", "1:1", "4:3", "21:9"],
+          "description": "Expected output aspect ratio for the render." 
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295,
+          "description": "Optional reproducibility seed."
+        },
+        "negative_prompt": {
+          "type": "string",
+          "description": "Things that must not appear in the render."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "description": "Free-form labels for search, filtering, or orchestration."
+        }
+      }
+    },
+    "continuity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "previous_scene_id": {
+          "type": "string",
+          "description": "Scene identifier immediately before this one."
+        },
+        "next_scene_id": {
+          "type": "string",
+          "description": "Scene identifier immediately after this one."
+        },
+        "shared_elements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "description": "Elements that must remain visually consistent across adjacent scenes."
+        }
+      }
+    }
+  }
+}

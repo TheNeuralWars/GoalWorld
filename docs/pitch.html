@@ -211,6 +211,7 @@
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(255, 77, 106, 0.4);
         }
+    </style>
 
     <div class="pitch-container" id="pitchContainer">
         <!-- Las slides se cargan dinámicamente aquí -->
@@ -250,22 +251,25 @@
         };
 
         let currentLang = localStorage.getItem('gc_lang') || 'en';
+        if (currentLang !== 'es' && currentLang !== 'en') currentLang = 'en';
         let currentSlide = 0;
 
         function renderSlides() {
             const container = document.getElementById('pitchContainer');
-            container.innerHTML = slidesData[currentLang].map((slide, index) => `
+            const data = slidesData[currentLang] || slidesData.en;
+            container.innerHTML = data.map((slide, index) => `
                 <div class="slide ${index === currentSlide ? 'active' : ''}">
                     <div class="slide-header">${slide.title}</div>
                     <div class="slide-content">${slide.content}</div>
-                    <div class="slide-footer">goalworld 2026 | SLIDE ${index + 1} / ${slidesData[currentLang].length}</div>
+                    <div class="slide-footer">goalworld 2026 | SLIDE ${index + 1} / ${data.length}</div>
                 </div>
             `).join('');
             updateProgress();
         }
 
         function nextSlide() {
-            if (currentSlide < slidesData[currentLang].length - 1) {
+            const data = slidesData[currentLang] || slidesData.en;
+            if (currentSlide < data.length - 1) {
                 currentSlide++;
                 renderSlides();
             }
@@ -286,7 +290,8 @@
         }
 
         function updateProgress() {
-            const progress = ((currentSlide + 1) / slidesData[currentLang].length) * 100;
+            const data = slidesData[currentLang] || slidesData.en;
+            const progress = ((currentSlide + 1) / data.length) * 100;
             document.getElementById('progressBar').style.width = `${progress}%`;
         }
 
@@ -300,5 +305,6 @@
         document.documentElement.lang = currentLang;
         renderSlides();
     </script>
-</body>
+<script src="assets/js/gw-shell.js"></script>
+  </body>
 </html>
