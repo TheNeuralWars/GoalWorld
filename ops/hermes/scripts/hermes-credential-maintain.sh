@@ -57,8 +57,14 @@ fi
 # --- helpers ------------------------------------------------------------------
 # Was inlined twice in the older copy; now one function.
 refresh_xai_oauth() {
-  local refresh_py="${HERMES_HOME}/scripts/hermes-xai-oauth-refresh.py"
-  [[ -f "${refresh_py}" ]] || refresh_py="${SCRIPT_DIR}/hermes-xai-oauth-refresh.py"
+  local refresh_py candidate
+  for candidate in \
+    "${GOALWORLD_DIR}/ops/hermes/hermes-xai-oauth-refresh.py" \
+    "${HERMES_HOME}/scripts/hermes-xai-oauth-refresh.py" \
+    "${SCRIPT_DIR}/hermes-xai-oauth-refresh.py" \
+    "${SCRIPT_DIR}/../hermes-xai-oauth-refresh.py"; do
+    [[ -f "$candidate" ]] && { refresh_py="$candidate"; break; }
+  done
   if [[ ! -x "${HERMES_PYTHON}" || ! -f "${refresh_py}" ]]; then
     log "skip xai-oauth refresh (python or script missing)"
     return 0
