@@ -34,6 +34,7 @@
 | `blockers.md` | Active infrastructure and business blockers | Prioritization, weekly review |
 | `05-achievements-manifesto.md` | Core pivot to "Mundo de Logros" (SaaS Saga, AI Video, Trading, GoalChain) | General vision, side-project orientation |
 | `06-moa-hermpro.md` | HERMPro MoA preset configuration, reference models, aggregator, degraded policy | Understanding the current chat model setup |
+| `07-inbound-ssh-exit-node-routing.md` | Inbound ports dead while Tailscale exit node active: root cause + policy-routing fix | SSH/HTTP unreachable from the internet |
 | `systems-index.md` | This file — navigation hub | When lost |
 
 ---
