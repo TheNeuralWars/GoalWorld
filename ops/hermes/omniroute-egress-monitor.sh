@@ -22,7 +22,17 @@ win_exit_ready(){
   local win; win=$(echo "$st" | grep "$WIN_IP") || return 1   # windows line only
   echo "$win" | grep -qE "offline" && return 1
   echo "$win" | grep -qE "exit node" || return 1
+  # CF530/1033 guard (2026-09-22): refuse exit-node with zero RX — that
+  # black-holes cloudflared (TCP 7844) and takes down goalworld.fun public HTTPS.
+  if echo "$win" | grep -qE "rx 0([^0-9]|$)"; then
+    return 1
+  fi
   return 0
+}
+
+cf_edge_ok(){
+  # Cloudflare tunnel edge (http2). Port 7844 is required for cloudflared.
+  timeout 4 bash -c "echo >/dev/tcp/198.41.200.63/7844" 2>/dev/null
 }
 
 current_mode(){ cat "$MODE_FILE" 2>/dev/null || echo server; }
@@ -43,6 +53,12 @@ if win_exit_ready; then
     # confirm residential egress
     IP=$(curl -s -m 10 https://api.ipify.org 2>/dev/null)
     if [ "$IP" != "89.168.20.135" ] && [ -n "$IP" ]; then
+      if ! cf_edge_ok; then
+        log "exit node set but CF edge :7844 unreachable - reverting (protect goalworld tunnel)"
+        sudo tailscale up --reset --accept-routes >/dev/null 2>&1 || true
+        echo server >"$MODE_FILE"
+        exit 0
+      fi
       log "egress now via windows: $IP"
       # clear 1010 bans so the 5 providers retry via residential IP
       sudo python3 - <<'PY' 2>/dev/null

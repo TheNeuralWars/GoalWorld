@@ -277,13 +277,34 @@ class AutonomousLoop:
         priority = 'P0' if task.get('priority_score', 0) >= 80 else \
                    'P1' if task.get('priority_score', 0) >= 50 else 'P2'
 
+        # IDEMPOTENCY CHECK: Look for existing open issue with same title to prevent duplicates
+        # This fixes the "Stale branch: chore/hermes-audit-instructions" daily duplicate issue
+        check_title = f"[AUTO] {task['title']}"
+        # NOTE: gh --search 'title:"..."' silently returns [] for titles with
+        # brackets/colons (verified 2026-10-30: #98/#101 open, search -> []).
+        # Fetch open issues and match the title client-side instead.
+        ok, out, err = run_cmd([
+            'gh', 'issue', 'list',
+            '--state', 'open',
+            '--limit', '200',
+            '--json', 'number,title'
+        ], cwd=self.repo_root, timeout=30)
+        if ok and out.strip():
+            try:
+                existing = [i for i in json.loads(out) if i.get('title') == check_title]
+                if existing:
+                    log(f"  Skipping dispatch — open issue already exists: #{existing[0].get('number')} \"{existing[0].get('title')}\"")
+                    return {'action': 'skip', 'reason': 'duplicate_issue_exists', 'task_id': task_id, 'existing_issue': existing[0].get('number')}
+            except json.JSONDecodeError:
+                pass  # proceed to create if check fails
+
         # Build detailed prompt
         prompt = self._build_dispatch_prompt(task, decomposition)
 
         # Use gh directly — more robust than create-task.sh which needs config.env
         ok, out, err = run_cmd([
             'gh', 'issue', 'create',
-            '--title', f"[AUTO] {task['title']}",
+            '--title', check_title,
             '--body', prompt,
             '--label', 'agent:hermes',
             '--label', f'priority:{priority}',

@@ -159,7 +159,7 @@ class StateAwareness:
                 parts = line.split(' ', 1)
                 bname = parts[0]
                 age = parts[1] if len(parts) > 1 else ''
-                if bname not in ('main', 'master') and ('day' in age or 'week' in age or 'month' in age):
+                if bname not in ('main', 'master', 'mainnet-prep') and ('day' in age or 'week' in age or 'month' in age):
                     git['stale_branches'].append({'branch': bname, 'last_commit': age})
 
         # Ahead/behind origin
