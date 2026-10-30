@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
  */
 export function ClassicHub() {
   const modules = [
-    { to: '/estadio',       icon: '🏟️', label: 'Estadio & Fixtures',  desc: 'Partidos, apuestas on-chain, Cronista IA'   },
+    { to: '/estadio',       icon: '🏟️', label: 'Stadium — Bet',       desc: 'Devnet / paper fixture bets only'            },
     { to: '/defi',          icon: '💱', label: 'DeFi Terminal',        desc: 'Trading, Vibe Bots y Swarm Vaults'          },
     { to: '/club',          icon: '🛡',  label: 'Mi Club & Squad',      desc: 'Manager, plantilla NFT y perfil'            },
     { to: '/staking',       icon: '🔥', label: 'Staking & Burn',       desc: 'Infinity Burn, rendimiento y tokenomía'     },

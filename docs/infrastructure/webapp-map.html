@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoalWorld Webapp Map</title>
+  <style>
+    :root{--bg:#08111f;--panel:#111a2c;--card:#15233c;--line:#334462;--text:#edf3fb;--muted:#9fb0cb;--accent:#70c4ff;--good:#64e0a2;--warn:#ffcc66}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    .wrap{padding:20px;max-width:1800px;margin:0 auto}
+    h1{margin:0 0 8px;font-size:30px}
+    .sub{color:var(--muted);margin-bottom:18px;line-height:1.5}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+    .card,.section{background:linear-gradient(180deg,var(--panel),var(--card));border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 12px 24px rgba(0,0,0,.18)}
+    .card h2,.section h2{margin:0 0 10px;font-size:18px;color:#fff}
+    .tag{display:inline-block;font-size:12px;padding:3px 8px;border-radius:999px;background:rgba(112,196,255,.13);color:#d5ecff;border:1px solid rgba(112,196,255,.35);margin:0 8px 8px 0}
+    .good{background:rgba(100,224,162,.12);color:#d8ffe9;border-color:rgba(100,224,162,.35)}
+    .warn{background:rgba(255,204,102,.12);color:#fff0c4;border-color:rgba(255,204,102,.35)}
+    .danger{background:rgba(255,138,138,.12);color:#ffd4d4;border-color:rgba(255,138,138,.35)}
+    ul{margin:8px 0 0 18px;padding:0}
+    li{margin:5px 0}
+    .lane{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .node{background:#0f1728;border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:180px;text-align:center}
+    .node strong{display:block;font-size:14px;margin-bottom:4px}
+    .node span{font-size:12px;color:var(--muted)}
+    .arrow{color:var(--accent);font-size:22px;font-weight:700}
+    .section{margin-top:18px}
+    .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+    .mini{padding:12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
+    .mini h3{margin:0 0 8px;font-size:15px}
+    .mini p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+    .footer{margin-top:18px;color:var(--muted);font-size:12px}
+    code{background:#0a1222;padding:2px 6px;border-radius:6px;border:1px solid #22314b;color:#d7e6ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>GoalWorld Webapp Map</h1>
+    <div class="sub">Detailed frontend map built from live route and import scan. Entry point: <code>src/ui/App.tsx</code>. Router stack: React Router + Solana wallet providers + app/user context.</div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Entry & Shell</h2>
+        <span class="tag good">entry</span><span class="tag">router</span><span class="tag">providers</span>
+        <ul>
+          <li><b>src/main.tsx</b> — app bootstrap</li>
+          <li><b>src/ui/App.tsx</b> — router and provider tree</li>
+          <li><b>src/ui/PlayLayout.tsx</b> — shell/layout wrapper</li>
+          <li><b>src/ui/PlayNav.tsx</b> — play navigation UI</li>
+          <li><b>src/config/playNav.ts</b> — canonical nav groups + marketing base</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>State & i18n</h2>
+        <span class="tag good">state</span><span class="tag">language</span><span class="tag">wallet</span>
+        <ul>
+          <li><b>contexts/UserContext.tsx</b> — user/session context</li>
+          <li><b>i18n/index.tsx</b> + <b>translations.ts</b> — language layer</li>
+          <li><b>@solana/wallet-adapter-react</b> — wallet connection provider</li>
+          <li><b>WalletModalProvider</b> — wallet UI</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Live Systems</h2>
+        <span class="tag warn">simulation</span><span class="tag">feeds</span><span class="tag">ops</span>
+        <ul>
+          <li><b>hooks/useGameBus.ts</b> — UI event bus</li>
+          <li><b>hooks/useMatchSim.ts</b> — match simulation hook</li>
+          <li><b>workers/match-sim.worker.ts</b> — worker simulation engine</li>
+          <li><b>ui/LiveEventFeed.tsx</b> — event stream</li>
+          <li><b>ui/OpsStatusPanel.tsx</b> — ops health/status</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Core Domains</h2>
+        <span class="tag good">product</span><span class="tag">market</span><span class="tag">defi</span>
+        <ul>
+          <li><b>ui/WorldCupPredictor.tsx</b> — prediction UX</li>
+          <li><b>ui/TradingTerminal.tsx</b> — trading surface</li>
+          <li><b>ui/DeFiPortal.tsx</b> — DeFi entry</li>
+          <li><b>ui/StakingBurnDashboard.tsx</b> — staking/burn metrics</li>
+          <li><b>ui/MarketingControlCenter.tsx</b> — marketing control</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Routing map</h2>
+      <div class="lane">
+        <div class="node"><strong>/</strong><span>main play landing</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/estadio</strong><span>sports / game venue</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/defi</strong><span>DeFi portal</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/club</strong><span>club/community layer</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/staking</strong><span>staking / burn dashboard</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/marketing-control</strong><span>control center</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/autopilot</strong><span>corporate autopilot</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/presskit</strong><span>press kit</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/coleccion</strong><span>gallery</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/ventures</strong><span>ventures page</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/hub</strong><span>classic hub</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/crear-usuario</strong><span>create user</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><strong>/perfil/:username</strong><span>profile view</span></div>
+      </div>
+      <div class="footer">All routes sit under <code>PlayLayout</code> except shared landing/profile surfaces. The shell is strongly centralized, which makes navigation changes high leverage.</div>
+    </div>
+
+    <div class="section">
+      <h2>Component clusters</h2>
+      <div class="cols">
+        <div class="mini"><h3>Simulation & commentary</h3><p><code>AICommentator</code>, <code>MatchSimulator</code>, <code>SimulationBadge</code>, <code>commentary-generator</code>, <code>match-sim.worker</code>.</p></div>
+        <div class="mini"><h3>Finance / rewards</h3><p><code>YieldCalculator</code>, <code>VaultStrategyCard</code>, <code>JupiterQuoteWidget</code>, <code>SwarmVaults</code>, <code>StakingDashboardComponents</code>.</p></div>
+        <div class="mini"><h3>Visual / collectible</h3><p><code>InfinityFlame</code>, <code>LayeredNftCard</code>, <code>GenesisCollectionGallery</code>, <code>SquadGallery</code>, <code>NFTMarketplace</code>.</p></div>
+        <div class="mini"><h3>Ops / admin</h3><p><code>CorporateAutopilot</code>, <code>MarketingControlCenter</code>, <code>OpsStatusPanel</code>, <code>EconomyConfigBanner</code>, <code>HealthCheckCard</code>.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>External dependencies seen in import scan</h2>
+      <div class="cols">
+        <div class="mini"><h3>React stack</h3><p>React hooks/context plus React Router as the main app composition model.</p></div>
+        <div class="mini"><h3>Solana wallet layer</h3><p>Wallet provider stack is wired into the app shell, indicating on-chain UX is first-class.</p></div>
+        <div class="mini"><h3>Client libs</h3><p><code>goalworldClient</code>, <code>opsClient</code>, <code>economyClient</code> provide data access abstraction.</p></div>
+        <div class="mini"><h3>Worker architecture</h3><p>Simulation is offloaded into web workers to keep the UI responsive.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>High-leverage refactor targets</h2>
+      <div class="cols">
+        <div class="mini"><h3>Navigation</h3><p>Route groups can be split into public / play / ops / collectible layers for faster cognitive navigation.</p></div>
+        <div class="mini"><h3>State boundaries</h3><p>User, language, wallet, and game bus are good candidates for explicit domain boundaries.</p></div>
+        <div class="mini"><h3>Feature islands</h3><p>Simulation, DeFi, staking, and marketing control are distinct product areas and can be mapped separately.</p></div>
+        <div class="mini"><h3>Route ownership</h3><p><code>App.tsx</code> currently owns all route declarations; extracting route manifests would make the shell easier to evolve.</p></div>
+      </div>
+    </div>
+
+    <div class="footer">Generated from live file scan. If you want, I can next do the API map or the contracts/on-chain map with the same level of detail.</div>
+  </div>
+</body>
+</html>
